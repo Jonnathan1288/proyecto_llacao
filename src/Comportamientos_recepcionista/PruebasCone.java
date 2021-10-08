@@ -13,6 +13,7 @@ public class PruebasCone {
     String nombre;
     String edad;
     String anios;
+    String so;
 
     public PruebasCone() {
     }
