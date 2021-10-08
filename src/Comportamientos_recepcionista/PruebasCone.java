@@ -19,6 +19,9 @@ public class PruebasCone {
 
     public PruebasCone() {
     }
+    public void Hola(){
+        System.out.println("Oli");
+    }
 
     public String getNombre() {
         return nombre;
