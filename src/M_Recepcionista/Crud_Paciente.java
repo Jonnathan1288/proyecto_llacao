@@ -5,7 +5,7 @@
  */
 package M_Recepcionista;
 
-import Comportamientos_recepcionista.IngresoPacientes;
+import Comportamientos.IngresoPacientes;
 import M_Recepcionista.Menu_Recepcionista;
 import clases.Paciente;
 import java.text.SimpleDateFormat;

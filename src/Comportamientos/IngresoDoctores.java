@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Comportamientos_recepcionista;
+package Comportamientos;
 
 /**
  *
  * @author DELL
  */
-public class IngresoMedicamentos {
+public class IngresoDoctores {
     
 }

@@ -5,7 +5,7 @@
  */
 package M_Recepcionista;
 
-import Comportamientos_recepcionista.IngresoDoctores;
+import Comportamientos.IngresoDoctores;
 import Conexion_BD.Conexion;
 import M_Recepcionista.Menu_Recepcionista;
 import clases.Doctor;
