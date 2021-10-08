@@ -456,25 +456,25 @@ public class Crud_Doctor extends javax.swing.JFrame {
     public void vertablaDoctores() {
         DefaultTableModel modelo = (DefaultTableModel) TablaDoctores.getModel();
         modelo.setRowCount(0);
-        List<Doctor> listaDoctores = acc.listarDatos();
-        for (Doctor dato : listaDoctores) {
-            Vector v = new Vector();
-
-            v.add(dato.getCedula());
-            v.add(dato.getApellido());
-            v.add(dato.getNombre());
-            v.add(dato.getFecha_nacimiento());
-            v.add(dato.getTelefono());
-            v.add(dato.getDireccion());
-            v.add(dato.getCodigo_doctor());
-            v.add(dato.getEdad());
-            v.add(dato.getTipo_sangre());
-            v.add(dato.getGenero());
-            v.add(dato.getEspecialidad());
-            v.add(dato.getConsultorio());
-            modelo.addRow(v);
-            TablaDoctores.setModel(modelo);
-        }
+//        List<Doctor> listaDoctores = acc.listarDatos();
+//        for (Doctor dato : listaDoctores) {
+//            Vector v = new Vector();
+//
+//            v.add(dato.getCedula());
+//            v.add(dato.getApellido());
+//            v.add(dato.getNombre());
+//            v.add(dato.getFecha_nacimiento());
+//            v.add(dato.getTelefono());
+//            v.add(dato.getDireccion());
+//            v.add(dato.getCodigo_doctor());
+//            v.add(dato.getEdad());
+//            v.add(dato.getTipo_sangre());
+//            v.add(dato.getGenero());
+//            v.add(dato.getEspecialidad());
+//            v.add(dato.getConsultorio());
+//            modelo.addRow(v);
+//            TablaDoctores.setModel(modelo);
+//        }
     }
 
     public void registrarDoctor() {
@@ -492,27 +492,27 @@ public class Crud_Doctor extends javax.swing.JFrame {
         String especialidado = ComboEspecialidadDoc.getSelectedItem().toString();
         int consultorio = Integer.parseInt(consultoriodoc);
 
-        if (cedulado.isEmpty() || apellidodo.isEmpty() || nombredo.isEmpty() || fecha_nacido.isEmpty() || telfonodo.isEmpty() || direcciondo.isEmpty() || codigodo.isEmpty() || edado <= 0 || tiposangredo.isEmpty() || generodo.isEmpty() || especialidado.isEmpty() || consultorio <= 0) {
-            JOptionPane.showMessageDialog(null, "Por favor valide los datos a enviar a la Base de Datos");
-        } else {
-            Doctor d = new Doctor();
-            d.setCedula(cedulado);
-            d.setApellido(apellidodo);
-            d.setNombre(nombredo);
-            d.setFecha_nacimiento(fecha_nacido);
-            d.setTelefono(telfonodo);
-            d.setDireccion(direcciondo);
-            d.setCodigo_doctor(codigodo);
-            d.setEdad(edado);
-            d.setTipo_sangre(tiposangredo);
-            d.setGenero(generodo);
-            d.setEspecialidad(especialidado);
-            d.setConsultorio(consultorio);
-//            if (acc.InsertarDoctor(d)) {
-//                JOptionPane.showMessageDialog(null, "Registro guardado con exito...");
-//                vertablaDoctores();
-//            }
-        }
+//        if (cedulado.isEmpty() || apellidodo.isEmpty() || nombredo.isEmpty() || fecha_nacido.isEmpty() || telfonodo.isEmpty() || direcciondo.isEmpty() || codigodo.isEmpty() || edado <= 0 || tiposangredo.isEmpty() || generodo.isEmpty() || especialidado.isEmpty() || consultorio <= 0) {
+//            JOptionPane.showMessageDialog(null, "Por favor valide los datos a enviar a la Base de Datos");
+//        } else {
+//            Doctor d = new Doctor();
+//            d.setCedula(cedulado);
+//            d.setApellido(apellidodo);
+//            d.setNombre(nombredo);
+//        //    d.setFecha_nacimiento(fecha_nacido);
+//            d.setTelefono(telfonodo);
+//            d.setDireccion(direcciondo);
+//            d.setCodigo_doctor(codigodo);
+//            d.setEdad(edado);
+//            d.setTipo_sangre(tiposangredo);
+//            d.setGenero(generodo);
+//            d.setEspecialidad(especialidado);
+//            d.setConsultorio(consultorio);
+////            if (acc.InsertarDoctor(d)) {
+////                JOptionPane.showMessageDialog(null, "Registro guardado con exito...");
+////                vertablaDoctores();
+////            }
+//        }
     }
     private void BtnGuardarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDocActionPerformed
 
