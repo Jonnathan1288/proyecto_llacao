@@ -22,6 +22,7 @@ public class Prueba {
     String ciudadER;
     String jose;
     String holastas;
+    String dias;
     
     
     public Prueba() {
