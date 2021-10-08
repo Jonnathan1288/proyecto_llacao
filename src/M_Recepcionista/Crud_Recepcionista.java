@@ -516,23 +516,23 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
     public void buscarRecepcionista(){
         DefaultTableModel modelo = (DefaultTableModel) TablaRecepcionistas.getModel();
         modelo.setRowCount(0);
-        List<Recepcionista> listaRecepcionista = acrecep.ConsultaRecepcionista(TxtBuscarRep.getText());
-        for (Recepcionista dato : listaRecepcionista) {
-            Vector recepcio = new Vector();
-            recepcio.add(dato.getCedula());
-            recepcio.add(dato.getApellido());
-            recepcio.add(dato.getNombre());
-            recepcio.add(dato.getFecha_nacimiento());
-            recepcio.add(dato.getTelefono());
-            recepcio.add(dato.getDireccion());
-            recepcio.add(dato.getId());
-            recepcio.add(dato.getEdad());
-            recepcio.add(dato.getTipo_sangre());
-            recepcio.add(dato.getGenero());
-            recepcio.add(dato.getTitulo());
-            modelo.addRow(recepcio);
-            TablaRecepcionistas.setModel(modelo);
-        }
+//        List<Recepcionista> listaRecepcionista = acrecep.ConsultaRecepcionista(TxtBuscarRep.getText());
+//        for (Recepcionista dato : listaRecepcionista) {
+//            Vector recepcio = new Vector();
+//            recepcio.add(dato.getCedula());
+//            recepcio.add(dato.getApellido());
+//            recepcio.add(dato.getNombre());
+//            recepcio.add(dato.getFecha_nacimiento());
+//            recepcio.add(dato.getTelefono());
+//            recepcio.add(dato.getDireccion());
+//            recepcio.add(dato.getId());
+//            recepcio.add(dato.getEdad());
+//            recepcio.add(dato.getTipo_sangre());
+//            recepcio.add(dato.getGenero());
+//            recepcio.add(dato.getTitulo());
+//            modelo.addRow(recepcio);
+//            TablaRecepcionistas.setModel(modelo);
+//        }
     }
     public void ModificarRecepcionista() {//aquiiiiiiiiiiiiiiiiiiiiiiiiii
         String cedula = TxtCedulaRep.getText();
@@ -564,11 +564,11 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
             rep.setTipo_sangre(tipo_sangre);
             rep.setGenero(genero);
             rep.setTitulo(titulo);
-            if (acrecep.ModificarRecepcionista(rep)) {
-                JOptionPane.showMessageDialog(null, "Modificasion con exito");
-                vertablaRecepcionistas();
-                limpiar_datosRecepcionistas();
-            }
+//            if (acrecep.ModificarRecepcionista(rep)) {
+//                JOptionPane.showMessageDialog(null, "Modificasion con exito");
+//                vertablaRecepcionistas();
+//                limpiar_datosRecepcionistas();
+//            }
         }
 
     }
@@ -578,10 +578,10 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         if (TxtCedulaRep.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
         } else {
-            if (acrecep.EliminarRecepcionista(cedula)) {
-                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
-                vertablaRecepcionistas();
-            }
+//            if (acrecep.EliminarRecepcionista(cedula)) {
+//                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
+//                vertablaRecepcionistas();
+//            }
         }
     }
 
@@ -614,10 +614,10 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
             recepc.setTipo_sangre(tipo_sangre);
             recepc.setGenero(genero);
             recepc.setTitulo(titulo);
-            if (acrecep.InsertarRecepcionista(recepc)) {
-                JOptionPane.showMessageDialog(null, "Registro guardado con exito...");
-                //  vertablaDoctores();
-            }
+//            if (acrecep.InsertarRecepcionista(recepc)) {
+//                JOptionPane.showMessageDialog(null, "Registro guardado con exito...");
+//                //  vertablaDoctores();
+//            }
         }
     }
 
@@ -643,25 +643,25 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
     public void vertablaRecepcionistas() {
         DefaultTableModel modelo = (DefaultTableModel) TablaRecepcionistas.getModel();
         modelo.setRowCount(0);
-        List<Recepcionista> listaRecepcionista = acrecep.listarDatos();
-        for (Recepcionista dato : listaRecepcionista) {
-            Vector recepcio = new Vector();
-
-            recepcio.add(dato.getCedula());
-            recepcio.add(dato.getApellido());
-            recepcio.add(dato.getNombre());
-            recepcio.add(dato.getFecha_nacimiento());
-            recepcio.add(dato.getTelefono());
-            recepcio.add(dato.getDireccion());
-            recepcio.add(dato.getId());
-            recepcio.add(dato.getEdad());
-            recepcio.add(dato.getTipo_sangre());
-            recepcio.add(dato.getGenero());
-            recepcio.add(dato.getTitulo());
-
-            modelo.addRow(recepcio);
-            TablaRecepcionistas.setModel(modelo);
-        }
+//        List<Recepcionista> listaRecepcionista = acrecep.listarDatos();
+//        for (Recepcionista dato : listaRecepcionista) {
+//            Vector recepcio = new Vector();
+//
+//            recepcio.add(dato.getCedula());
+//            recepcio.add(dato.getApellido());
+//            recepcio.add(dato.getNombre());
+//            recepcio.add(dato.getFecha_nacimiento());
+//            recepcio.add(dato.getTelefono());
+//            recepcio.add(dato.getDireccion());
+//            recepcio.add(dato.getId());
+//            recepcio.add(dato.getEdad());
+//            recepcio.add(dato.getTipo_sangre());
+//            recepcio.add(dato.getGenero());
+//            recepcio.add(dato.getTitulo());
+//
+//            modelo.addRow(recepcio);
+//            TablaRecepcionistas.setModel(modelo);
+//        }
     }
 
     public void limpiar_datosRecepcionistas() {

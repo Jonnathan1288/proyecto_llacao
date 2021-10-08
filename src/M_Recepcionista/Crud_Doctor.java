@@ -481,8 +481,8 @@ public class Crud_Doctor extends javax.swing.JFrame {
         String cedulado = TxtCedulaDoc.getText();
         String apellidodo = TxtApellidoDoc.getText();
         String nombredo = TxtNombreDoc.getText();
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        String fecha_nacido = formatoFecha.format(DateDoctorFecha.getDate());
+//        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+//        String fecha_nacido = formatoFecha.format(DateDoctorFecha.getDate());
         String telfonodo = TxtTelefonoDoc.getText();
         String direcciondo = TxtDireccionDoc.getText();
         String codigodo = TxtCodigoDoc.getText();
@@ -508,10 +508,10 @@ public class Crud_Doctor extends javax.swing.JFrame {
             d.setGenero(generodo);
             d.setEspecialidad(especialidado);
             d.setConsultorio(consultorio);
-            if (acc.InsertarDoctor(d)) {
-                JOptionPane.showMessageDialog(null, "Registro guardado con exito...");
-                vertablaDoctores();
-            }
+//            if (acc.InsertarDoctor(d)) {
+//                JOptionPane.showMessageDialog(null, "Registro guardado con exito...");
+//                vertablaDoctores();
+//            }
         }
     }
     private void BtnGuardarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDocActionPerformed
@@ -697,11 +697,11 @@ public class Crud_Doctor extends javax.swing.JFrame {
             d.setGenero(generodo);
             d.setEspecialidad(especialidado);
             d.setConsultorio(consultorio);
-            if (acc.ModificarDoctor(d)) {
-                JOptionPane.showMessageDialog(null, "Modificacion con exito");
-                vertablaDoctores();
-                limpiar_datosDoctor();
-            }
+//            if (acc.ModificarDoctor(d)) {
+//                JOptionPane.showMessageDialog(null, "Modificacion con exito");
+//                vertablaDoctores();
+//                limpiar_datosDoctor();
+//            }
         }
 
     }
@@ -711,35 +711,35 @@ public class Crud_Doctor extends javax.swing.JFrame {
         if (TxtCedulaDoc.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
         } else {
-            if (acc.EliminarDoctor(cedulad)) {
-                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
-                mostrar_doctores();
-            }
+//            if (acc.EliminarDoctor(cedulad)) {
+//                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
+//                mostrar_doctores();
+//            }
         }
     }
 
     public void BusquedaDoctor() {
         DefaultTableModel modelo = (DefaultTableModel) TablaDoctores.getModel();
         modelo.setRowCount(0);
-        List<Doctor> listaDoctores = acc.consultaDoctor(TxtBuscarcedula.getText());
-        for (Doctor dato : listaDoctores) {
-            Vector v = new Vector();
-
-            v.add(dato.getCedula());
-            v.add(dato.getApellido());
-            v.add(dato.getNombre());
-            v.add(dato.getFecha_nacimiento());
-            v.add(dato.getTelefono());
-            v.add(dato.getDireccion());
-            v.add(dato.getCodigo_doctor());
-            v.add(dato.getEdad());
-            v.add(dato.getTipo_sangre());
-            v.add(dato.getGenero());
-            v.add(dato.getEspecialidad());
-            v.add(dato.getConsultorio());
-            modelo.addRow(v);
-            TablaDoctores.setModel(modelo);
-        }
+//        List<Doctor> listaDoctores = acc.consultaDoctor(TxtBuscarcedula.getText());
+//        for (Doctor dato : listaDoctores) {
+//            Vector v = new Vector();
+//
+//            v.add(dato.getCedula());
+//            v.add(dato.getApellido());
+//            v.add(dato.getNombre());
+//            v.add(dato.getFecha_nacimiento());
+//            v.add(dato.getTelefono());
+//            v.add(dato.getDireccion());
+//            v.add(dato.getCodigo_doctor());
+//            v.add(dato.getEdad());
+//            v.add(dato.getTipo_sangre());
+//            v.add(dato.getGenero());
+//            v.add(dato.getEspecialidad());
+//            v.add(dato.getConsultorio());
+//            modelo.addRow(v);
+//            TablaDoctores.setModel(modelo);
+//        }
     }
 
     public void limpiar_datosDoctor() {
