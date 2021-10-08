@@ -465,38 +465,38 @@ public class Crud_Paciente extends javax.swing.JFrame {
             pa.setNivel_estudio(nivel_estudio);
             pa.setDiscapacidad(discapacidadp);
 
-            if (ingresopa.InsertarPaciente(pa)) {
-                JOptionPane.showMessageDialog(null, "Registro guardado con exito...");
-                // vertablaDoctores();
-            }
+////            if (ingresopa.InsertarPaciente(pa)) {
+////                JOptionPane.showMessageDialog(null, "Registro guardado con exito...");
+////                // vertablaDoctores();
+////            }
         }
     }
 
     public void verRegistrosPaciente() {
         DefaultTableModel modelopa = (DefaultTableModel) TablaPaciente.getModel();
         modelopa.setRowCount(0);
-        List<Paciente> listaPacientes = ingresopa.listarDatos();
-        for (Paciente paci : listaPacientes) {
-            Vector paciente = new Vector();
-
-            paciente.add(paci.getCedula());
-            paciente.add(paci.getApellido());
-            paciente.add(paci.getNombre());
-            paciente.add(paci.getFecha_nacimiento());
-            paciente.add(paci.getTelefono());
-            paciente.add(paci.getDireccion());
-            paciente.add(paci.getAlergias());
-            paciente.add(paci.getOcupacion());
-            paciente.add(paci.getEdad());
-            paciente.add(paci.getTipo_sangre());
-            paciente.add(paci.getGenero());
-            paciente.add(paci.getEstado_civil());
-            paciente.add(paci.getNivel_estudio());
-            paciente.add(paci.getDiscapacidad());
-
-            modelopa.addRow(paciente);
-            TablaPaciente.setModel(modelopa);
-        }
+//        List<Paciente> listaPacientes = ingresopa.listarDatos();
+//        for (Paciente paci : listaPacientes) {
+//            Vector paciente = new Vector();
+//
+//            paciente.add(paci.getCedula());
+//            paciente.add(paci.getApellido());
+//            paciente.add(paci.getNombre());
+//            paciente.add(paci.getFecha_nacimiento());
+//            paciente.add(paci.getTelefono());
+//            paciente.add(paci.getDireccion());
+//            paciente.add(paci.getAlergias());
+//            paciente.add(paci.getOcupacion());
+//            paciente.add(paci.getEdad());
+//            paciente.add(paci.getTipo_sangre());
+//            paciente.add(paci.getGenero());
+//            paciente.add(paci.getEstado_civil());
+//            paciente.add(paci.getNivel_estudio());
+//            paciente.add(paci.getDiscapacidad());
+//
+//            modelopa.addRow(paciente);
+//            TablaPaciente.setModel(modelopa);
+//        }
 
     }
     private void BtnGuardarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDocActionPerformed
@@ -651,28 +651,28 @@ public class Crud_Paciente extends javax.swing.JFrame {
     public void BuscarPaciente() {
         DefaultTableModel modelopa = (DefaultTableModel) TablaPaciente.getModel();
         modelopa.setRowCount(0);
-        List<Paciente> listaPacientes = ingresopa.consultaPaciente(TxtBuscarPac.getText());
-        for (Paciente paci : listaPacientes) {
-            Vector paciente = new Vector();
-
-            paciente.add(paci.getCedula());
-            paciente.add(paci.getApellido());
-            paciente.add(paci.getNombre());
-            paciente.add(paci.getFecha_nacimiento());
-            paciente.add(paci.getTelefono());
-            paciente.add(paci.getDireccion());
-            paciente.add(paci.getAlergias());
-            paciente.add(paci.getOcupacion());
-            paciente.add(paci.getEdad());
-            paciente.add(paci.getTipo_sangre());
-            paciente.add(paci.getGenero());
-            paciente.add(paci.getEstado_civil());
-            paciente.add(paci.getNivel_estudio());
-            paciente.add(paci.getDiscapacidad());
-
-            modelopa.addRow(paciente);
-            TablaPaciente.setModel(modelopa);
-        }
+//        List<Paciente> listaPacientes = ingresopa.consultaPaciente(TxtBuscarPac.getText());
+//        for (Paciente paci : listaPacientes) {
+//            Vector paciente = new Vector();
+//
+//            paciente.add(paci.getCedula());
+//            paciente.add(paci.getApellido());
+//            paciente.add(paci.getNombre());
+//            paciente.add(paci.getFecha_nacimiento());
+//            paciente.add(paci.getTelefono());
+//            paciente.add(paci.getDireccion());
+//            paciente.add(paci.getAlergias());
+//            paciente.add(paci.getOcupacion());
+//            paciente.add(paci.getEdad());
+//            paciente.add(paci.getTipo_sangre());
+//            paciente.add(paci.getGenero());
+//            paciente.add(paci.getEstado_civil());
+//            paciente.add(paci.getNivel_estudio());
+//            paciente.add(paci.getDiscapacidad());
+//
+//            modelopa.addRow(paciente);
+//            TablaPaciente.setModel(modelopa);
+//        }
     }
 
     public void ModificarPaciente() {//aquiiiiiiiiiiiiiiiiiiiiiiiiii
@@ -711,11 +711,11 @@ public class Crud_Paciente extends javax.swing.JFrame {
             pac.setEstado_civil(estado_civilp);
             pac.setNivel_estudio(nivel_estudio);
             pac.setDiscapacidad(discapacidadp);
-            if (ingresopa.ModificarPaciente(pac)) {
-                JOptionPane.showMessageDialog(null, "Modificasion con exito");
-                verRegistrosPaciente();
-                limpiar_datosPaciente();
-            }
+//            if (ingresopa.ModificarPaciente(pac)) {
+//                JOptionPane.showMessageDialog(null, "Modificasion con exito");
+//                verRegistrosPaciente();
+//                limpiar_datosPaciente();
+//            }
         }
 
     }
@@ -725,10 +725,10 @@ public class Crud_Paciente extends javax.swing.JFrame {
         if (TxtCedulaPac.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
         } else {
-            if (ingresopa.EliminarPaciente(cedulap)) {
-                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
-                mostrar_pacientes();
-            }
+//            if (ingresopa.EliminarPaciente(cedulap)) {
+//                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
+//                mostrar_pacientes();
+//            }
         }
     }
 
