@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author DELL
  */
 public class Conexion {
-
+//HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
     private String URL = "jdbc:postgresql://localhost:5432/proyecto_final";//proyecto_final
     private String USER = "postgres";
     private String PASSWORD = "jav123"; // Cada uno pone su contraseña.
