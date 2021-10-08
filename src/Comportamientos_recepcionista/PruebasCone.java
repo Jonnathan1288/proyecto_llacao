@@ -14,6 +14,7 @@ public class PruebasCone {
     String edad;
     String anios;
     String so;
+    String sos;
 
     public PruebasCone() {
     }
