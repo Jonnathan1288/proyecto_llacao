@@ -11,6 +11,8 @@ package Comportamientos_recepcionista;
  */
 public class PruebasCone {
     String nombre;
+    String edad;
+    String anios;
 
     public PruebasCone() {
     }
