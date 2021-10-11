@@ -25,7 +25,7 @@ public class Conexion {
     private Statement st;
     private ResultSet rs;
 
-    private String URL = "jdbc:postgresql://localhost:5432/practicasff";//proyecto_final
+    private String URL = "jdbc:postgresql://localhost:5432/venny";//proyecto_final
     private String USER = "postgres";
     private String PASSWORD = "A"; // Cada uno pone su contraseña.
 
@@ -45,7 +45,7 @@ public class Conexion {
 
     }
 
-    public ResultSet Consulta(String sql) {
+    public ResultSet selectConsulta(String sql) {
         try {
             st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -57,7 +57,7 @@ public class Conexion {
         return null;
     }
 
-    public boolean R_Acciones(String sql) {
+    public boolean InsertUpdateDeleteAcciones(String sql) {
         try {
             st = con.createStatement();
             boolean rv = st.execute(sql);
@@ -102,4 +102,8 @@ public class Conexion {
 //            }
 //        }
 //    }
+
+    ResultSet consulta(String sqlc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

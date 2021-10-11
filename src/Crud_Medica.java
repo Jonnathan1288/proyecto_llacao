@@ -51,6 +51,7 @@ public class Crud_Medica extends javax.swing.JFrame {
         medic.setVia_AdministracionM(Combo_ViaAdmin.getSelectedItem().toString());
         medic.setFecha_IngresoM(((JTextField)DateIngresos.getDateEditor().getUiComponent()).getText());
         medic.setCantidad(txtCantidad.getText());
+        
         if (medic.IsertMedicamentos()) {
             System.out.println("Si se ingreso a tu corazon");  
         }else{

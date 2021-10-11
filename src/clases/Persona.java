@@ -7,26 +7,31 @@ package clases;
 
 /**
  *
- * @author DELL
+ * @author carlo
  */
-public abstract class Persona {
-    private String cedula, apellido, nombre, fecha_nacimiento;
-    private String genero, tipo_sangre, telefono, direccion;
-    int edad;
+public class Persona {
+
+    private String cedula;
+    private String apellido;
+    private String nombre;
+    private String fecha_nacimiento;
+    private String genero;
+    private String Tipo_sangre;
+    private String telefono;
+    private String direccion;
 
     public Persona() {
     }
 
-    public Persona(String cedula, String apellido, String nombre, String fecha_nacimiento, String genero, String tipo_sangre, String telefono, String direccion, int edad) {
+    public Persona(String cedula, String apellido, String nombre, String fecha_nacimiento, String genero, String Tipo_sangre, String telefono, String direccion) {
         this.cedula = cedula;
         this.apellido = apellido;
         this.nombre = nombre;
         this.fecha_nacimiento = fecha_nacimiento;
         this.genero = genero;
-        this.tipo_sangre = tipo_sangre;
+        this.Tipo_sangre = Tipo_sangre;
         this.telefono = telefono;
         this.direccion = direccion;
-        this.edad = edad;
     }
 
     public String getCedula() {
@@ -70,11 +75,11 @@ public abstract class Persona {
     }
 
     public String getTipo_sangre() {
-        return tipo_sangre;
+        return Tipo_sangre;
     }
 
-    public void setTipo_sangre(String tipo_sangre) {
-        this.tipo_sangre = tipo_sangre;
+    public void setTipo_sangre(String Tipo_sangre) {
+        this.Tipo_sangre = Tipo_sangre;
     }
 
     public String getTelefono() {
@@ -92,14 +97,7 @@ public abstract class Persona {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
     
     
+
 }

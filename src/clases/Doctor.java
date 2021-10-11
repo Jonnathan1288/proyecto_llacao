@@ -5,50 +5,75 @@
  */
 package clases;
 
-import clases.Persona;
+//import clases.Persona;
 
 /**
  *
  * @author DELL
  */
 public class Doctor extends Persona{
-    private String codigo_doctor, especialidad;
-    int consultorio;
+    
+    private String id_doctor;
+    private String area;
+    private String titulo;
 
     public Doctor() {
-        super();
     }
 
-    public Doctor(String codigo_doctor, String especialidad, int consultorio, String cedula, String apellido, String nombre, String fecha_nacimiento, String genero, String tipo_sangre, String telefono, String direccion, int edad) {
-        super(cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion, edad);
-        this.codigo_doctor = codigo_doctor;
-        this.especialidad = especialidad;
-        this.consultorio = consultorio;
+    public Doctor(String id_doctor, String area, String titulo) {
+        this.id_doctor = id_doctor;
+        this.area = area;
+        this.titulo = titulo;
     }
 
-    public String getCodigo_doctor() {
-        return codigo_doctor;
+    public Doctor(String id_doctor, String area, String titulo, String cedula, String apellido, String nombre, String fecha_nacimiento, String genero, String Tipo_sangre, String telefono, String direccion) {
+        super(cedula, apellido, nombre, fecha_nacimiento, genero, Tipo_sangre, telefono, direccion);
+        this.id_doctor = id_doctor;
+        this.area = area;
+        this.titulo = titulo;
     }
 
-    public void setCodigo_doctor(String codigo_doctor) {
-        this.codigo_doctor = codigo_doctor;
+    public String getId_doctor() {
+        return id_doctor;
     }
 
-    public String getEspecialidad() {
-        return especialidad;
+    public void setId_doctor(String id_doctor) {
+        this.id_doctor = id_doctor;
     }
 
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
+    public String getArea() {
+        return area;
     }
 
-    public int getConsultorio() {
-        return consultorio;
+    public void setArea(String area) {
+        this.area = area;
     }
 
-    public void setConsultorio(int consultorio) {
-        this.consultorio = consultorio;
+    public String getTitulo() {
+        return titulo;
     }
-    
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+//    public boolean Modificar(String Identificador) {
+//        String sqla = "UPDATE public.persona "
+//                + "SET nombre='" + getNombre() + "', apellido='" + getApellido() + "', edad= '" + getEdad() + "', genero='" + getGenero() + "', telefono='" + getTelefono() + "', correo='" + getCorreo() + "', direccion='" + getDireccion() + "', fecha_nac= to_date('" + getFecha_nac() + "','yyyy-MM-dd') "
+//                + "WHERE cedula='" + Identificador + "'";
+//
+//        return con.accion(sqla);
+//    }
+//
+//    public boolean Borrar(String Identificador) {
+//
+//        String sqla = "UPDATE public.persona "
+//                + "SET eliminado=false "
+//                + "WHERE cedula='" + Identificador + "'";
+//        return con.accion(sqla);
+//    }
+
+
+   
     
 }
+    

@@ -5,41 +5,96 @@
  */
 package M_Recepcionista;
 
-import Comportamientos.IngresoDoctores;
-import Conexion_BD.Conexion;
-import M_Recepcionista.Menu_Recepcionista;
+import Comportamientos.IngresoDoctor;
 import clases.Doctor;
-import static java.awt.Frame.MAXIMIZED_BOTH;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author DELL
+ * @author carlo
  */
 public class Crud_Doctor extends javax.swing.JFrame {
 
-    public static ArrayList<Doctor> Lista_Doctores = new ArrayList<Doctor>();
-    String edaddoc = "", consultoriodoc = "", generodoc = "";
-    int d = 0;
-    Doctor doc = new Doctor();
-    IngresoDoctores acc = new IngresoDoctores();
+    ArrayList<Doctor> arrayDoctor = new ArrayList<Doctor>();
+    DefaultTableModel model;
+    String group = "";
+    IngresoDoctor ingresoDoc = new IngresoDoctor();
 
     public Crud_Doctor() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        this.setExtendedState(MAXIMIZED_BOTH);
-        vertablaDoctores();
+        cargarTabla();
+    }
+
+    public void cedulav() {
+        if (ingresoDoc.valida_cedula(TxtCedulaDoc.getText()) == true) {
+            RegistrarDoctor();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al guardar.");
+        }
+    }
+
+    public void cargarTabla() {
+        DefaultTableModel tblModelo = (DefaultTableModel) TablaDoctores.getModel();
+
+        tblModelo.setNumRows(0);
+        List<Doctor> listapacientes = ingresoDoc.Lisdoctor();
+
+        listapacientes.stream().forEach(p -> {
+            String[] persona = {p.getCedula(), p.getApellido(), p.getNombre(), p.getFecha_nacimiento(), p.getGenero(), p.getTipo_sangre(), p.getTelefono(), p.getDireccion(), p.getId_doctor(), p.getArea(), p.getTitulo()};
+            tblModelo.addRow(persona);
+        });
+    }
+
+    public void RegistrarDoctor() {
+
+        IngresoDoctor doc = new IngresoDoctor();
+        doc.setCedula(TxtCedulaDoc.getText());
+        doc.setApellido(TxtApellidoDoc.getText());
+        doc.setNombre(TxtNombreDoc.getText());
+        doc.setFecha_nacimiento(((JTextField) DateDoctorFecha.getDateEditor().getUiComponent()).getText());
+        doc.setTelefono(TxtTelefonoDoc.getText());
+        doc.setDireccion(TxtDireccionDoc.getText());
+        doc.setId_doctor(TxtCodigoDoc.getText());
+        doc.setTipo_sangre(ComboTipoSangreDoc.getSelectedItem().toString());
+        doc.setArea(ComboArea.getSelectedItem().toString());
+        doc.setGenero(group);
+        doc.setTitulo(ComboTitulo.getSelectedItem().toString());
+        if (doc.InsertarDoctores()) {
+            System.out.println("Conexion Exitosa");
+        } else {
+            System.out.println("Conexion Erronea");
+        }
+    }
+
+    public void genero_doctor() {
+        Group.add(RadioBtnMasculino);
+        Group.add(RadioBtnFemenino);
+        Group.add(RadioBtnNoDefinido);
+        if (RadioBtnMasculino.isSelected()) {
+            group = "Masculino";
+        }
+        if (RadioBtnFemenino.isSelected()) {
+            group = "Femenino";
+        }
+        if (RadioBtnNoDefinido.isSelected()) {
+            group = "No definido";
+        }
+    }
+    public void EliminarDoctor() {
+        String cedula = TxtCedulaDoc.getText();
+        if (TxtCedulaDoc.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
+        } else {
+            if (ingresoDoc.eliminarDoctor(cedula)) {
+                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
+                cargarTabla();
+            }
+        }
     }
 
     /**
@@ -51,9 +106,9 @@ public class Crud_Doctor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        GrupoGeneroDoc = new javax.swing.ButtonGroup();
-        jLabel3 = new javax.swing.JLabel();
+        Group = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         TxtNombreDoc = new javax.swing.JTextField();
         TxtTelefonoDoc = new javax.swing.JTextField();
         TxtDireccionDoc = new javax.swing.JTextField();
@@ -67,8 +122,6 @@ public class Crud_Doctor extends javax.swing.JFrame {
         TxtCedulaDoc = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         ComboTipoSangreDoc = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
-        SpinerEdadDoc = new javax.swing.JSpinner();
         RadioBtnMasculino = new javax.swing.JRadioButton();
         RadioBtnFemenino = new javax.swing.JRadioButton();
         RadioBtnNoDefinido = new javax.swing.JRadioButton();
@@ -77,29 +130,30 @@ public class Crud_Doctor extends javax.swing.JFrame {
         TxtCodigoDoc = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        ComboEspecialidadDoc = new javax.swing.JComboBox<>();
-        SpinerConsultorioDoc = new javax.swing.JSpinner();
+        ComboArea = new javax.swing.JComboBox<>();
         DateDoctorFecha = new com.toedter.calendar.JDateChooser();
+        ComboTitulo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaDoctores = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
         TxtBuscarcedula = new javax.swing.JTextField();
-        BtnBuscarDoc = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        BtnSalirCrudDoc = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        BtnModificarDoc = new javax.swing.JButton();
-        BtnEliminarDoc = new javax.swing.JButton();
+        BtnGuardarDoc = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         BtnVRegistros = new javax.swing.JButton();
-        BtnGuardarDoc = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
+        BtnBuscarDoc = new javax.swing.JButton();
+        BtnEliminarDoc = new javax.swing.JButton();
+        BtnModificarDoc = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Doctor"));
-        jPanel1.setForeground(new java.awt.Color(153, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Doctor"));
+        jPanel2.setForeground(new java.awt.Color(153, 153, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Cedula: ");
@@ -125,17 +179,13 @@ public class Crud_Doctor extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("Edad: ");
-
-        SpinerEdadDoc.setModel(new javax.swing.SpinnerNumberModel(30, 30, 70, 1));
-
-        GrupoGeneroDoc.add(RadioBtnMasculino);
+        Group.add(RadioBtnMasculino);
         RadioBtnMasculino.setText("Masculino");
 
-        GrupoGeneroDoc.add(RadioBtnFemenino);
+        Group.add(RadioBtnFemenino);
         RadioBtnFemenino.setText("Femenino");
 
-        GrupoGeneroDoc.add(RadioBtnNoDefinido);
+        Group.add(RadioBtnNoDefinido);
         RadioBtnNoDefinido.setText("No definido");
         RadioBtnNoDefinido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,87 +197,82 @@ public class Crud_Doctor extends javax.swing.JFrame {
 
         jLabel12.setText("Codigo Doctor: ");
 
-        jLabel14.setText("Especialidad: ");
+        jLabel14.setText("Area:");
 
-        jLabel15.setText("Consultorio: ");
+        jLabel15.setText("Especialidad:");
 
-        ComboEspecialidadDoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Alergología", "Anestesiología", "Angiología", "Cardiología", "Endocrinología", "Estomatología", "Gastroenterología", "Genética", "Geriatría", "Hematología", "Hepatología", "Infectología", "Medicina aeroespacial", "Medicina del deporte", "Medicina familiar y comunitaria", "Medicina física y rehabilitación", "Medicina forense", "Medicina intensiva", "Medicina interna", "Medicina preventiva y salud pública", "Medicina del trabajo", "Nefrología", "Neumología", "Neurología", "Nutriología", "Oncología médica", "Oncología radioterápica", "Pediatría", "Psiquiatría", "Reumatología", "Toxicología", " " }));
+        ComboArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Alergología", "Anestesiología", "Angiología", "Cardiología", "Endocrinología", "Estomatología", "Gastroenterología", "Genética", "Geriatría", "Hematología", "Hepatología", "Infectología", "Medicina aeroespacial", "Medicina del deporte", "Medicina familiar y comunitaria", "Medicina física y rehabilitación", "Medicina forense", "Medicina intensiva", "Medicina interna", "Medicina preventiva y salud pública", "Medicina del trabajo", "Nefrología", "Neumología", "Neurología", "Nutriología", "Oncología médica", "Oncología radioterápica", "Pediatría", "Psiquiatría", "Reumatología", "Toxicología", " " }));
 
-        SpinerConsultorioDoc.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
+        ComboTitulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Medicina Familiar", "Medicina Familiar", "Pediatria", "Dermatologia", " " }));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TxtCedulaDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(79, 79, 79)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(71, 71, 71))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(78, 78, 78)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtCedulaDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TxtApellidoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(79, 79, 79)
-                        .addComponent(TxtNombreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel12))
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel4))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtCodigoDoc)
-                            .addComponent(TxtDireccionDoc)
-                            .addComponent(TxtTelefonoDoc)
-                            .addComponent(DateDoctorFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))))
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtNombreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(TxtCodigoDoc)
+                                .addComponent(TxtDireccionDoc)
+                                .addComponent(TxtTelefonoDoc)
+                                .addComponent(DateDoctorFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)))))
+                .addGap(52, 52, 52)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel9)
                     .addComponent(jLabel14)
                     .addComponent(jLabel15))
                 .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ComboTipoSangreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(SpinerConsultorioDoc, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(SpinerEdadDoc, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(ComboEspecialidadDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(ComboArea, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(RadioBtnMasculino)
                         .addGap(18, 18, 18)
                         .addComponent(RadioBtnFemenino)
                         .addGap(18, 18, 18)
-                        .addComponent(RadioBtnNoDefinido)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(RadioBtnNoDefinido))
+                    .addComponent(ComboTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(TxtCedulaDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(SpinerEdadDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(TxtCedulaDoc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TxtApellidoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(ComboTipoSangreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)
+                        .addComponent(ComboTipoSangreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtApellidoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtNombreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel10)
@@ -235,24 +280,24 @@ public class Crud_Doctor extends javax.swing.JFrame {
                     .addComponent(RadioBtnFemenino)
                     .addComponent(RadioBtnNoDefinido))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
                         .addComponent(jLabel14)
-                        .addComponent(ComboEspecialidadDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ComboArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(DateDoctorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtTelefonoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel15)
-                    .addComponent(SpinerConsultorioDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ComboTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(TxtDireccionDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(TxtCodigoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
@@ -260,11 +305,10 @@ public class Crud_Doctor extends javax.swing.JFrame {
 
         TablaDoctores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Cedula", "Apellido", "Nombre", "Fecha de nacimiento", "Telefono", "Direccion", "Codigo", "Edad", "Tipo Sangre", "Genero", "Especialidad", "Consultorio"
+                "Cedula", "Apellido", "Nombre", "Fecha de nacimiento", "Telefono", "Direccion", "Codigo", "Tipo Sangre", "Area", "Genero", "Titulo"
             }
         ));
         TablaDoctores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -274,75 +318,19 @@ public class Crud_Doctor extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaDoctores);
 
+        jLabel11.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
+        jLabel11.setText("Buscar:");
+
         TxtBuscarcedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtBuscarcedulaActionPerformed(evt);
             }
         });
 
-        BtnBuscarDoc.setText("Buscar");
-        BtnBuscarDoc.addActionListener(new java.awt.event.ActionListener() {
+        BtnGuardarDoc.setText("Guardar");
+        BtnGuardarDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBuscarDocActionPerformed(evt);
-            }
-        });
-
-        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Registro De Doctor");
-
-        BtnSalirCrudDoc.setText("Salir");
-        BtnSalirCrudDoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnSalirCrudDocActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(582, 582, 582)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BtnSalirCrudDoc)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BtnSalirCrudDoc)
-                    .addComponent(jLabel13))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 61, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 18, Short.MAX_VALUE)
-        );
-
-        BtnModificarDoc.setText("Modificar");
-        BtnModificarDoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnModificarDocActionPerformed(evt);
-            }
-        });
-
-        BtnEliminarDoc.setText("Eliminar");
-        BtnEliminarDoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEliminarDocActionPerformed(evt);
+                BtnGuardarDocActionPerformed(evt);
             }
         });
 
@@ -360,90 +348,126 @@ public class Crud_Doctor extends javax.swing.JFrame {
             }
         });
 
-        BtnGuardarDoc.setText("Guardar");
-        BtnGuardarDoc.addActionListener(new java.awt.event.ActionListener() {
+        BtnBuscarDoc.setText("Buscar");
+        BtnBuscarDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnGuardarDocActionPerformed(evt);
+                BtnBuscarDocActionPerformed(evt);
             }
         });
 
-        jLabel11.setText("Buscar Usuario por cedula");
+        BtnEliminarDoc.setText("Eliminar");
+        BtnEliminarDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarDocActionPerformed(evt);
+            }
+        });
+
+        BtnModificarDoc.setText("Modificar");
+        BtnModificarDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnModificarDocActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Bell MT", 3, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Crud Doctor");
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Doctor/llacao2.1.jpg"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addGap(408, 408, 408)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(798, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(TxtBuscarcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(BtnGuardarDoc)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnEliminarDoc)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1))
+                    .addComponent(BtnVRegistros))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(BtnBuscarDoc))
+                    .addComponent(BtnModificarDoc)))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1360, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(TxtBuscarcedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnGuardarDoc)
+                            .addComponent(BtnEliminarDoc)
+                            .addComponent(jButton1))
+                        .addGap(26, 26, 26)
+                        .addComponent(BtnVRegistros))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(BtnBuscarDoc)
+                        .addGap(17, 17, 17)
+                        .addComponent(BtnModificarDoc)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(399, 399, 399))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(18, 18, 18)
-                                .addComponent(TxtBuscarcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnBuscarDoc)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnEliminarDoc)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnModificarDoc)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(BtnGuardarDoc)
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jButton1)
-                                                .addComponent(jLabel3))
-                                            .addComponent(BtnVRegistros))
-                                        .addGap(0, 412, Short.MAX_VALUE))))))))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(141, 141, 141)
-                                .addComponent(BtnGuardarDoc)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnVRegistros)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnEliminarDoc)
-                    .addComponent(BtnModificarDoc)
-                    .addComponent(TxtBuscarcedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnBuscarDoc)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -453,359 +477,61 @@ public class Crud_Doctor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboTipoSangreDocActionPerformed
 
-    public void vertablaDoctores() {
-        DefaultTableModel modelo = (DefaultTableModel) TablaDoctores.getModel();
-        modelo.setRowCount(0);
-//        List<Doctor> listaDoctores = acc.listarDatos();
-//        for (Doctor dato : listaDoctores) {
-//            Vector v = new Vector();
-//
-//            v.add(dato.getCedula());
-//            v.add(dato.getApellido());
-//            v.add(dato.getNombre());
-//            v.add(dato.getFecha_nacimiento());
-//            v.add(dato.getTelefono());
-//            v.add(dato.getDireccion());
-//            v.add(dato.getCodigo_doctor());
-//            v.add(dato.getEdad());
-//            v.add(dato.getTipo_sangre());
-//            v.add(dato.getGenero());
-//            v.add(dato.getEspecialidad());
-//            v.add(dato.getConsultorio());
-//            modelo.addRow(v);
-//            TablaDoctores.setModel(modelo);
-//        }
-    }
+    private void RadioBtnNoDefinidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioBtnNoDefinidoActionPerformed
 
-    public void registrarDoctor() {
-        String cedulado = TxtCedulaDoc.getText();
-        String apellidodo = TxtApellidoDoc.getText();
-        String nombredo = TxtNombreDoc.getText();
-//        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-//        String fecha_nacido = formatoFecha.format(DateDoctorFecha.getDate());
-        String telfonodo = TxtTelefonoDoc.getText();
-        String direcciondo = TxtDireccionDoc.getText();
-        String codigodo = TxtCodigoDoc.getText();
-        int edado = Integer.parseInt(edaddoc);
-        String tiposangredo = ComboTipoSangreDoc.getSelectedItem().toString();
-        String generodo = generodoc;
-        String especialidado = ComboEspecialidadDoc.getSelectedItem().toString();
-        int consultorio = Integer.parseInt(consultoriodoc);
-
-//        if (cedulado.isEmpty() || apellidodo.isEmpty() || nombredo.isEmpty() || fecha_nacido.isEmpty() || telfonodo.isEmpty() || direcciondo.isEmpty() || codigodo.isEmpty() || edado <= 0 || tiposangredo.isEmpty() || generodo.isEmpty() || especialidado.isEmpty() || consultorio <= 0) {
-//            JOptionPane.showMessageDialog(null, "Por favor valide los datos a enviar a la Base de Datos");
-//        } else {
-//            Doctor d = new Doctor();
-//            d.setCedula(cedulado);
-//            d.setApellido(apellidodo);
-//            d.setNombre(nombredo);
-//        //    d.setFecha_nacimiento(fecha_nacido);
-//            d.setTelefono(telfonodo);
-//            d.setDireccion(direcciondo);
-//            d.setCodigo_doctor(codigodo);
-//            d.setEdad(edado);
-//            d.setTipo_sangre(tiposangredo);
-//            d.setGenero(generodo);
-//            d.setEspecialidad(especialidado);
-//            d.setConsultorio(consultorio);
-////            if (acc.InsertarDoctor(d)) {
-////                JOptionPane.showMessageDialog(null, "Registro guardado con exito...");
-////                vertablaDoctores();
-////            }
-//        }
-    }
-    private void BtnGuardarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDocActionPerformed
-
-        if (!(TxtCedulaDoc.getText().equals("") || TxtApellidoDoc.getText().equals("") || TxtNombreDoc.getText().equals("") || TxtTelefonoDoc.getText().equals("") || TxtDireccionDoc.getText().equals("") || TxtCodigoDoc.getText().equals("") || ComboTipoSangreDoc.getSelectedItem().equals("Seleccione") || GrupoGeneroDoc.isSelected(null) || ComboEspecialidadDoc.getSelectedItem().equals("Seleccione"))) {
-            if (validar_datosDoc() == true) {
-                genero_doctor();
-                mostrar_consultorioDoc();
-                mostrar_edadDoc();
-                registrarDoctor();
-                limpiar_datosDoctor();
-            } else {
-                JOptionPane.showMessageDialog(null, "Por favor asegúrese de que los campos estén con los datos correctos.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor asegúrese que este llenado todos los campos solicitados del doctor.");
-
-        }
-
-    }//GEN-LAST:event_BtnGuardarDocActionPerformed
-
-    public boolean validar_datosDoc() {
-        boolean validodoc = false;
-        if (TxtCedulaDoc.getText().matches("^\\d{10}$") && TxtApellidoDoc.getText().matches("^[A-Z].{3,25}$") && TxtNombreDoc.getText().matches("^[A-Z].{3,25}$") && TxtTelefonoDoc.getText().matches("^\\d{8}$") && TxtDireccionDoc.getText().matches("^[A-Za-z].{4,25}$") && TxtCodigoDoc.getText().matches("^\\d{4}$")) {
-            validodoc = true;
-        } else {
-            validodoc = false;
-        }
-        return validodoc;
-    }
-    private void BtnSalirCrudDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirCrudDocActionPerformed
-        // TODO add your handling code here:
-        int n = JOptionPane.showConfirmDialog(this, "Estas seguro que deseas salir del crud de doctor.", "Confirma", JOptionPane.YES_NO_OPTION);
-        if (n == JOptionPane.YES_OPTION) {
-            Menu_Recepcionista mr = new Menu_Recepcionista();
-            mr.setVisible(true);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Sesión cancelada.");
-        }
-    }//GEN-LAST:event_BtnSalirCrudDocActionPerformed
-
-    private void BtnVRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVRegistrosActionPerformed
-        // TODO add your handling code here:
-        vertablaDoctores();
-    }//GEN-LAST:event_BtnVRegistrosActionPerformed
-
-    private void BtnEliminarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarDocActionPerformed
-        // TODO add your handling code here:
-        int i = TablaDoctores.getSelectedRow();
-        if (i >= 0) {
-            int t = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar este registro?", "Verificación de eliminar.", JOptionPane.YES_NO_OPTION);
-            if (t == JOptionPane.YES_OPTION) {
-                EliminarDoctor();
-                limpiar_datosDoctor();
-                JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
-            }
-            if (t == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Eliminacion cancelada.");
-
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione el registro para eliminar.");
-        }
-    }//GEN-LAST:event_BtnEliminarDocActionPerformed
+    }//GEN-LAST:event_RadioBtnNoDefinidoActionPerformed
 
     private void TablaDoctoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaDoctoresMouseClicked
         int i = TablaDoctores.getSelectedRow();
 
         if (i >= 0) {
-            String cedulad = TablaDoctores.getValueAt(i, 0).toString();
-            String apellidod = TablaDoctores.getValueAt(i, 1).toString();
-            String nombred = TablaDoctores.getValueAt(i, 2).toString();
-            String fnacimientod = TablaDoctores.getValueAt(i, 3).toString();
-            String telefono = TablaDoctores.getValueAt(i, 4).toString();
-            String direcciond = TablaDoctores.getValueAt(i, 5).toString();
-            String codigod = TablaDoctores.getValueAt(i, 6).toString();
-            String edad = TablaDoctores.getValueAt(i, 7).toString();
-            String tiposangred = TablaDoctores.getValueAt(i, 8).toString();
-            String genero = TablaDoctores.getValueAt(i, 9).toString();
-            String especialidad = TablaDoctores.getValueAt(i, 10).toString();
-            String consultorio = TablaDoctores.getValueAt(i, 11).toString();
-
-            TxtCedulaDoc.setText(cedulad);
-            TxtApellidoDoc.setText(apellidod);
-            TxtNombreDoc.setText(nombred);
-            // DateDoctorFecha.setDate(fnacimientod);
-            TxtTelefonoDoc.setText(telefono);
-            TxtDireccionDoc.setText(direcciond);
-            TxtCodigoDoc.setText(codigod);
-            //----------------------------
-            edaddoc = SpinerEdadDoc.getValue().toString();
-            d = Integer.parseInt(edaddoc);
-
-            //String n = String.valueOf(edad);
-            // SpinerEdadDoc.setValue(n);
-            //---------------------------
-            ComboTipoSangreDoc.setSelectedItem(tiposangred);
-            if (genero.equals("Masculino")) {
-                RadioBtnMasculino.setSelected(true);
-            }
-            if (genero.equals("Femenino")) {
-                RadioBtnFemenino.setSelected(true);
-            }
-            if (genero.equals("No definido")) {
-                RadioBtnNoDefinido.setSelected(true);
-            }
-            ComboEspecialidadDoc.setSelectedItem(especialidad);
-
-        } else {
-            JOptionPane.showMessageDialog(null, "");
+            String cedula = TablaDoctores.getValueAt(i, 0).toString();
+            TxtCedulaDoc.setText(cedula);
+        }else{
+            
         }
     }//GEN-LAST:event_TablaDoctoresMouseClicked
 
-    private void BtnModificarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarDocActionPerformed
+    private void TxtBuscarcedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtBuscarcedulaActionPerformed
 
-        int i = TablaDoctores.getSelectedRow();
-        if (i >= 0) {
-            if (validar_datosDoc() == true) {
-                genero_doctor();
-                mostrar_consultorioDoc();
-                mostrar_edadDoc();
-                ModificarDoctor();
-            } else {
-                JOptionPane.showMessageDialog(null, "Por favor asegúrese de que los campos estén con los datos correctos.");
-            }
+    }//GEN-LAST:event_TxtBuscarcedulaActionPerformed
+
+    private void BtnGuardarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDocActionPerformed
+       
+        if (ingresoDoc.valida_cedula(TxtCedulaDoc.getText()) == true) {
+            
+            genero_doctor();
+            
+            RegistrarDoctor();
+            
+            cargarTabla();
+            //  verRegistrosPaciente();
+//            limpiar_datosPaciente();
         } else {
-            JOptionPane.showMessageDialog(null, "Seleccione el registro para modificar.");
+            JOptionPane.showMessageDialog(null, "Error al guardar.");
         }
-    }//GEN-LAST:event_BtnModificarDocActionPerformed
+    }//GEN-LAST:event_BtnGuardarDocActionPerformed
 
-    private void RadioBtnNoDefinidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioBtnNoDefinidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RadioBtnNoDefinidoActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void BtnVRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVRegistrosActionPerformed
+
+    }//GEN-LAST:event_BtnVRegistrosActionPerformed
 
     private void BtnBuscarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarDocActionPerformed
 
-        if (!(TxtBuscarcedula.getText().equals(""))) {
-            BusquedaDoctor();
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor debe ingresar la cedula en el campo, para realizar la consulta.", "Precaución  ", JOptionPane.WARNING_MESSAGE);
-        }
-        TxtBuscarcedula.setText("");
     }//GEN-LAST:event_BtnBuscarDocActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        limpiar_datosDoctor();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void BtnEliminarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarDocActionPerformed
+        EliminarDoctor();
+        cargarTabla();
+    }//GEN-LAST:event_BtnEliminarDocActionPerformed
 
-    private void TxtBuscarcedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtBuscarcedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtBuscarcedulaActionPerformed
+    private void BtnModificarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarDocActionPerformed
 
-    public void ModificarDoctor() {//aquiiiiiiiiiiiiiiiiiiiiiiiiii
-        String cedulado = TxtCedulaDoc.getText();
-        String apellidodo = TxtApellidoDoc.getText();
-        String nombredo = TxtNombreDoc.getText();
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        String fecha_nacido = formatoFecha.format(DateDoctorFecha.getDate());
-        String telfonodo = TxtTelefonoDoc.getText();
-        String direcciondo = TxtDireccionDoc.getText();
-        String codigodo = TxtCodigoDoc.getText();
-        int edado = Integer.parseInt(edaddoc);
-        String tiposangredo = ComboTipoSangreDoc.getSelectedItem().toString();
-        String generodo = generodoc;
-        String especialidado = ComboEspecialidadDoc.getSelectedItem().toString();
-        int consultorio = Integer.parseInt(consultoriodoc);
-
-        //validamos los campos a enviar a la base de datos
-        if (cedulado.isEmpty() || apellidodo.isEmpty() || nombredo.isEmpty() || fecha_nacido.isEmpty() || telfonodo.isEmpty() || direcciondo.isEmpty() || codigodo.isEmpty() || edado <= 0 || tiposangredo.isEmpty() || generodo.isEmpty() || especialidado.isEmpty() || consultorio <= 0) {
-            JOptionPane.showMessageDialog(null, "Por favor valide los datos a enviar a la Base de Datos");
-        } else {
-            Doctor d = new Doctor();
-            d.setCedula(cedulado);
-            d.setApellido(apellidodo);
-            d.setNombre(nombredo);
-            d.setFecha_nacimiento(fecha_nacido);
-            d.setTelefono(telfonodo);
-            d.setDireccion(direcciondo);
-            d.setCodigo_doctor(codigodo);
-            d.setEdad(edado);
-            d.setTipo_sangre(tiposangredo);
-            d.setGenero(generodo);
-            d.setEspecialidad(especialidado);
-            d.setConsultorio(consultorio);
-//            if (acc.ModificarDoctor(d)) {
-//                JOptionPane.showMessageDialog(null, "Modificacion con exito");
-//                vertablaDoctores();
-//                limpiar_datosDoctor();
-//            }
-        }
-
-    }
-
-    public void EliminarDoctor() {
-        String cedulad = TxtCedulaDoc.getText();
-        if (TxtCedulaDoc.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
-        } else {
-//            if (acc.EliminarDoctor(cedulad)) {
-//                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
-//                mostrar_doctores();
-//            }
-        }
-    }
-
-    public void BusquedaDoctor() {
-        DefaultTableModel modelo = (DefaultTableModel) TablaDoctores.getModel();
-        modelo.setRowCount(0);
-//        List<Doctor> listaDoctores = acc.consultaDoctor(TxtBuscarcedula.getText());
-//        for (Doctor dato : listaDoctores) {
-//            Vector v = new Vector();
-//
-//            v.add(dato.getCedula());
-//            v.add(dato.getApellido());
-//            v.add(dato.getNombre());
-//            v.add(dato.getFecha_nacimiento());
-//            v.add(dato.getTelefono());
-//            v.add(dato.getDireccion());
-//            v.add(dato.getCodigo_doctor());
-//            v.add(dato.getEdad());
-//            v.add(dato.getTipo_sangre());
-//            v.add(dato.getGenero());
-//            v.add(dato.getEspecialidad());
-//            v.add(dato.getConsultorio());
-//            modelo.addRow(v);
-//            TablaDoctores.setModel(modelo);
-//        }
-    }
-
-    public void limpiar_datosDoctor() {
-        TxtCedulaDoc.setText("");
-        TxtApellidoDoc.setText("");
-        TxtNombreDoc.setText("");
-        // TxtFecha_Nacimiento_Doc.setText("");
-
-        TxtTelefonoDoc.setText("");
-        TxtDireccionDoc.setText("");
-        TxtCodigoDoc.setText("");
-        ComboTipoSangreDoc.setSelectedItem("Seleccione");
-        ComboEspecialidadDoc.setSelectedItem("Seleccione");
-        GrupoGeneroDoc.clearSelection();
-    }
-
-    public void genero_doctor() {
-        GrupoGeneroDoc.add(RadioBtnMasculino);
-        GrupoGeneroDoc.add(RadioBtnFemenino);
-        GrupoGeneroDoc.add(RadioBtnNoDefinido);
-        if (RadioBtnMasculino.isSelected()) {
-            generodoc = "Masculino";
-        }
-        if (RadioBtnFemenino.isSelected()) {
-            generodoc = "Femenino";
-        }
-        if (RadioBtnNoDefinido.isSelected()) {
-            generodoc = "No definido";
-        }
-    }
-
-    public void mostrar_edadDoc() {
-        edaddoc = SpinerEdadDoc.getValue().toString();
-        d = Integer.parseInt(edaddoc);
-    }
-
-    public void mostrar_consultorioDoc() {
-        consultoriodoc = SpinerConsultorioDoc.getValue().toString();
-    }
-
-    public void mostrar_doctores() {
-        String matrizDoc[][] = new String[Lista_Doctores.size()][12];
-
-        for (int i = 0; i < Lista_Doctores.size(); i++) {
-            matrizDoc[i][0] = Lista_Doctores.get(i).getCedula();
-            matrizDoc[i][1] = Lista_Doctores.get(i).getApellido();
-            matrizDoc[i][2] = Lista_Doctores.get(i).getNombre();
-            matrizDoc[i][3] = Lista_Doctores.get(i).getFecha_nacimiento();
-            matrizDoc[i][4] = Lista_Doctores.get(i).getTelefono();
-            matrizDoc[i][5] = Lista_Doctores.get(i).getDireccion();
-            matrizDoc[i][6] = Lista_Doctores.get(i).getCodigo_doctor();
-            //  matrizDoc[i][7] = Lista_Doctores.get(i).getEdad();
-            matrizDoc[i][7] = String.valueOf(Lista_Doctores.get(i).getEdad());
-            matrizDoc[i][8] = Lista_Doctores.get(i).getTipo_sangre();
-            matrizDoc[i][9] = Lista_Doctores.get(i).getGenero();
-            matrizDoc[i][10] = Lista_Doctores.get(i).getEspecialidad();
-            matrizDoc[i][11] = String.valueOf(Lista_Doctores.get(i).getConsultorio());
-
-        }
-        TablaDoctores.setModel(new javax.swing.table.DefaultTableModel(
-                matrizDoc,
-                new String[]{
-                    "Cedula", "Apellido", "Nombre", "Fecha de nacimiento", "Telefono", "Direccion", "Codigo", "Edad", "Tipo Sangre", "Genero", "Especialidad", "Consultorio"
-                }
-        ));
-    }
+    }//GEN-LAST:event_BtnModificarDocActionPerformed
 
     /**
      * @param args the command line arguments
@@ -833,6 +559,7 @@ public class Crud_Doctor extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Crud_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -847,17 +574,15 @@ public class Crud_Doctor extends javax.swing.JFrame {
     private javax.swing.JButton BtnEliminarDoc;
     private javax.swing.JButton BtnGuardarDoc;
     private javax.swing.JButton BtnModificarDoc;
-    private javax.swing.JButton BtnSalirCrudDoc;
     private javax.swing.JButton BtnVRegistros;
-    private javax.swing.JComboBox<String> ComboEspecialidadDoc;
+    private javax.swing.JComboBox<String> ComboArea;
     private javax.swing.JComboBox<String> ComboTipoSangreDoc;
+    private javax.swing.JComboBox<String> ComboTitulo;
     private com.toedter.calendar.JDateChooser DateDoctorFecha;
-    private javax.swing.ButtonGroup GrupoGeneroDoc;
+    private javax.swing.ButtonGroup Group;
     private javax.swing.JRadioButton RadioBtnFemenino;
     private javax.swing.JRadioButton RadioBtnMasculino;
     private javax.swing.JRadioButton RadioBtnNoDefinido;
-    private javax.swing.JSpinner SpinerConsultorioDoc;
-    private javax.swing.JSpinner SpinerEdadDoc;
     private javax.swing.JTable TablaDoctores;
     private javax.swing.JTextField TxtApellidoDoc;
     private javax.swing.JTextField TxtBuscarcedula;
@@ -871,7 +596,6 @@ public class Crud_Doctor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
