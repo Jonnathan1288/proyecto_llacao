@@ -11,33 +11,35 @@ import clases.Persona;
  *
  * @author DELL
  */
-public class Recepcionista extends Persona{
-    String titulo, id;
+public class Recepcionista extends Persona {
+
+    private String id_recepcionista;
+    private float sueldo;
 
     public Recepcionista() {
     }
+
+    public Recepcionista(String id_recepcionista, float sueldo, String cedula, String apellido, String nombre, String fecha_nacimiento, String genero, String tipo_sangre, String telefono, String direccion) {
+        super(cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion);
+        this.id_recepcionista = id_recepcionista;
+        this.sueldo = sueldo;
+    }
+
+    public String getId_recepcionista() {
+        return id_recepcionista;
+    }
+
+    public void setId_recepcionista(String id_recepcionista) {
+        this.id_recepcionista = id_recepcionista;
+    }
+
+    public float getSueldo() {
+        return sueldo;
+    }
+
+    public void setSueldo(float sueldo) {
+        this.sueldo = sueldo;
+    }
     
 
-    public Recepcionista(String titulo, String id, String cedula, String apellido, String nombre, String fecha_nacimiento, String genero, String tipo_sangre, String telefono, String direccion, int edad) {
-        super(cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion, edad);
-        this.titulo = titulo;
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-    
 }

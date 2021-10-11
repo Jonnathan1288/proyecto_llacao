@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,11 +27,11 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
     String edadrecep = "", titulorecep = "", generorecep = "";
 
     Recepcionista recep = new Recepcionista();
-    IngresoRecepcionistas acrecep = new IngresoRecepcionistas();
+    IngresoRecepcionistas ingresoRep = new IngresoRecepcionistas();
 
     public Crud_Recepcionista() {
         initComponents();
-        vertablaRecepcionistas();
+        TablaRecepcionistasC();
     }
 
     /**
@@ -57,17 +58,13 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         TxtCedulaRep = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         ComboTipoSangreRep = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
-        SpinerEdadRep = new javax.swing.JSpinner();
         RadioBtnMasculino = new javax.swing.JRadioButton();
         RadioBtnFemenino = new javax.swing.JRadioButton();
         RadioBtnNoDefinido = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        TxtIdRecepcionista = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        ComboTituloRep = new javax.swing.JComboBox<>();
         DateRecepcionista = new com.toedter.calendar.JDateChooser();
+        TxtSueldoRep = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaRecepcionistas = new javax.swing.JTable();
         TxtBuscarRep = new javax.swing.JTextField();
@@ -107,10 +104,6 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("Edad: ");
-
-        SpinerEdadRep.setModel(new javax.swing.SpinnerNumberModel(30, 30, 70, 1));
-
         GrupoGeneroRecep.add(RadioBtnMasculino);
         RadioBtnMasculino.setText("Masculino");
 
@@ -122,11 +115,13 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
 
         jLabel10.setText("Genero: ");
 
-        jLabel12.setText("Id Recepcionista: ");
+        TxtSueldoRep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtSueldoRepActionPerformed(evt);
+            }
+        });
 
-        jLabel14.setText("Titulo");
-
-        ComboTituloRep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Alergología", "Anestesiología", "Angiología", "Cardiología", "Endocrinología", "Estomatología", "Gastroenterología", "Genética", "Geriatría", "Hematología", "Hepatología", "Infectología", "Medicina aeroespacial", "Medicina del deporte", "Medicina familiar y comunitaria", "Medicina física y rehabilitación", "Medicina forense", "Medicina intensiva", "Medicina interna", "Medicina preventiva y salud pública", "Medicina del trabajo", "Nefrología", "Neumología", "Neurología", "Nutriología", "Oncología médica", "Oncología radioterápica", "Pediatría", "Psiquiatría", "Reumatología", "Toxicología", " " }));
+        jLabel9.setText("Sueldo:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,13 +135,13 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel12))
+                            .addComponent(jLabel9))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtIdRecepcionista)
                             .addComponent(TxtDireccionRep)
                             .addComponent(TxtTelefonoRep)
-                            .addComponent(DateRecepcionista, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)))
+                            .addComponent(DateRecepcionista, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(TxtSueldoRep)))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel4)
@@ -163,33 +158,25 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel14))
+                    .addComponent(jLabel10))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ComboTipoSangreRep, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SpinerEdadRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ComboTituloRep, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(RadioBtnMasculino)
                         .addGap(18, 18, 18)
                         .addComponent(RadioBtnFemenino)
                         .addGap(18, 18, 18)
                         .addComponent(RadioBtnNoDefinido)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(TxtCedulaRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(SpinerEdadRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(TxtCedulaRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,10 +193,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
                     .addComponent(RadioBtnNoDefinido))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel14)
-                        .addComponent(ComboTituloRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5)
                     .addComponent(DateRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -219,20 +203,20 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(TxtDireccionRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(TxtIdRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(TxtSueldoRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addContainerGap())
         );
 
         TablaRecepcionistas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cedula", "Apellido", "Nombre", "Fecha de nacimiento", "Telefono", "Direccion", "ID", "Edad", "Tipo Sangre", "Genero", "Titulo"
+                "Cedula", "Apellido", "Nombre", "Fecha de nacimiento", "Genero", "Tipo de Sangre", "Telefono", "Direccion", "Id_recepcionista", "Sueldo"
             }
         ));
         TablaRecepcionistas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -384,21 +368,43 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void cedulaRep() {
+        if (ingresoRep.valida_cedula(TxtCedulaRep.getText()) == true) {
+            registraRecepcionista();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al guardarrrrrrrrrr.");
+        }
+    }
+
+    private void TablaRecepcionistasC() {
+        DefaultTableModel tblModelo = (DefaultTableModel) TablaRecepcionistas.getModel();
+
+        tblModelo.setNumRows(0);
+        List<Recepcionista> listaRecepcionist = ingresoRep.Tabla_recepcionistas();
+
+        listaRecepcionist.stream().forEach(p -> {
+            p.getSueldo();
+            String su = String.valueOf(p.getSueldo());
+            String[] persona = {p.getCedula(), p.getApellido(), p.getNombre(), p.getFecha_nacimiento(), p.getGenero(), p.getTipo_sangre(), p.getTelefono(), p.getDireccion(), p.getId_recepcionista(), su};
+            tblModelo.addRow(persona);
+        });
+        // limpiarCampos();
+    }
     private void ComboTipoSangreRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboTipoSangreRepActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboTipoSangreRepActionPerformed
 
     private void BtnGuardarRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarRepActionPerformed
 
-        if (!(TxtCedulaRep.getText().equals("") || TxtApellidoRep.getText().equals("") || TxtNombreRep.getText().equals("") || TxtTelefonoRep.getText().equals("") || TxtDireccionRep.getText().equals("") || TxtIdRecepcionista.getText().equals("") || ComboTipoSangreRep.getSelectedItem().equals("Seleccione") || GrupoGeneroRecep.isSelected(null) || ComboTituloRep.getSelectedItem().equals("Seleccione"))) {
-            if (validar_datosRep() == true) {
+        if (!(TxtCedulaRep.getText().equals("") || TxtApellidoRep.getText().equals("") || TxtNombreRep.getText().equals("") || TxtTelefonoRep.getText().equals("") || TxtDireccionRep.getText().equals("") || ComboTipoSangreRep.getSelectedItem().equals("Seleccione") || GrupoGeneroRecep.isSelected(null))) {
+
+            if (ingresoRep.valida_cedula(TxtCedulaRep.getText()) == true && validar_datosRep() == true) {
                 genero_recepcionista();
-                mostrar_edadRecep();
-                registrarRecepcionista();
-                limpiar_datosRecepcionistas();
-                vertablaRecepcionistas();
+                registraRecepcionista();
+                //  limpiar_datosRecepcionistas();
+                TablaRecepcionistasC();
             } else {
-                JOptionPane.showMessageDialog(null, "Por favor asegúrese de que los campos estén con los datos correctos.");
+                JOptionPane.showMessageDialog(null, "Error al guardar. M");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor asegúrese que este llenado todos los campos solicitados del recepcionista.");
@@ -408,7 +414,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
 
     public boolean validar_datosRep() {
         boolean validorep = false;
-        if (TxtCedulaRep.getText().matches("^\\d{10}$") && TxtApellidoRep.getText().matches("^[A-Z].{3,25}$") && TxtNombreRep.getText().matches("^[A-Z].{3,25}$") && TxtTelefonoRep.getText().matches("^\\d{8}$") && TxtDireccionRep.getText().matches("^[A-Za-z].{4,25}$") && TxtIdRecepcionista.getText().matches("^\\d{4}$")) {
+        if (TxtCedulaRep.getText().matches("^\\d{10}$") && TxtApellidoRep.getText().matches("^[A-Z].{3,25}$") && TxtNombreRep.getText().matches("^[A-Z].{3,25}$") && TxtTelefonoRep.getText().matches("^\\d{8}$") && TxtDireccionRep.getText().matches("^[A-Za-z].{4,25}$")) {
             validorep = true;
         } else {
             validorep = false;
@@ -417,7 +423,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
     }
     private void BtnVRegistrosRecepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVRegistrosRecepActionPerformed
         // TODO add your handling code here:
-        vertablaRecepcionistas();
+        TablaRecepcionistasC();
     }//GEN-LAST:event_BtnVRegistrosRecepActionPerformed
 
     private void BtnSalirCrudDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirCrudDocActionPerformed
@@ -433,51 +439,66 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnSalirCrudDocActionPerformed
 
     private void BtnEliminarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarPacActionPerformed
-        // TODO add your handling code here:
         int i = TablaRecepcionistas.getSelectedRow();
         if (i >= 0) {
-            EliminarRecepcionista();
-            limpiar_datosRecepcionistas();
+
+            int t = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar este registro?", "Verificación de eliminar.", JOptionPane.YES_NO_OPTION);
+            if (t == JOptionPane.YES_OPTION) {
+                EliminarRecepcionista();
+               // limpiar_datosRecepcionistas();
+                JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+            }
+            if (t == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Eliminacion cancelada.");
+
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione el registro para eliminar.");
         }
     }//GEN-LAST:event_BtnEliminarPacActionPerformed
 
+    public void EliminarRecepcionista() {
+        String cedula = TxtCedulaRep.getText();
+        if (TxtCedulaRep.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
+        } else {
+            if (ingresoRep.eliminarRecepcionista(cedula)) {
+                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
+                TablaRecepcionistasC();
+            }
+        }
+    }
     private void TablaRecepcionistasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaRecepcionistasMouseClicked
-        int i = TablaRecepcionistas.getSelectedRow();
+       int i = TablaRecepcionistas.getSelectedRow();
 
         if (i >= 0) {
             String cedula = TablaRecepcionistas.getValueAt(i, 0).toString();
             String apellido = TablaRecepcionistas.getValueAt(i, 1).toString();
             String nombre = TablaRecepcionistas.getValueAt(i, 2).toString();
-            String fnacimiento = TablaRecepcionistas.getValueAt(i, 3).toString();
-            String telefono = TablaRecepcionistas.getValueAt(i, 4).toString();
-            String direccion = TablaRecepcionistas.getValueAt(i, 5).toString();
-            String id_r = TablaRecepcionistas.getValueAt(i, 6).toString();
-            String edad = TablaRecepcionistas.getValueAt(i, 7).toString();
-            String tipo_sangre = TablaRecepcionistas.getValueAt(i, 8).toString();
-            String genero = TablaRecepcionistas.getValueAt(i, 9).toString();
-            String titulo = TablaRecepcionistas.getValueAt(i, 10).toString();
+            String fecha_nacimiento = TablaRecepcionistas.getValueAt(i, 3).toString();
+            String genero = TablaRecepcionistas.getValueAt(i, 4).toString();
+            String tipo_sangre = TablaRecepcionistas.getValueAt(i, 5).toString();
+            String telefono = TablaRecepcionistas.getValueAt(i, 6).toString();
+            String direccion = TablaRecepcionistas.getValueAt(i, 7).toString();
+            String id_paciente = TablaRecepcionistas.getValueAt(i, 8).toString();
+            String sueldo = TablaRecepcionistas.getValueAt(i, 9).toString();
 
             TxtCedulaRep.setText(cedula);
             TxtApellidoRep.setText(apellido);
             TxtNombreRep.setText(nombre);
-            // DateDoctorFecha.setDate(fnacimientod);
             TxtTelefonoRep.setText(telefono);
             TxtDireccionRep.setText(direccion);
-            TxtIdRecepcionista.setText(id_r);
-            if(genero.equals("Masculino")){
+            // TxtOcupacionPac.setText(ocupacionp);
+            ComboTipoSangreRep.setSelectedItem(tipo_sangre);
+            if (genero.equals("Masculino")) {
                 RadioBtnMasculino.setSelected(true);
             }
-            if(genero.equals("Femenino")){
+            if (genero.equals("Femenino")) {
                 RadioBtnFemenino.setSelected(true);
             }
-            if(genero.equals("No definido")){
+            if (genero.equals("No definido")) {
                 RadioBtnNoDefinido.setSelected(true);
             }
-            ComboTipoSangreRep.setSelectedItem(tipo_sangre);
-            ComboTituloRep.setSelectedItem(titulo);
-
         } else {
             JOptionPane.showMessageDialog(null, "");
         }
@@ -488,9 +509,8 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         int i = TablaRecepcionistas.getSelectedRow();
         if (i >= 0) {
             if (validar_datosRep() == true) {
-                mostrar_edadRecep();
                 genero_recepcionista();
-                ModificarRecepcionista();
+
             } else {
                 JOptionPane.showMessageDialog(null, "Por favor asegúrese de que los campos estén con los datos correctos.");
             }
@@ -501,128 +521,38 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
 
     private void BtnBuscarRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarRepActionPerformed
         // TODO add your handling code here:
-        if(!(TxtBuscarRep.getText().equals(""))){
-            buscarRecepcionista();
-        }else{
+        if (!(TxtBuscarRep.getText().equals(""))) {
+        } else {
             JOptionPane.showMessageDialog(null, "Por favor debe ingresar la cedula en el campo, para realizar la consulta.", "Precaución  ", JOptionPane.WARNING_MESSAGE);
         }
         TxtBuscarRep.setText("");
     }//GEN-LAST:event_BtnBuscarRepActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       limpiar_datosRecepcionistas();
+        limpiar_datosRecepcionistas();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void buscarRecepcionista(){
-        DefaultTableModel modelo = (DefaultTableModel) TablaRecepcionistas.getModel();
-        modelo.setRowCount(0);
-//        List<Recepcionista> listaRecepcionista = acrecep.ConsultaRecepcionista(TxtBuscarRep.getText());
-//        for (Recepcionista dato : listaRecepcionista) {
-//            Vector recepcio = new Vector();
-//            recepcio.add(dato.getCedula());
-//            recepcio.add(dato.getApellido());
-//            recepcio.add(dato.getNombre());
-//            recepcio.add(dato.getFecha_nacimiento());
-//            recepcio.add(dato.getTelefono());
-//            recepcio.add(dato.getDireccion());
-//            recepcio.add(dato.getId());
-//            recepcio.add(dato.getEdad());
-//            recepcio.add(dato.getTipo_sangre());
-//            recepcio.add(dato.getGenero());
-//            recepcio.add(dato.getTitulo());
-//            modelo.addRow(recepcio);
-//            TablaRecepcionistas.setModel(modelo);
-//        }
-    }
-    public void ModificarRecepcionista() {//aquiiiiiiiiiiiiiiiiiiiiiiiiii
-        String cedula = TxtCedulaRep.getText();
-        String apellido = TxtApellidoRep.getText();
-        String nombre = TxtNombreRep.getText();
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        String fnacimiento = formatoFecha.format(DateRecepcionista.getDate());
-        String telefono = TxtTelefonoRep.getText();
-        String direccion = TxtDireccionRep.getText();
-        String id_r = TxtIdRecepcionista.getText();
-        int edad = Integer.parseInt(edadrecep);
-        String tipo_sangre = ComboTipoSangreRep.getSelectedItem().toString();
-        String genero = generorecep;
-        String titulo = ComboTituloRep.getSelectedItem().toString();
+    private void TxtSueldoRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtSueldoRepActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtSueldoRepActionPerformed
 
-        //validamos los campos a enviar a la base de datos
-        if (cedula.isEmpty() || apellido.isEmpty() || nombre.isEmpty() || fnacimiento.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || id_r.isEmpty() || edad <= 0 || tipo_sangre.isEmpty() || genero.isEmpty() || titulo.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor valide los datos a enviar a la Base de Datos");
+    public void registraRecepcionista() {
+
+        IngresoRecepcionistas ingreR = new IngresoRecepcionistas();
+        ingreR.setCedula(TxtCedulaRep.getText());
+        ingreR.setApellido(TxtApellidoRep.getText());
+        ingreR.setNombre(TxtNombreRep.getText());
+        ingreR.setFecha_nacimiento(((JTextField) DateRecepcionista.getDateEditor().getUiComponent()).getText());
+        ingreR.setGenero(generorecep);
+        ingreR.setTipo_sangre(ComboTipoSangreRep.getSelectedItem().toString());
+        ingreR.setTelefono(TxtTelefonoRep.getText());
+        ingreR.setDireccion(TxtDireccionRep.getText());
+        ingreR.setSueldo(Float.parseFloat(TxtSueldoRep.getText()));
+        if (ingreR.insertatRecepcionista()) {
+            System.out.println("Si se ingreso a tu corazon");
         } else {
-            Recepcionista rep = new Recepcionista();
-            rep.setCedula(cedula);
-            rep.setApellido(apellido);
-            rep.setNombre(nombre);
-            rep.setFecha_nacimiento(fnacimiento);
-            rep.setTelefono(telefono);
-            rep.setDireccion(direccion);
-            rep.setId(id_r);
-            rep.setEdad(edad);
-            rep.setTipo_sangre(tipo_sangre);
-            rep.setGenero(genero);
-            rep.setTitulo(titulo);
-//            if (acrecep.ModificarRecepcionista(rep)) {
-//                JOptionPane.showMessageDialog(null, "Modificasion con exito");
-//                vertablaRecepcionistas();
-//                limpiar_datosRecepcionistas();
-//            }
+            System.out.println("esta roto tu corazon");
         }
-
-    }
-
-    public void EliminarRecepcionista() {
-        String cedula = TxtCedulaRep.getText();
-        if (TxtCedulaRep.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
-        } else {
-//            if (acrecep.EliminarRecepcionista(cedula)) {
-//                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
-//                vertablaRecepcionistas();
-//            }
-        }
-    }
-
-    public void registrarRecepcionista() {
-        String cedula = TxtCedulaRep.getText();
-        String apellido = TxtApellidoRep.getText();
-        String nombre = TxtNombreRep.getText();
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        String fnacimiento = formatoFecha.format(DateRecepcionista.getDate());
-        String telefono = TxtTelefonoRep.getText();
-        String direccion = TxtDireccionRep.getText();
-        String id_r = TxtIdRecepcionista.getText();
-        int edad = Integer.parseInt(edadrecep);
-        String tipo_sangre = ComboTipoSangreRep.getSelectedItem().toString();
-        String genero = generorecep;
-        String titulo = ComboTituloRep.getSelectedItem().toString();
-
-        if (cedula.isEmpty() || apellido.isEmpty() || nombre.isEmpty() || fnacimiento.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || id_r.isEmpty() || edad <= 0 || tipo_sangre.isEmpty() || genero.isEmpty() || titulo.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor valide los datos a enviar a la Base de Datos");
-        } else {
-            Recepcionista recepc = new Recepcionista();
-            recepc.setCedula(cedula);
-            recepc.setApellido(apellido);
-            recepc.setNombre(nombre);
-            recepc.setFecha_nacimiento(fnacimiento);
-            recepc.setTelefono(telefono);
-            recepc.setDireccion(direccion);
-            recepc.setId(id_r);
-            recepc.setEdad(edad);
-            recepc.setTipo_sangre(tipo_sangre);
-            recepc.setGenero(genero);
-            recepc.setTitulo(titulo);
-//            if (acrecep.InsertarRecepcionista(recepc)) {
-//                JOptionPane.showMessageDialog(null, "Registro guardado con exito...");
-//                //  vertablaDoctores();
-//            }
-        }
-    }
-
-    public void mostrar_edadRecep() {
-        edadrecep = SpinerEdadRep.getValue().toString();
     }
 
     public void genero_recepcionista() {
@@ -640,39 +570,13 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         }
     }
 
-    public void vertablaRecepcionistas() {
-        DefaultTableModel modelo = (DefaultTableModel) TablaRecepcionistas.getModel();
-        modelo.setRowCount(0);
-//        List<Recepcionista> listaRecepcionista = acrecep.listarDatos();
-//        for (Recepcionista dato : listaRecepcionista) {
-//            Vector recepcio = new Vector();
-//
-//            recepcio.add(dato.getCedula());
-//            recepcio.add(dato.getApellido());
-//            recepcio.add(dato.getNombre());
-//            recepcio.add(dato.getFecha_nacimiento());
-//            recepcio.add(dato.getTelefono());
-//            recepcio.add(dato.getDireccion());
-//            recepcio.add(dato.getId());
-//            recepcio.add(dato.getEdad());
-//            recepcio.add(dato.getTipo_sangre());
-//            recepcio.add(dato.getGenero());
-//            recepcio.add(dato.getTitulo());
-//
-//            modelo.addRow(recepcio);
-//            TablaRecepcionistas.setModel(modelo);
-//        }
-    }
-
     public void limpiar_datosRecepcionistas() {
         TxtCedulaRep.setText("");
         TxtApellidoRep.setText("");
         TxtNombreRep.setText("");
         TxtTelefonoRep.setText("");
         TxtDireccionRep.setText("");
-        TxtIdRecepcionista.setText("");
         ComboTipoSangreRep.setSelectedItem("Seleccione");
-        ComboTituloRep.setSelectedItem("Seleccione");
         GrupoGeneroRecep.clearSelection();
 
     }
@@ -703,6 +607,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Crud_Recepcionista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -720,27 +625,23 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
     private javax.swing.JButton BtnSalirCrudDoc;
     private javax.swing.JButton BtnVRegistrosRecep;
     private javax.swing.JComboBox<String> ComboTipoSangreRep;
-    private javax.swing.JComboBox<String> ComboTituloRep;
     private com.toedter.calendar.JDateChooser DateRecepcionista;
     private javax.swing.ButtonGroup GrupoGeneroRecep;
     private javax.swing.JRadioButton RadioBtnFemenino;
     private javax.swing.JRadioButton RadioBtnMasculino;
     private javax.swing.JRadioButton RadioBtnNoDefinido;
-    private javax.swing.JSpinner SpinerEdadRep;
     private javax.swing.JTable TablaRecepcionistas;
     private javax.swing.JTextField TxtApellidoRep;
     private javax.swing.JTextField TxtBuscarRep;
     private javax.swing.JTextField TxtCedulaRep;
     private javax.swing.JTextField TxtDireccionRep;
-    private javax.swing.JTextField TxtIdRecepcionista;
     private javax.swing.JTextField TxtNombreRep;
+    private javax.swing.JTextField TxtSueldoRep;
     private javax.swing.JTextField TxtTelefonoRep;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
