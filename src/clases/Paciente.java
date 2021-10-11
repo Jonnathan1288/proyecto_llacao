@@ -12,19 +12,25 @@ import clases.Persona;
  * @author DELL
  */
 public class Paciente extends Persona{
-    private String alergias, ocupacion, estado_civil, nivel_estudio, discapacidad;
+    private String id_paciente, alergias, discapacidad;
 
     public Paciente() {
         super();
     }
 
-    public Paciente(String alergias, String ocupacion, String estado_civil, String nivel_estudio, String discapacidad, String cedula, String apellido, String nombre, String fecha_nacimiento, String genero, String tipo_sangre, String telefono, String direccion, int edad) {
-        super(cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion, edad);
+    public Paciente(String id_paciente, String alergias, String discapacidad, String cedula, String apellido, String nombre, String fecha_nacimiento, String genero, String tipo_sangre, String telefono, String direccion) {
+        super(cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion);
+        this.id_paciente = id_paciente;
         this.alergias = alergias;
-        this.ocupacion = ocupacion;
-        this.estado_civil = estado_civil;
-        this.nivel_estudio = nivel_estudio;
         this.discapacidad = discapacidad;
+    }
+
+    public String getId_paciente() {
+        return id_paciente;
+    }
+
+    public void setId_paciente(String id_paciente) {
+        this.id_paciente = id_paciente;
     }
 
     public String getAlergias() {
@@ -33,30 +39,6 @@ public class Paciente extends Persona{
 
     public void setAlergias(String alergias) {
         this.alergias = alergias;
-    }
-
-    public String getOcupacion() {
-        return ocupacion;
-    }
-
-    public void setOcupacion(String ocupacion) {
-        this.ocupacion = ocupacion;
-    }
-
-    public String getEstado_civil() {
-        return estado_civil;
-    }
-
-    public void setEstado_civil(String estado_civil) {
-        this.estado_civil = estado_civil;
-    }
-
-    public String getNivel_estudio() {
-        return nivel_estudio;
-    }
-
-    public void setNivel_estudio(String nivel_estudio) {
-        this.nivel_estudio = nivel_estudio;
     }
 
     public String getDiscapacidad() {
