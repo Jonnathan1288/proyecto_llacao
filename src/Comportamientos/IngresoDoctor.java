@@ -29,14 +29,14 @@ public class IngresoDoctor extends Doctor {
                 + "	VALUES ('" + getCedula() + "', '" + getApellido() + "', '" + getNombre() + "', '" + getFecha_nacimiento() + "', "
                 + "'" + getGenero() + "', '" + getTipo_sangre() + "', '" + getTelefono() + "', '" + getDireccion() + "');";
         String sql2 = "INSERT INTO doctor(\n"
-                + "	id_doctor, area, titulo, cedula)\n"
-                + "	VALUES ('" + getId_doctor() + "', '" + getArea() + "', '" + getTitulo() + "', '" + getCedula() + "');";
+                + "	area, titulo, cedula)\n"
+                + "	VALUES ('" + getArea() + "', '" + getTitulo() + "', '" + getCedula() + "');";
         String sql = sql1 + sql2;
         return con.InsertUpdateDeleteAcciones(sql);
     }
-    
+
     public List<Doctor> Lisdoctor() {
-        
+
         String sqls = "select p.cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion, id_doctor, area, titulo from persona p, doctor d where p.cedula=d.cedula; ";
         ResultSet rs = con.selectConsulta(sqls);
         List<Doctor> lp = new ArrayList<>();
@@ -63,8 +63,9 @@ public class IngresoDoctor extends Doctor {
             Logger.getLogger(IngresoDoctor.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-        
+
     }
+
     public boolean eliminarDoctor(String cedula) {
         String sql1 = "DELETE FROM public.doctor\n"
                 + "	WHERE cedula='" + cedula + "';";
@@ -75,7 +76,7 @@ public class IngresoDoctor extends Doctor {
         return con.InsertUpdateDeleteAcciones(sql);
 
     }
-    
+
 //    Validacion de Cedula
     List<Doctor> validar_cedula() {
         try {
@@ -83,7 +84,7 @@ public class IngresoDoctor extends Doctor {
             ResultSet rs = con.selectConsulta(sql);
             List<Doctor> lp = new ArrayList<>();
             while (rs.next()) {
-                Doctor doc= new Doctor();
+                Doctor doc = new Doctor();
                 doc.setCedula(rs.getString("cedula"));
                 lp.add(doc);
             }
@@ -93,8 +94,9 @@ public class IngresoDoctor extends Doctor {
             Logger.getLogger(IngresoDoctor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-        
+
     }
+
     public boolean valida_cedula(String cedula) {
         List<Doctor> listaD = validar_cedula();
         for (int i = 0; i < listaD.size(); i++) {
@@ -104,7 +106,33 @@ public class IngresoDoctor extends Doctor {
         }
         return true;
     }
+
+    public List<Doctor> consulta_Doctor(String cedula) {
+        String sql = "select p.cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion, id_doctor, area, titulo from persona p, doctor c where p.cedula=c.cedula and c.cedula='" + cedula + "';";
+        ResultSet rs = con.selectConsulta(sql);
+        List<Doctor> lp = new ArrayList<>();
+
+        try {
+            while (rs.next()) {
+                Doctor miDoctor = new Doctor();
+                miDoctor.setCedula(rs.getString("cedula"));
+                miDoctor.setApellido(rs.getString("apellido"));
+                miDoctor.setNombre(rs.getString("nombre"));
+                miDoctor.setFecha_nacimiento(rs.getString("fecha_nacimiento"));
+                miDoctor.setGenero(rs.getString("genero"));
+                miDoctor.setTipo_sangre(rs.getString("tipo_sangre"));
+                miDoctor.setTelefono(rs.getString("telefono"));
+                miDoctor.setDireccion(rs.getString("direccion"));
+                miDoctor.setId_doctor(rs.getString("id_doctor"));
+                miDoctor.setArea(rs.getString("area"));
+                miDoctor.setTitulo(rs.getString("titulo"));
+                lp.add(miDoctor);
+            }
+            rs.close();
+            return lp;
+        } catch (SQLException ex) {
+            Logger.getLogger(IngresoPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }
-
-
-
