@@ -6,6 +6,7 @@
 package Comportamientos;
 
 import Conexion_BD.Conexion;
+import clases.Doctor;
 import clases.Paciente;
 import clases.Recepcionista;
 import java.sql.ResultSet;
@@ -81,6 +82,18 @@ public class IngresoRecepcionistas extends Recepcionista {
         }
     }
 
+    //Eliminar
+    public boolean eliminarRecepcionista(String cedula) {
+        String sql1 = "DELETE FROM public.recepcionista\n"
+                + "	WHERE cedula='" + cedula + "';";
+        String sql2 = "DELETE FROM public.recepcionista\n"
+                + "	WHERE cedula='" + cedula + "';";
+        String sql = sql2 + sql1;
+        System.out.println(sql);
+        return conex.InsertUpdateDeleteAcciones(sql);
+
+    }
+
     List<Recepcionista> validar_cedulaR() {
         try {
             String sql = "select cedula from recepcionista";
@@ -108,14 +121,44 @@ public class IngresoRecepcionistas extends Recepcionista {
         }
         return true;
     }
-    public boolean eliminarRecepcionista(String cedula) {
-        String sql1 = "DELETE FROM public.persona\n"
-                + "	WHERE cedula='" + cedula + "';";
-        String sql2 = "DELETE FROM public.recepcionista\n"
-                + "	WHERE cedula='" + cedula + "';";
-        String sql = sql2 + sql1;
-        System.out.println(sql);
-        return conex.InsertUpdateDeleteAcciones(sql);
 
+    public List<Recepcionista> consulta_Recepcionista(String cedula) {
+        String sql = "select p.cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion, id_doctor, area, titulo from persona p, doctor c where p.cedula=c.cedula and c.cedula='" + cedula + "';";
+        ResultSet rs = conex.selectConsulta(sql);
+        List<Recepcionista> lp = new ArrayList<>();
+
+        try {
+            while (rs.next()) {
+                Recepcionista miRecepcionista = new Recepcionista();
+                miRecepcionista.setCedula(rs.getString("cedula"));
+                miRecepcionista.setApellido(rs.getString("apellido"));
+                miRecepcionista.setNombre(rs.getString("nombre"));
+                miRecepcionista.setFecha_nacimiento(rs.getString("fecha_nacimiento"));
+                miRecepcionista.setGenero(rs.getString("genero"));
+                miRecepcionista.setTipo_sangre(rs.getString("tipo_sangre"));
+                miRecepcionista.setTelefono(rs.getString("telefono"));
+                miRecepcionista.setDireccion(rs.getString("direccion"));
+                miRecepcionista.setId_recepcionista(rs.getString("id_recepcionista"));
+                miRecepcionista.setSueldo(Float.valueOf(rs.getString("sueldo")));
+
+                lp.add(miRecepcionista);
+            }
+            rs.close();
+            return lp;
+        } catch (SQLException ex) {
+            Logger.getLogger(IngresoPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
+////
+////    public boolean eliminarRecepcionista(String cedula) {
+////        String sql1 = "DELETE FROM public.persona\n"
+////                + "	WHERE cedula='" + cedula + "';";
+////        String sql2 = "DELETE FROM public.recepcionista\n"
+////                + "	WHERE cedula='" + cedula + "';";
+////        String sql = sql2 + sql1;
+////        System.out.println(sql);
+////        return conex.InsertUpdateDeleteAcciones(sql);
+////
+////    }
 }
