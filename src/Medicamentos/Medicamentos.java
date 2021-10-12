@@ -20,12 +20,13 @@ public class Medicamentos {
     private String PresentacionM;
     private String Via_AdministracionM;
     private String Fecha_IngresoM;
+    private String Fecha_caducidad;
     private String Cantidad;
 
     public Medicamentos() {
     }
 
-    public Medicamentos(String CodigoM, String NombreM, String TiposM, String Medicamentos, String UnidadesMM, String PresentacionM, String Via_AdministracionM, String Fecha_IngresoM, String Cantidad) {
+    public Medicamentos(String CodigoM, String NombreM, String TiposM, String Medicamentos, String UnidadesMM, String PresentacionM, String Via_AdministracionM, String Fecha_IngresoM, String Fecha_caducidad, String Cantidad) {
         this.CodigoM = CodigoM;
         this.NombreM = NombreM;
         this.TiposM = TiposM;
@@ -34,6 +35,7 @@ public class Medicamentos {
         this.PresentacionM = PresentacionM;
         this.Via_AdministracionM = Via_AdministracionM;
         this.Fecha_IngresoM = Fecha_IngresoM;
+        this.Fecha_caducidad = Fecha_caducidad;
         this.Cantidad = Cantidad;
     }
 
@@ -101,6 +103,14 @@ public class Medicamentos {
         this.Fecha_IngresoM = Fecha_IngresoM;
     }
 
+    public String getFecha_caducidad() {
+        return Fecha_caducidad;
+    }
+
+    public void setFecha_caducidad(String Fecha_caducidad) {
+        this.Fecha_caducidad = Fecha_caducidad;
+    }
+
     public String getCantidad() {
         return Cantidad;
     }
@@ -108,8 +118,5 @@ public class Medicamentos {
     public void setCantidad(String Cantidad) {
         this.Cantidad = Cantidad;
     }
-
-   
-
-
+    
 }
