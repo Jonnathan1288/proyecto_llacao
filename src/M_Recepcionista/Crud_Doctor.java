@@ -536,13 +536,13 @@ public class Crud_Doctor extends javax.swing.JFrame {
             String id_doctor = TablaDoctores.getValueAt(i, 8).toString();
             String area = TablaDoctores.getValueAt(i, 9).toString();
             String titulo = TablaDoctores.getValueAt(i, 10).toString();
-            
+
             TxtCedulaDoc.setText(cedula);
             TxtApellidoDoc.setText(apellido);
             TxtNombreDoc.setText(nombre);
             TxtTelefonoDoc.setText(telefono);
             TxtDireccionDoc.setText(direccion);
-            
+
             // TxtOcupacionPac.setText(ocupacionp);
             ComboTipoSangreDoc.setSelectedItem(tipo_sangre);
             ComboArea.setSelectedItem(area);
@@ -568,32 +568,32 @@ public class Crud_Doctor extends javax.swing.JFrame {
     private void BtnGuardarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDocActionPerformed
 
         if (!(TxtCedulaDoc.getText().matches("^\\d{10}$"))) {
-            JOptionPane.showMessageDialog(null, "Ingresa la cedula.");
+            JOptionPane.showMessageDialog(null, "Verifique la cedula.");
         } else {
             if (!(TxtApellidoDoc.getText().matches("^[A-Z].{3,25}$"))) {
                 // !()
-                JOptionPane.showMessageDialog(null, "Ingresa el apellido.");
+                JOptionPane.showMessageDialog(null, "Verifique el apellido.");
             } else {
                 if (!(TxtNombreDoc.getText().matches("^[A-Z].{3,25}$"))) {
-                    JOptionPane.showMessageDialog(null, "Ingresa el nombre.");
+                    JOptionPane.showMessageDialog(null, "Verifique el nombre.");
                 } else {
                     if (!(TxtTelefonoDoc.getText().matches("^\\d{8}$"))) {
-                        JOptionPane.showMessageDialog(null, "Ingresa el telefono.");
+                        JOptionPane.showMessageDialog(null, "Verifique el teléfono.");
                     } else {
                         if (TxtDireccionDoc.getText().isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "Ingresa la direccion.");
+                            JOptionPane.showMessageDialog(null, "Verifique la dirección u domicilio.");
                         } else {
                             if (ComboTipoSangreDoc.getSelectedItem().toString().equals("Seleccione")) {
-                                JOptionPane.showMessageDialog(null, "Escoje tipo de sangre.");
+                                JOptionPane.showMessageDialog(null, "Seleccione algún tipo de sangre.");
                             } else {
                                 if (Group.isSelected(null)) {
-                                    JOptionPane.showMessageDialog(null, "Escoje genero");
+                                    JOptionPane.showMessageDialog(null, "Seleccione genero.");
                                 } else {
                                     if (ComboArea.getSelectedItem().toString().equals("Seleccione")) {
-                                        JOptionPane.showMessageDialog(null, "Escoje el area");
+                                        JOptionPane.showMessageDialog(null, "Seleccione algún tipo de área.");
                                     } else {
                                         if (ComboTitulo.getSelectedItem().toString().equals("Seleccione")) {
-                                            JOptionPane.showMessageDialog(null, "Escoje el titulo");
+                                            JOptionPane.showMessageDialog(null, "Seleccione titulo correspondiente.");
                                         } else {
                                             if (ingresoDoc.valida_cedula(TxtCedulaDoc.getText()) == true) {
                                                 genero_doctor();
@@ -635,7 +635,7 @@ public class Crud_Doctor extends javax.swing.JFrame {
         cargarTabla();
     }//GEN-LAST:event_BtnVRegistrosActionPerformed
 
-    public void Busqueda_doctor(){
+    public void Busqueda_doctor() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaDoctores.getModel();
 
         tblModelo.setNumRows(0);
@@ -672,9 +672,9 @@ public class Crud_Doctor extends javax.swing.JFrame {
 //            sdf ni = new sdf();
 //            ni.setVisible(true);
 //            dispose();
-                        Menu_Recepcionista mrep = new Menu_Recepcionista();
-                        mrep.setVisible(true);
-                        dispose();
+            Menu_Recepcionista mrep = new Menu_Recepcionista();
+            mrep.setVisible(true);
+            dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Sesión cancelada.");
         }

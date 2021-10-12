@@ -516,7 +516,7 @@ public class Crud_Paciente extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null, "Seleccione algún tipo de alergia.");
                             } else {
                                 if (ComboTipoSangrePac.getSelectedItem().toString().equals("Seleccione")) {
-                                    JOptionPane.showMessageDialog(null, "Seleccione algún tipo de sangre");
+                                    JOptionPane.showMessageDialog(null, "Seleccione algún tipo de sangre.");
                                 } else {
                                     if (GrupoGeneroPac.isSelected(null)) {
                                         JOptionPane.showMessageDialog(null, "Seleccione genero.");
