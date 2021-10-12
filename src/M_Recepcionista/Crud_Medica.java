@@ -451,7 +451,7 @@ public class Crud_Medica extends javax.swing.JFrame {
                         if (Combo_ViaAdmin.getSelectedItem().toString().equals("Seleccione")) {
                             JOptionPane.showMessageDialog(null, "Seleccione alguna vía de administración.");
                         } else {
-                            if (!(txtCantidad.getText().matches("^\\d{10}$"))) {
+                            if (txtCantidad.getText().matches("^\\d(1, 8)$")) {
                                 JOptionPane.showMessageDialog(null, "Asegúrese que este lleno el campo de la cantidad.");
                             } else {
                                 ResgitrarMedic();
