@@ -17,7 +17,7 @@ public class PruebasCone {
     String sos;
     String olakase;
     String direccion;
-
+    String hola;
     public PruebasCone() {
     }
     public void Hola(){
