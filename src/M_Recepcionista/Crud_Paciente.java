@@ -25,7 +25,8 @@ public class Crud_Paciente extends javax.swing.JFrame {
     public static ArrayList<Paciente> Lista_Pacientes = new ArrayList<Paciente>();
     String edadpac = "", discapacidadPac = "", generopac = "";
     Paciente pacient = new Paciente();
-    IngresoPacientes ingresopa = new IngresoPacientes();
+    IngresoPacientes ingresopa = new IngresoPacientes(); 
+    
 
     public Crud_Paciente() {
         initComponents();
