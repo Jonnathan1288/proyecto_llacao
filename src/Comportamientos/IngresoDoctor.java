@@ -67,7 +67,7 @@ public class IngresoDoctor extends Doctor {
     }
 
     public boolean eliminarDoctor(String cedula) {
-        String sql1 = "DELETE FROM public.doctor\n"
+        String sql1 = "DELETE FROM public.persona\n"
                 + "	WHERE cedula='" + cedula + "';";
         String sql2 = "DELETE FROM public.doctor\n"
                 + "	WHERE cedula='" + cedula + "';";
