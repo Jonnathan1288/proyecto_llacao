@@ -93,6 +93,7 @@ public class Crud_Doctor extends javax.swing.JFrame {
             if (ingresoDoc.eliminarDoctor(cedula)) {
                 JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
                 cargarTabla();
+                limpiar_datosDoctor();
             }
         }
     }
