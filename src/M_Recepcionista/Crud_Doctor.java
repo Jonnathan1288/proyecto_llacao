@@ -612,6 +612,7 @@ public class Crud_Doctor extends javax.swing.JFrame {
                 }
             }
         }
+        limpiar_datosDoctor();
     }//GEN-LAST:event_BtnGuardarDocActionPerformed
 
     private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
