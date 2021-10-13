@@ -5,7 +5,6 @@
  */
 package Comportamientos;
 
-
 import Conexion_BD.Conexion;
 import clases.Medicamentos;
 import java.sql.ResultSet;
@@ -64,6 +63,26 @@ public class IgresarMedicamentos extends Medicamentos {
         }
 
     }
+    //Esta tabla sirve para que el doctor pueda visualizar el codigo y el nombre y tamabien la cantidad
+    public List<Medicamentos> Consultar_Tabla(String visualizar) {
+        try {
+            String sqlst = "select cod_medicamento, nom_medicamento, cantidad_medicamentos from medicamentos where nom_medicamento='" + visualizar + "';";
+            ResultSet rs = conet.selectConsulta(sqlst);
+            List<Medicamentos> md = new ArrayList<>();
+            
+            Medicamentos mimed = new Medicamentos();
+            
+            mimed.setCodigoM(rs.getString("cod_medicamento"));
+            mimed.setNombreM(rs.getString("nom_medicamento"));
+            mimed.setCantidad(rs.getInt("cantidad_medicamentos"));
+            md.add(mimed);
+            rs.close();
+            return md;
+        } catch (SQLException ex) {
+            Logger.getLogger(IgresarMedicamentos.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
     public boolean eliminarMedicamento(String idmed) {
         String sql = "DELETE FROM public.medicamentos\n"
@@ -102,8 +121,8 @@ public class IgresarMedicamentos extends Medicamentos {
 
     public boolean ModificarMedicamento(String id_medicamento) {
         String sql = "UPDATE public.medicamentos\n"
-                + "	SET nom_medicamento='"+getNombreM()+"', tipo_medicamento='"+getTiposM()+"', medicamento='"+getMedicamentos()+"', presentacion='"+getPresentacionM()+"', unidad_medida='"+getUnidadesMM()+"', via_administracion='"+getVia_AdministracionM()+"', fecha_ingreso='"+getFecha_IngresoM()+"', fecha_caducidad='"+getFecha_caducidad()+"', cantidad_medicamentos='"+getCantidad()+"'\n"
-                + "	WHERE cod_medicamento='"+id_medicamento+"';";
+                + "	SET nom_medicamento='" + getNombreM() + "', tipo_medicamento='" + getTiposM() + "', medicamento='" + getMedicamentos() + "', presentacion='" + getPresentacionM() + "', unidad_medida='" + getUnidadesMM() + "', via_administracion='" + getVia_AdministracionM() + "', fecha_ingreso='" + getFecha_IngresoM() + "', fecha_caducidad='" + getFecha_caducidad() + "', cantidad_medicamentos='" + getCantidad() + "'\n"
+                + "	WHERE cod_medicamento='" + id_medicamento + "';";
         System.out.println(sql);
         return conet.InsertUpdateDeleteAcciones(sql);
     }
