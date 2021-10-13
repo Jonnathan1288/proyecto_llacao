@@ -597,7 +597,6 @@ public class Crud_Paciente extends javax.swing.JFrame {
             if (t == JOptionPane.YES_OPTION) {
                 EliminarPaciente();
                 limpiar_datosPaciente();
-                JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
             }
             if (t == JOptionPane.NO_OPTION) {
                 JOptionPane.showMessageDialog(null, "Eliminacion cancelada.");
@@ -675,12 +674,53 @@ public class Crud_Paciente extends javax.swing.JFrame {
 
         int i = TablaPaciente.getSelectedRow();
         if (i >= 0) {
-
-            genero_paciente();
-            discapacidad_paciente();
-            modificarDatosPac();
-            cargarTabla();
-            limpiar_datosPaciente();
+            Date fecha_naci = DateFnaciPaci.getDate();
+            if (!(TxtCedulaPac.getText().matches("^\\d{10}$"))) {
+                JOptionPane.showMessageDialog(null, "Verifique la cedula.");
+            } else {
+                if (!(TxtApellidoPac.getText().matches("^[A-Z].{3,25}$"))) {
+                    // !()
+                    JOptionPane.showMessageDialog(null, "Verifique el apellido.");
+                } else {
+                    if (!(TxtNombrePac.getText().matches("^[A-Z].{3,25}$"))) {
+                        JOptionPane.showMessageDialog(null, "Verifique el nombre.");
+                    } else {
+                        if (fecha_naci == null) {
+                            JOptionPane.showMessageDialog(null, "Verifique el ingreso de la fecha de nacimiento.");
+                        } else {
+                            if (!(TxtTelefonoPac.getText().matches("^\\d{8}$"))) {
+                                JOptionPane.showMessageDialog(null, "Verifique el teléfono.");
+                            } else {
+                                if (TxtDireccionPac.getText().isEmpty()) {
+                                    JOptionPane.showMessageDialog(null, "Verifique la dirección u domicilio.");
+                                } else {
+                                    if (ComboTipoAlergiasPac.getSelectedItem().toString().equals("Seleccione")) {
+                                        JOptionPane.showMessageDialog(null, "Seleccione algún tipo de alergia.");
+                                    } else {
+                                        if (ComboTipoSangrePac.getSelectedItem().toString().equals("Seleccione")) {
+                                            JOptionPane.showMessageDialog(null, "Seleccione algún tipo de sangre");
+                                        } else {
+                                            if (GrupoGeneroPac.isSelected(null)) {
+                                                JOptionPane.showMessageDialog(null, "Seleccione genero.");
+                                            } else {
+                                                if (GrupoDiscapacidadPac.isSelected(null)) {
+                                                    JOptionPane.showMessageDialog(null, "Seleccione la si tiene o no discapacidad.");
+                                                } else {
+                                                    genero_paciente();
+                                                    discapacidad_paciente();
+                                                    modificarDatosPac();
+                                                    cargarTabla();
+                                                    limpiar_datosPaciente();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione el registro para modificar.");
         }
@@ -811,7 +851,7 @@ public class Crud_Paciente extends javax.swing.JFrame {
 
     private void TxtBuscarPacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarPacKeyTyped
         // TODO add your handling code here:
-         char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
         if (c < '0' || c > '9') {
             evt.consume();
         }
