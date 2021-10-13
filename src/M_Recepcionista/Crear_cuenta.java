@@ -141,7 +141,12 @@ public class Crear_cuenta extends javax.swing.JFrame {
         );
 
         Combo_tipoUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Combo_tipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Doctor", "Recepcionista " }));
+        Combo_tipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Doctor", "Recepcionista" }));
+        Combo_tipoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Combo_tipoUsuarioActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Seleccione usuario");
@@ -348,6 +353,10 @@ public class Crear_cuenta extends javax.swing.JFrame {
         dispose();
 
     }//GEN-LAST:event_BtnSalirSesionActionPerformed
+
+    private void Combo_tipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Combo_tipoUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Combo_tipoUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

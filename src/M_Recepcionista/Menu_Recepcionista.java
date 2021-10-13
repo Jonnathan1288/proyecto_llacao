@@ -52,7 +52,7 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        MCrearCuenta = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -247,8 +247,13 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
         jMenu3.setText("Reportes");
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setText("Gerar Cuenta");
-        jMenuBar1.add(jMenu4);
+        MCrearCuenta.setText("Gerar Cuenta");
+        MCrearCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MCrearCuentaActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(MCrearCuenta);
 
         setJMenuBar(jMenuBar1);
 
@@ -332,6 +337,13 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void MCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MCrearCuentaActionPerformed
+        // TODO add your handling code here:
+        Crear_cuenta creac = new Crear_cuenta();
+        creac.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_MCrearCuentaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -369,6 +381,7 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel LdlRecepcionista;
+    private javax.swing.JMenu MCrearCuenta;
     private javax.swing.JButton brtRegistrarDoctor;
     private javax.swing.JButton btnRegistrarMedicamentos;
     private javax.swing.JButton btnRegistrarPacientes;
@@ -381,7 +394,6 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

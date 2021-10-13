@@ -53,10 +53,13 @@
             <Property name="text" type="java.lang.String" value="Reportes"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu4">
+        <Menu class="javax.swing.JMenu" name="MCrearCuenta">
           <Properties>
             <Property name="text" type="java.lang.String" value="Gerar Cuenta"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MCrearCuentaActionPerformed"/>
+          </Events>
         </Menu>
       </SubComponents>
     </Menu>

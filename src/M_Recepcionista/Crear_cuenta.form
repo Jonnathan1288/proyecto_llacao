@@ -304,10 +304,13 @@
               <StringArray count="3">
                 <StringItem index="0" value="Seleccione"/>
                 <StringItem index="1" value="Doctor"/>
-                <StringItem index="2" value="Recepcionista "/>
+                <StringItem index="2" value="Recepcionista"/>
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Combo_tipoUsuarioActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
