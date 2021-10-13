@@ -18,6 +18,7 @@ public class PruebasCone {
     String olakase;
     String direccion;
     String hola;
+    String holaq;
     public PruebasCone() {
     }
     public void Hola(){
