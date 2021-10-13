@@ -5,6 +5,8 @@
  */
 package inicio;
 
+import Comportamientos.Crear_usuario;
+import Comportamientos.Inicio_secion_Usuario;
 import clases.MensajeFantasma;
 import inicio.Inicio_Sesion;
 import javax.swing.JOptionPane;
@@ -18,6 +20,8 @@ public class Crear_cuenta extends javax.swing.JFrame {
     /**
      * Creates new form Crear_cuenta
      */
+        Crear_usuario createUser = new Crear_usuario();
+        int aux = 0;
     public Crear_cuenta() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -255,14 +259,89 @@ public class Crear_cuenta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void registro_Usuario() {
+        Crear_usuario creaUs = new Crear_usuario();
+        creaUs.setUser(TxtUsuario.getText());
+        creaUs.setPasswd(Passwdprimer.getText());
+        creaUs.setTipo_user(Combo_tipoUsuario.getSelectedItem().toString());
+        if (creaUs.InsertarUsuarios()) {
+            JOptionPane.showMessageDialog(null, "Cuenta de " + Combo_tipoUsuario.getSelectedItem().toString() + " creada satisfactoriamente");
+        } else {
+            System.out.println("esta roto tu corazon");
+        }
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        TxtUsuario.setText("");
-        Passwdprimer.setText("");
-        PasswdRepetir.setText("");
+        if (!(TxtUsuario.getText().matches("^\\d{10}$"))) {
+            JOptionPane.showMessageDialog(null, "Verifique usuario");
+        } else {
+            if (Passwdprimer.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Verifique la contraseña");
+            } else {
+                if (PasswdRepetir.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Verifique el campo de repetir contraseña");
+                } else {
+                    if (Combo_tipoUsuario.getSelectedItem().toString().equals("Seleccione")) {
+                        JOptionPane.showMessageDialog(null, "Debe seleccionar tipo de usuario");
+                    } else {
+
+                        if (Combo_tipoUsuario.getSelectedItem().toString().equals("Doctor")) {
+                            if (Passwdprimer.getText().equals(PasswdRepetir.getText())) {
+
+                                if (!(createUser.valida_cedula(TxtUsuario.getText()) == true)) {
+                                    if (createUser.valida_user(TxtUsuario.getText()) == true) {
+                                        registro_Usuario();
+                                        limpiar_datos();
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Este usuario ya tiene una cuenta");
+                                        limpiar_datos();
+                                    }
+                                }
+                                if (!(createUser.valida_cedula(TxtUsuario.getText()) == false)) {
+                                    JOptionPane.showMessageDialog(null, "Error, el doctor no esta registrado en el sistema.");
+                                    limpiar_datos();
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Las contras no coinciden");
+                            }
+                        }
+                        if (Combo_tipoUsuario.getSelectedItem().toString().equals("Recepcionista")) {
+                            if (Passwdprimer.getText().equals(PasswdRepetir.getText())) {
+                                if (createUser.valida_cedular(TxtUsuario.getText()) == true) {
+                                    JOptionPane.showMessageDialog(null, "Error, el recepcionista no esta registrado en el sistema.");
+
+                                } else {
+                                    if (createUser.valida_user(TxtUsuario.getText()) == true) {
+                                        registro_Usuario();
+                                        limpiar_datos();
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Este usuario ya tiene una cuenta");
+                                        limpiar_datos();
+                                    }
+                                }
+                                if (createUser.valida_cedular(TxtUsuario.getText()) == false) {
+                                    JOptionPane.showMessageDialog(null, "Error, el recepcionista no esta registrado en el sistema.");
+                                    limpiar_datos();
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Las contras no coinciden");
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpiar_datos() {
+        TxtUsuario.setText("");
+        Passwdprimer.setText("");
+        PasswdRepetir.setText("");
+        Combo_tipoUsuario.setSelectedItem("Seleccione");
+    }
+    
     private void BtnSalirSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirSesionActionPerformed
         // TODO add your handling code here:
         Inicio_Sesion ini = new Inicio_Sesion();
