@@ -490,7 +490,7 @@ public class Crud_Medica extends javax.swing.JFrame {
                                 if (fecha_cadu == null) {
                                     JOptionPane.showMessageDialog(null, "Verifique la fecha de caducidad.");
                                 } else {
-                                    if (txtCantidad.getText().matches("^[0-9](1, 7)$")) {
+                                    if (txtCantidad.getText().matches("^[0-9]$")) {
                                         JOptionPane.showMessageDialog(null, "Asegúrese que este lleno el campo de la cantidad.");
                                     } else {
                                         ResgitrarMedic();
