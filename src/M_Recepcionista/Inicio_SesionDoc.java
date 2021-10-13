@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package inicio;
+package M_Recepcionista;
 
 import Comportamientos.Inicio_secion_Usuario;
-import M_Doctor.Menu_Doctor;
+import M_Recepcionista.Menu_Doctor;
 import M_Recepcionista.Crud_Doctor;
 import clases.MensajeFantasma;
 import javax.swing.JOptionPane;
@@ -183,7 +183,7 @@ public class Inicio_SesionDoc extends javax.swing.JFrame {
                     String nombre = ini.buscoNombre(TxtUsuarioDoc.getText());
                     Menu_Doctor doc= new Menu_Doctor();
                     doc.setVisible(true);
-                  //  doc..setText(nombre);
+                    doc.LblDoctor.setText(nombre);
                    this.dispose();
 
                 } else {

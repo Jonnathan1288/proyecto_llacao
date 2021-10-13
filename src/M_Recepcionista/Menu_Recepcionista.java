@@ -36,6 +36,7 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        LdlRecepcionista = new javax.swing.JLabel();
         btnRegistrarMedicamentos = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         brtRegistrarDoctor = new javax.swing.JButton();
@@ -74,9 +75,11 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
                         .addGap(78, 78, 78)
                         .addComponent(jLabel1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jLabel2)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel2)
+                        .addGap(55, 55, 55)
+                        .addComponent(LdlRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,7 +87,9 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(LdlRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -363,6 +368,7 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel LdlRecepcionista;
     private javax.swing.JButton brtRegistrarDoctor;
     private javax.swing.JButton btnRegistrarMedicamentos;
     private javax.swing.JButton btnRegistrarPacientes;

@@ -5,6 +5,8 @@
  */
 package inicio;
 
+import M_Recepcionista.Inicio_SesionDoc;
+import M_Recepcionista.Inicio_Sesion;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;

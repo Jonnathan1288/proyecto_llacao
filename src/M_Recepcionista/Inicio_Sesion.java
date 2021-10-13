@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package inicio;
+package M_Recepcionista;
 
+import Comportamientos.Inicio_secion_Usuario;
+import M_Recepcionista.Crear_cuenta;
 import inicio.Login;
 import M_Recepcionista.Menu_Recepcionista;
 import clases.MensajeFantasma;
+import inicio.Login;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +22,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     /**
      * Creates new form Inicio_Sesion
      */
+     Inicio_secion_Usuario inirep = new Inicio_secion_Usuario();
     public Inicio_Sesion() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -198,19 +202,25 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        String user = "admin";
-        String contrasenia = "admin";
-        String paswd = new String(PasswdInicioR.getPassword());
-        if (TxtUsuarioRep.getText().equals(user) && paswd.equals(contrasenia)) {
-            Menu_Recepcionista mrep = new Menu_Recepcionista(); 
-            mrep.setVisible(true);
-            dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Por favor compruebe su usuario y contraseña.");
-            TxtUsuarioRep.setText("");
-            PasswdInicioR.setText("");
+        if (!(TxtUsuarioRep.getText().matches("^\\d{10}$"))) {
+            JOptionPane.showMessageDialog(null, "Verifique usuario");
+        } else {
+            if (PasswdInicioR.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Verifique usuario");
+            } else {
+                String tipo = "Recepcionista";
+                String inicioSesion = inirep.inicioSesionRep(TxtUsuarioRep.getText(), PasswdInicioR.getText(), tipo);
+                if (inicioSesion.equals("Acceso")) {
+                    String nombre = inirep.buscoNombreRep(TxtUsuarioRep.getText());
+                    Menu_Recepcionista mr = new Menu_Recepcionista();
+                    mr.setVisible(true);
+                    mr.LdlRecepcionista.setText(nombre);
+                   this.dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
+                }
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
