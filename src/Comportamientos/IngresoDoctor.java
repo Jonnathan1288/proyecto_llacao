@@ -6,6 +6,7 @@
 package Comportamientos;
 
 //import Persona;
+
 import Conexion_BD.Conexion;
 import clases.Doctor;
 import java.sql.ResultSet;
@@ -24,6 +25,7 @@ public class IngresoDoctor extends Doctor {
     Conexion con = new Conexion();
 
     public boolean InsertarDoctores() {
+        //to_date('"+getfecha_nacimiento()+"','yyyy-MM-dd')
         String sql1 = "INSERT INTO persona(\n"
                 + "	cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion)\n"
                 + "	VALUES ('" + getCedula() + "', '" + getApellido() + "', '" + getNombre() + "', '" + getFecha_nacimiento() + "', "
@@ -67,7 +69,7 @@ public class IngresoDoctor extends Doctor {
     }
 
     public boolean eliminarDoctor(String cedula) {
-        String sql1 = "DELETE FROM public.persona\n"
+        String sql1 = "DELETE FROM public.doctor\n"
                 + "	WHERE cedula='" + cedula + "';";
         String sql2 = "DELETE FROM public.doctor\n"
                 + "	WHERE cedula='" + cedula + "';";
@@ -80,7 +82,7 @@ public class IngresoDoctor extends Doctor {
 //    Validacion de Cedula
     List<Doctor> validar_cedula() {
         try {
-            String sql = "select cedula from doctor";
+            String sql = "select cedula from persona";
             ResultSet rs = con.selectConsulta(sql);
             List<Doctor> lp = new ArrayList<>();
             while (rs.next()) {
@@ -134,5 +136,18 @@ public class IngresoDoctor extends Doctor {
             Logger.getLogger(IngresoPacientes.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    public boolean ModificarDoctor(String cedula) {
+        String sql1 = "UPDATE public.doctor\n"
+                + "	SET area='"+getArea()+"', titulo='"+getTitulo()+"'\n"
+                + "	WHERE cedula='" + cedula + "';";
+        String sql2 = "UPDATE public.persona\n"
+                + "	SET apellido='" + getApellido() + "', nombre='" + getNombre() + "', fecha_nacimiento='" + getFecha_nacimiento() + "', genero='" + getGenero() + "', tipo_sangre='" + getTipo_sangre() + "', telefono='" + getTelefono() + "', direccion='" + getDireccion() + "'\n"
+                + "	WHERE cedula='" + cedula + "';";
+
+        String sql = sql1 + sql2;
+        System.out.println(sql);
+        return con.InsertUpdateDeleteAcciones(sql);
     }
 }

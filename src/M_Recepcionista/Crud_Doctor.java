@@ -7,8 +7,13 @@ package M_Recepcionista;
 
 import Comportamientos.IngresoDoctor;
 import clases.Doctor;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableColumnModel;
@@ -93,7 +98,6 @@ public class Crud_Doctor extends javax.swing.JFrame {
             if (ingresoDoc.eliminarDoctor(cedula)) {
                 JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
                 cargarTabla();
-                limpiar_datosDoctor();
             }
         }
     }
@@ -352,6 +356,11 @@ public class Crud_Doctor extends javax.swing.JFrame {
                 TxtBuscarcedulaActionPerformed(evt);
             }
         });
+        TxtBuscarcedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtBuscarcedulaKeyTyped(evt);
+            }
+        });
 
         BtnGuardarDoc.setText("Guardar");
         BtnGuardarDoc.addActionListener(new java.awt.event.ActionListener() {
@@ -451,11 +460,9 @@ public class Crud_Doctor extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(BtnBuscarDoc)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(BtnModificarDoc)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(BtnBuscarDoc))
+                            .addComponent(BtnModificarDoc))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(BtnSalirCrudDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -529,7 +536,7 @@ public class Crud_Doctor extends javax.swing.JFrame {
             String cedula = TablaDoctores.getValueAt(i, 0).toString();
             String apellido = TablaDoctores.getValueAt(i, 1).toString();
             String nombre = TablaDoctores.getValueAt(i, 2).toString();
-            String fecha_nacimiento = TablaDoctores.getValueAt(i, 3).toString();
+            // String fecha_nacimiento = TablaDoctores.getValueAt(i, 3).toString();
             String genero = TablaDoctores.getValueAt(i, 4).toString();
             String tipo_sangre = TablaDoctores.getValueAt(i, 5).toString();
             String telefono = TablaDoctores.getValueAt(i, 6).toString();
@@ -543,8 +550,14 @@ public class Crud_Doctor extends javax.swing.JFrame {
             TxtNombreDoc.setText(nombre);
             TxtTelefonoDoc.setText(telefono);
             TxtDireccionDoc.setText(direccion);
-
-            // TxtOcupacionPac.setText(ocupacionp);
+            String fecha = (String) TablaDoctores.getValueAt(i, 3);
+            Date fechas;
+            try {
+                fechas = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+                DateDoctorFecha.setDate(fechas);
+            } catch (ParseException ex) {
+                Logger.getLogger(Crud_Doctor.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ComboTipoSangreDoc.setSelectedItem(tipo_sangre);
             ComboArea.setSelectedItem(area);
             ComboTitulo.setSelectedItem(titulo);
@@ -568,40 +581,46 @@ public class Crud_Doctor extends javax.swing.JFrame {
 
     private void BtnGuardarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDocActionPerformed
 
+        Date naci_doc = DateDoctorFecha.getDate();
         if (!(TxtCedulaDoc.getText().matches("^\\d{10}$"))) {
-            JOptionPane.showMessageDialog(null, "Verifique la cedula.");
+            JOptionPane.showMessageDialog(null, "Ingresa la cedula.");
         } else {
             if (!(TxtApellidoDoc.getText().matches("^[A-Z].{3,25}$"))) {
                 // !()
-                JOptionPane.showMessageDialog(null, "Verifique el apellido.");
+                JOptionPane.showMessageDialog(null, "Ingresa el apellido.");
             } else {
                 if (!(TxtNombreDoc.getText().matches("^[A-Z].{3,25}$"))) {
-                    JOptionPane.showMessageDialog(null, "Verifique el nombre.");
+                    JOptionPane.showMessageDialog(null, "Ingresa el nombre.");
                 } else {
-                    if (!(TxtTelefonoDoc.getText().matches("^\\d{8}$"))) {
-                        JOptionPane.showMessageDialog(null, "Verifique el teléfono.");
+                    if (naci_doc == null) {
+                        JOptionPane.showMessageDialog(null, "Verifique el ingreso de la fecha de nacimiento.");
                     } else {
-                        if (TxtDireccionDoc.getText().isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "Verifique la dirección u domicilio.");
+                        if (!(TxtTelefonoDoc.getText().matches("^\\d{8}$"))) {
+                            JOptionPane.showMessageDialog(null, "Ingresa el telefono.");
                         } else {
-                            if (ComboTipoSangreDoc.getSelectedItem().toString().equals("Seleccione")) {
-                                JOptionPane.showMessageDialog(null, "Seleccione algún tipo de sangre.");
+                            if (TxtDireccionDoc.getText().isEmpty()) {
+                                JOptionPane.showMessageDialog(null, "Ingresa la direccion.");
                             } else {
-                                if (Group.isSelected(null)) {
-                                    JOptionPane.showMessageDialog(null, "Seleccione genero.");
+                                if (ComboTipoSangreDoc.getSelectedItem().toString().equals("Seleccione")) {
+                                    JOptionPane.showMessageDialog(null, "Escoje tipo de sangre.");
                                 } else {
-                                    if (ComboArea.getSelectedItem().toString().equals("Seleccione")) {
-                                        JOptionPane.showMessageDialog(null, "Seleccione algún tipo de área.");
+                                    if (Group.isSelected(null)) {
+                                        JOptionPane.showMessageDialog(null, "Escoje genero");
                                     } else {
-                                        if (ComboTitulo.getSelectedItem().toString().equals("Seleccione")) {
-                                            JOptionPane.showMessageDialog(null, "Seleccione titulo correspondiente.");
+                                        if (ComboArea.getSelectedItem().toString().equals("Seleccione")) {
+                                            JOptionPane.showMessageDialog(null, "Escoje el area");
                                         } else {
-                                            if (ingresoDoc.valida_cedula(TxtCedulaDoc.getText()) == true) {
-                                                genero_doctor();
-                                                RegistrarDoctor();
-                                                cargarTabla();
+                                            if (ComboTitulo.getSelectedItem().toString().equals("Seleccione")) {
+                                                JOptionPane.showMessageDialog(null, "Escoje el titulo");
                                             } else {
-                                                JOptionPane.showMessageDialog(null, "Error la cedula ya existe en los registros.");
+                                                if (ingresoDoc.valida_cedula(TxtCedulaDoc.getText()) == true) {
+                                                    genero_doctor();
+                                                    RegistrarDoctor();
+                                                    cargarTabla();
+                                                    limpiar_datosDoctor();
+                                                } else {
+                                                    JOptionPane.showMessageDialog(null, "Error la cedula ya existe en los registros.");
+                                                }
                                             }
                                         }
                                     }
@@ -612,7 +631,6 @@ public class Crud_Doctor extends javax.swing.JFrame {
                 }
             }
         }
-        limpiar_datosDoctor();
     }//GEN-LAST:event_BtnGuardarDocActionPerformed
 
     private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
@@ -629,6 +647,7 @@ public class Crud_Doctor extends javax.swing.JFrame {
         ComboArea.setSelectedItem("Seleccione");
         ComboTipoSangreDoc.setSelectedItem("Seleccione");
         ComboTitulo.setSelectedItem("Seleccione");
+        ((JTextField) DateDoctorFecha.getDateEditor().getUiComponent()).setText(null);
         Group.clearSelection();
 
     }
@@ -659,12 +678,100 @@ public class Crud_Doctor extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnBuscarDocActionPerformed
 
     private void BtnEliminarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarDocActionPerformed
-        EliminarDoctor();
-        cargarTabla();
+
+        int i = TablaDoctores.getSelectedRow();
+        if (i >= 0) {
+
+            int t = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar este registro?", "Verificación de eliminar.", JOptionPane.YES_NO_OPTION);
+            if (t == JOptionPane.YES_OPTION) {
+                EliminarDoctor();
+                cargarTabla();
+                limpiar_datosDoctor();
+            }
+            if (t == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Eliminacion cancelada.");
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro para eliminar.");
+        }
     }//GEN-LAST:event_BtnEliminarDocActionPerformed
 
+    public void modificarDatosPac() {
+
+        IngresoDoctor indoc = new IngresoDoctor();
+
+        indoc.setCedula(TxtCedulaDoc.getText());
+        indoc.setApellido(TxtApellidoDoc.getText());
+        indoc.setNombre(TxtNombreDoc.getText());
+        indoc.setFecha_nacimiento(((JTextField) DateDoctorFecha.getDateEditor().getUiComponent()).getText());
+        indoc.setGenero(group);
+        indoc.setTipo_sangre(ComboTipoSangreDoc.getSelectedItem().toString());
+        indoc.setTelefono(TxtTelefonoDoc.getText());
+        indoc.setDireccion(TxtDireccionDoc.getText());
+        indoc.setArea(ComboArea.getSelectedItem().toString());
+        indoc.setTitulo(ComboTitulo.getSelectedItem().toString());
+        if (indoc.ModificarDoctor(TxtCedulaDoc.getText())) {
+            System.out.println("Si se ingreso a tu corazon");
+            JOptionPane.showMessageDialog(null, "Los datos se modificaron correctamente. ");
+        } else {
+            System.out.println("esta roto tu corazon");
+        }
+
+    }
     private void BtnModificarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarDocActionPerformed
 
+        int i = TablaDoctores.getSelectedRow();
+        if (i >= 0) {
+            Date naci_doc = DateDoctorFecha.getDate();
+            if (!(TxtCedulaDoc.getText().matches("^\\d{10}$"))) {
+                JOptionPane.showMessageDialog(null, "Ingresa la cedula.");
+            } else {
+                if (!(TxtApellidoDoc.getText().matches("^[A-Z].{3,25}$"))) {
+                    // !()
+                    JOptionPane.showMessageDialog(null, "Ingresa el apellido.");
+                } else {
+                    if (!(TxtNombreDoc.getText().matches("^[A-Z].{3,25}$"))) {
+                        JOptionPane.showMessageDialog(null, "Ingresa el nombre.");
+                    } else {
+                        if (naci_doc == null) {
+                            JOptionPane.showMessageDialog(null, "Verifique el ingreso de la fecha de nacimiento.");
+                        } else {
+                            if (!(TxtTelefonoDoc.getText().matches("^\\d{8}$"))) {
+                                JOptionPane.showMessageDialog(null, "Ingresa el telefono.");
+                            } else {
+                                if (TxtDireccionDoc.getText().isEmpty()) {
+                                    JOptionPane.showMessageDialog(null, "Ingresa la direccion.");
+                                } else {
+                                    if (ComboTipoSangreDoc.getSelectedItem().toString().equals("Seleccione")) {
+                                        JOptionPane.showMessageDialog(null, "Escoje tipo de sangre.");
+                                    } else {
+                                        if (Group.isSelected(null)) {
+                                            JOptionPane.showMessageDialog(null, "Escoje genero");
+                                        } else {
+                                            if (ComboArea.getSelectedItem().toString().equals("Seleccione")) {
+                                                JOptionPane.showMessageDialog(null, "Escoje el area");
+                                            } else {
+                                                if (ComboTitulo.getSelectedItem().toString().equals("Seleccione")) {
+                                                    JOptionPane.showMessageDialog(null, "Escoje el titulo");
+                                                } else {
+                                                    genero_doctor();
+                                                    modificarDatosPac();
+                                                    cargarTabla();
+                                                    limpiar_datosDoctor();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro para modificar.");
+        }
     }//GEN-LAST:event_BtnModificarDocActionPerformed
 
     private void BtnSalirCrudDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirCrudDocActionPerformed
@@ -756,6 +863,19 @@ public class Crud_Doctor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
         }
     }//GEN-LAST:event_TxtTelefonoDocKeyTyped
+
+    private void TxtBuscarcedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarcedulaKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
+        }
+    }//GEN-LAST:event_TxtBuscarcedulaKeyTyped
 
     /**
      * @param args the command line arguments
