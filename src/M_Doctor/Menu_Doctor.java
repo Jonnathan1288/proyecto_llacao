@@ -34,6 +34,7 @@ public class Menu_Doctor extends javax.swing.JFrame {
         btnRegistrarPacientes1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnRegistrarTurno = new javax.swing.JButton();
+        LblDoctor = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -50,8 +51,8 @@ public class Menu_Doctor extends javax.swing.JFrame {
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 267));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setText("Doctor");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
+        jLabel2.setText("Doctor: ");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
 
         btnRegistrarPacientes1.setBackground(new java.awt.Color(51, 51, 51));
         btnRegistrarPacientes1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -83,6 +84,9 @@ public class Menu_Doctor extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnRegistrarTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 380, 53));
+
+        LblDoctor.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jPanel2.add(LblDoctor, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 190, 40));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,6 +170,7 @@ public class Menu_Doctor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel LblDoctor;
     private javax.swing.JButton btnRegistrarPacientes1;
     private javax.swing.JButton btnRegistrarTurno;
     private javax.swing.JButton jButton2;

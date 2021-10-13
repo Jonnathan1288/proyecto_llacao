@@ -5,6 +5,8 @@
  */
 package inicio;
 
+import Comportamientos.Inicio_secion_Usuario;
+import M_Doctor.Menu_Doctor;
 import M_Recepcionista.Crud_Doctor;
 import clases.MensajeFantasma;
 import javax.swing.JOptionPane;
@@ -18,6 +20,7 @@ public class Inicio_SesionDoc extends javax.swing.JFrame {
     /**
      * Creates new form Inicio_SesionDoc
      */
+    Inicio_secion_Usuario ini = new Inicio_secion_Usuario();
     public Inicio_SesionDoc() {
         initComponents();
         txtFantasma();
@@ -167,19 +170,26 @@ public class Inicio_SesionDoc extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        String user = "admin";
-        String contrasenia = "admin";
-        String paswd = new String(PasswdInicio.getPassword());
-        if (TxtUsuarioDoc.getText().equals(user) && paswd.equals(contrasenia)) {
-            Crud_Doctor dr = new Crud_Doctor();
-            dr.setVisible(true);
-            dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Por favor compruebe su usuario y contraseña.");
-            TxtUsuarioDoc.setText("");
-            PasswdInicio.setText("");
+
+        if (!(TxtUsuarioDoc.getText().matches("^\\d{10}$"))) {
+            JOptionPane.showMessageDialog(null, "Verifique usuario");
+        } else {
+            if (PasswdInicio.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Verifique usuario");
+            } else {
+                String tipo = "Doctor";
+                String inicioSesion = ini.inicioSesion(TxtUsuarioDoc.getText(), PasswdInicio.getText(), tipo);
+                if (inicioSesion.equals("Acceso")) {
+                    String nombre = ini.buscoNombre(TxtUsuarioDoc.getText());
+                    Menu_Doctor doc= new Menu_Doctor();
+                    doc.setVisible(true);
+                  //  doc..setText(nombre);
+                   this.dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
+                }
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
