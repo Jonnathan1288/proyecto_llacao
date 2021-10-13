@@ -5,6 +5,7 @@
  */
 package Comportamientos;
 
+
 import Conexion_BD.Conexion;
 import clases.Doctor;
 import clases.Paciente;
@@ -30,8 +31,8 @@ public class IngresoRecepcionistas extends Recepcionista {
                 + "	VALUES ('" + getCedula() + "', '" + getApellido() + "', '" + getNombre() + "', '" + getFecha_nacimiento() + "', '" + getGenero() + "', '" + getTipo_sangre() + "', '" + getTelefono() + "', '" + getDireccion() + "');";
 
         String sql2 = "INSERT INTO public.recepcionista(\n"
-                + "	id_recepcionista, sueldo, cedula)\n"
-                + "	VALUES ('" + Contador() + "', '" + getSueldo() + "', '" + getCedula() + "');";
+                + "	sueldo, cedula)\n"
+                + "	VALUES ('" + getSueldo() + "', '" + getCedula() + "');";
         String sql = sql1 + sql2;
         System.out.println(sql);
         return conex.InsertUpdateDeleteAcciones(sql);
@@ -84,7 +85,7 @@ public class IngresoRecepcionistas extends Recepcionista {
 
     //Eliminar
     public boolean eliminarRecepcionista(String cedula) {
-        String sql1 = "DELETE FROM public.recepcionista\n"
+        String sql1 = "DELETE FROM public.persona\n"
                 + "	WHERE cedula='" + cedula + "';";
         String sql2 = "DELETE FROM public.recepcionista\n"
                 + "	WHERE cedula='" + cedula + "';";
@@ -96,7 +97,7 @@ public class IngresoRecepcionistas extends Recepcionista {
 
     List<Recepcionista> validar_cedulaR() {
         try {
-            String sql = "select cedula from recepcionista";
+            String sql = "select cedula from persona";
             ResultSet rs = conex.selectConsulta(sql);
             List<Recepcionista> lp = new ArrayList<>();
             while (rs.next()) {
@@ -123,7 +124,7 @@ public class IngresoRecepcionistas extends Recepcionista {
     }
 
     public List<Recepcionista> consulta_Recepcionista(String cedula) {
-        String sql = "select p.cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion, id_doctor, area, titulo from persona p, doctor c where p.cedula=c.cedula and c.cedula='" + cedula + "';";
+        String sql = "select p.cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion, id_recepcionista, sueldo from persona p, recepcionista c where p.cedula=c.cedula and p.cedula='" + cedula + "' ";
         ResultSet rs = conex.selectConsulta(sql);
         List<Recepcionista> lp = new ArrayList<>();
 
@@ -150,15 +151,17 @@ public class IngresoRecepcionistas extends Recepcionista {
             return null;
         }
     }
-////
-////    public boolean eliminarRecepcionista(String cedula) {
-////        String sql1 = "DELETE FROM public.persona\n"
-////                + "	WHERE cedula='" + cedula + "';";
-////        String sql2 = "DELETE FROM public.recepcionista\n"
-////                + "	WHERE cedula='" + cedula + "';";
-////        String sql = sql2 + sql1;
-////        System.out.println(sql);
-////        return conex.InsertUpdateDeleteAcciones(sql);
-////
-////    }
+
+    public boolean ModificarRecepcionista(String cedula) {
+        String sql1 = "UPDATE public.recepcionista\n"
+                + "	SET sueldo='"+getSueldo()+"'\n"
+                + "	WHERE cedula='"+cedula+"';";
+        String sql2 = "UPDATE public.persona\n"
+                + "	SET apellido='" + getApellido() + "', nombre='" + getNombre() + "', fecha_nacimiento='" + getFecha_nacimiento() + "', genero='" + getGenero() + "', tipo_sangre='" + getTipo_sangre() + "', telefono='" + getTelefono() + "', direccion='" + getDireccion() + "'\n"
+                + "	WHERE cedula='" + cedula + "';";
+
+        String sql = sql1 + sql2;
+        System.out.println(sql);
+        return conex.InsertUpdateDeleteAcciones(sql);
+    }
 }

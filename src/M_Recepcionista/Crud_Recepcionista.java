@@ -9,9 +9,13 @@ import Comportamientos.IngresoRecepcionistas;
 import M_Recepcionista.Menu_Recepcionista;
 import clases.Doctor;
 import clases.Recepcionista;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -437,46 +441,44 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboTipoSangreRepActionPerformed
 
     private void BtnGuardarRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarRepActionPerformed
+        Date fecha_rep = DateRecepcionista.getDate();
         if (!(TxtCedulaRep.getText().matches("^\\d{10}$"))) {
             JOptionPane.showMessageDialog(null, "Ingresa la cedula.");
         } else {
             if (!(TxtApellidoRep.getText().matches("^[A-Z].{3,25}$"))) {
-                // !()
                 JOptionPane.showMessageDialog(null, "Ingresa el apellido.");
             } else {
                 if (!(TxtNombreRep.getText().matches("^[A-Z].{3,25}$"))) {
                     JOptionPane.showMessageDialog(null, "Ingresa el nombre.");
                 } else {
-                    if (!(TxtTelefonoRep.getText().matches("^\\d{8}$"))) {
-                        JOptionPane.showMessageDialog(null, "Ingresa el telefono.");
+                    if (fecha_rep == null) {
+                        JOptionPane.showMessageDialog(null, "Verifique el ingreso de la fecha de nacimiento.");
                     } else {
-                        if (TxtDireccionRep.getText().isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "Ingresa la direccion.");
+                        if (!(TxtTelefonoRep.getText().matches("^\\d{8}$"))) {
+                            JOptionPane.showMessageDialog(null, "Ingresa el telefono.");
                         } else {
-                            if (ComboTipoSangreRep.getSelectedItem().toString().equals("Seleccione")) {
-                                JOptionPane.showMessageDialog(null, "Escoje tipo de sangre.");
+                            if (TxtDireccionRep.getText().isEmpty()) {
+                                JOptionPane.showMessageDialog(null, "Ingresa la direccion.");
                             } else {
-                                if (GrupoGeneroRecep.isSelected(null)) {
-                                    JOptionPane.showMessageDialog(null, "Escoje genero");
+                                if (ComboTipoSangreRep.getSelectedItem().toString().equals("Seleccione")) {
+                                    JOptionPane.showMessageDialog(null, "Escoje tipo de sangre.");
                                 } else {
-                                    if (TxtSueldoRep.getText().isEmpty()) {
-                                        JOptionPane.showMessageDialog(null, "Ingrese su sueldo");
+                                    if (GrupoGeneroRecep.isSelected(null)) {
+                                        JOptionPane.showMessageDialog(null, "Escoje genero");
                                     } else {
-                                        genero_recepcionista();
-                                        registraRecepcionista();
-                                        //  limpiar_datosRecepcionistas();
-                                        TablaRecepcionistasC();
-//                                        if (ComboTitulo.getSelectedItem().toString().equals("Seleccione")) {
-//                                            JOptionPane.showMessageDialog(null, "Escoje el titulo");
-//                                        } else {
-//                                            if (ingresoDoc.valida_cedula(TxtCedulaDoc.getText()) == true) {
-//                                                genero_doctor();
-//                                                RegistrarDoctor();
-//                                                cargarTabla();
-//                                            } else {
-//                                                JOptionPane.showMessageDialog(null, "Error la cedula ya existe en los registros.");
-//                                            }
-//                                        }
+                                        if (TxtSueldoRep.getText().isEmpty()) {
+                                            JOptionPane.showMessageDialog(null, "Ingrese su sueldo");
+                                        } else {
+                                            if (ingresoRep.valida_cedula(TxtCedulaRep.getText()) == true) {
+                                                genero_recepcionista();
+                                                registraRecepcionista();
+                                                limpiar_datosRecepcionistas();
+                                                TablaRecepcionistasC();
+
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "Error la cedula ya existe en los registros.");
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -485,21 +487,8 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
                 }
             }
         }
-//        genero_recepcionista();
-//        registraRecepcionista();
-//        //  limpiar_datosRecepcionistas();
-//        TablaRecepcionistasC();
     }//GEN-LAST:event_BtnGuardarRepActionPerformed
 
-    public boolean validar_datosRep() {
-        boolean validorep = false;
-        if (TxtCedulaRep.getText().matches("^\\d{10}$") && TxtApellidoRep.getText().matches("^[A-Z].{3,25}$") && TxtNombreRep.getText().matches("^[A-Z].{3,25}$") && TxtTelefonoRep.getText().matches("^\\d{8}$") && TxtDireccionRep.getText().matches("^[A-Za-z].{4,25}$")) {
-            validorep = true;
-        } else {
-            validorep = false;
-        }
-        return validorep;
-    }
     private void BtnVRegistrosRecepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVRegistrosRecepActionPerformed
         // TODO add your handling code here:
         TablaRecepcionistasC();
@@ -524,8 +513,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
             int t = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar este registro?", "Verificación de eliminar.", JOptionPane.YES_NO_OPTION);
             if (t == JOptionPane.YES_OPTION) {
                 EliminarRecepcionista();
-                // limpiar_datosRecepcionistas();
-                JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+                limpiar_datosRecepcionistas();
             }
             if (t == JOptionPane.NO_OPTION) {
                 JOptionPane.showMessageDialog(null, "Eliminacion cancelada.");
@@ -555,7 +543,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
             String cedula = TablaRecepcionistas.getValueAt(i, 0).toString();
             String apellido = TablaRecepcionistas.getValueAt(i, 1).toString();
             String nombre = TablaRecepcionistas.getValueAt(i, 2).toString();
-            String fecha_nacimiento = TablaRecepcionistas.getValueAt(i, 3).toString();
+            // String fecha_nacimiento = TablaRecepcionistas.getValueAt(i, 3).toString();
             String genero = TablaRecepcionistas.getValueAt(i, 4).toString();
             String tipo_sangre = TablaRecepcionistas.getValueAt(i, 5).toString();
             String telefono = TablaRecepcionistas.getValueAt(i, 6).toString();
@@ -568,8 +556,17 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
             TxtNombreRep.setText(nombre);
             TxtTelefonoRep.setText(telefono);
             TxtDireccionRep.setText(direccion);
-            // TxtOcupacionPac.setText(ocupacionp);
+
+            String fecha = (String) TablaRecepcionistas.getValueAt(i, 3);
+            Date fechas;
+            try {
+                fechas = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+                DateRecepcionista.setDate(fechas);
+            } catch (ParseException ex) {
+                Logger.getLogger(Crud_Paciente.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ComboTipoSangreRep.setSelectedItem(tipo_sangre);
+            TxtSueldoRep.setText(sueldo);
             if (genero.equals("Masculino")) {
                 RadioBtnMasculino.setSelected(true);
             }
@@ -584,32 +581,78 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TablaRecepcionistasMouseClicked
 
+    public void modificarDatosPac() {
+
+        IngresoRecepcionistas inrep = new IngresoRecepcionistas();
+
+        inrep.setCedula(TxtCedulaRep.getText());
+        inrep.setApellido(TxtApellidoRep.getText());
+        inrep.setNombre(TxtNombreRep.getText());
+        inrep.setFecha_nacimiento(((JTextField) DateRecepcionista.getDateEditor().getUiComponent()).getText());
+        inrep.setGenero(generorecep);
+        inrep.setTipo_sangre(ComboTipoSangreRep.getSelectedItem().toString());
+        inrep.setTelefono(TxtTelefonoRep.getText());
+        inrep.setDireccion(TxtDireccionRep.getText());
+        inrep.setSueldo(Float.parseFloat(TxtSueldoRep.getText()));
+
+        if (inrep.ModificarRecepcionista(TxtCedulaRep.getText())) {
+            System.out.println("Si se ingreso a tu corazon");
+            JOptionPane.showMessageDialog(null, "Los datos se modificaron correctamente. ");
+        } else {
+            System.out.println("esta roto tu corazon");
+        }
+
+    }
     private void BtnModificarRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarRepActionPerformed
 
         int i = TablaRecepcionistas.getSelectedRow();
         if (i >= 0) {
-            if (validar_datosRep() == true) {
-                genero_recepcionista();
-
+            Date fecha_rep = DateRecepcionista.getDate();
+            if (!(TxtCedulaRep.getText().matches("^\\d{10}$"))) {
+                JOptionPane.showMessageDialog(null, "Ingresa la cedula.");
             } else {
-                JOptionPane.showMessageDialog(null, "Por favor asegúrese de que los campos estén con los datos correctos.");
+                if (!(TxtApellidoRep.getText().matches("^[A-Z].{3,25}$"))) {
+                    JOptionPane.showMessageDialog(null, "Ingresa el apellido.");
+                } else {
+                    if (!(TxtNombreRep.getText().matches("^[A-Z].{3,25}$"))) {
+                        JOptionPane.showMessageDialog(null, "Ingresa el nombre.");
+                    } else {
+                        if (fecha_rep == null) {
+                            JOptionPane.showMessageDialog(null, "Verifique el ingreso de la fecha de nacimiento.");
+                        } else {
+                            if (!(TxtTelefonoRep.getText().matches("^\\d{8}$"))) {
+                                JOptionPane.showMessageDialog(null, "Ingresa el telefono.");
+                            } else {
+                                if (TxtDireccionRep.getText().isEmpty()) {
+                                    JOptionPane.showMessageDialog(null, "Ingresa la direccion.");
+                                } else {
+                                    if (ComboTipoSangreRep.getSelectedItem().toString().equals("Seleccione")) {
+                                        JOptionPane.showMessageDialog(null, "Escoje tipo de sangre.");
+                                    } else {
+                                        if (GrupoGeneroRecep.isSelected(null)) {
+                                            JOptionPane.showMessageDialog(null, "Escoje genero");
+                                        } else {
+                                            if (TxtSueldoRep.getText().isEmpty()) {
+                                                JOptionPane.showMessageDialog(null, "Ingrese su sueldo");
+                                            } else {
+                                                genero_recepcionista();
+                                                modificarDatosPac();
+                                                TablaRecepcionistasC();
+                                                limpiar_datosRecepcionistas();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Seleccione el registro para modificar.");
         }
     }//GEN-LAST:event_BtnModificarRepActionPerformed
 
-//    public void Busqueda_doctor() {
-//        DefaultTableModel tblModelo = (DefaultTableModel) TablaDoctores.getModel();
-//
-//        tblModelo.setNumRows(0);
-//        List<Doctor> listapacientes = ingresoDoc.consulta_Doctor(TxtBuscarcedula.getText());
-//
-//        listapacientes.stream().forEach(p -> {
-//            String[] persona = {p.getCedula(), p.getApellido(), p.getNombre(), p.getFecha_nacimiento(), p.getGenero(), p.getTipo_sangre(), p.getTelefono(), p.getDireccion(), p.getId_doctor(), p.getArea(), p.getTitulo()};
-//            tblModelo.addRow(persona);
-//        });
-//    }
     public void Busqueda_recepcionista() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaRecepcionistas.getModel();
 
@@ -768,6 +811,8 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         TxtDireccionRep.setText("");
         ComboTipoSangreRep.setSelectedItem("Seleccione");
         GrupoGeneroRecep.clearSelection();
+        ((JTextField) DateRecepcionista.getDateEditor().getUiComponent()).setText(null);
+
         TxtSueldoRep.setText("");
 
     }
@@ -797,6 +842,30 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Crud_Recepcionista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
