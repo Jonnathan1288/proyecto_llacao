@@ -5,6 +5,7 @@
  */
 package Comportamientos;
 
+
 import Conexion_BD.Conexion;
 import clases.Paciente;
 import java.sql.PreparedStatement;
@@ -30,8 +31,8 @@ public class IngresoPacientes extends Paciente {
                 + "	VALUES ('" + getCedula() + "', '" + getApellido() + "', '" + getNombre() + "', '" + getFecha_nacimiento() + "', '" + getGenero() + "', '" + getTipo_sangre() + "', '" + getTelefono() + "', '" + getDireccion() + "');";
 
         String sql2 = "INSERT INTO public.paciente(\n"
-                + "	id_paciente, alergias, discapacidad, cedula)\n"
-                + "	VALUES ('" + Contador() + "', '" + getAlergias() + "','" + getDiscapacidad() + "', '" + getCedula() + "');";
+                + "	alergias, discapacidad, cedula)\n"
+                + "	VALUES ('" + getAlergias() + "','" + getDiscapacidad() + "', '" + getCedula() + "');";
         String sql = sql1 + sql2;
         System.out.println(sql);
         return conex.InsertUpdateDeleteAcciones(sql);
@@ -85,7 +86,7 @@ public class IngresoPacientes extends Paciente {
 
     List<Paciente> validar_cedula() {
         try {
-            String sql = "select cedula from paciente";
+            String sql = "select cedula from persona";
             ResultSet rs = conex.selectConsulta(sql);
             List<Paciente> lp = new ArrayList<>();
             while (rs.next()) {
@@ -123,7 +124,7 @@ public class IngresoPacientes extends Paciente {
     }
 
     public List<Paciente> consulta_paciente(String cedula) {
-        String sql = "select p.cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion, id_paciente, alergias, discapacidad from persona p, paciente c where p.cedula=c.cedula;";
+        String sql = "select p.cedula, apellido, nombre, fecha_nacimiento, genero, tipo_sangre, telefono, direccion, id_paciente, alergias, discapacidad from persona p, paciente c where p.cedula=c.cedula and p.cedula='"+cedula+"';";
         ResultSet rs = conex.selectConsulta(sql);
         List<Paciente> lp = new ArrayList<>();
 
@@ -153,12 +154,13 @@ public class IngresoPacientes extends Paciente {
     }
 
     public boolean ModificarPaciente(String cedula) {
-        String sql1 = "UPDATE public.persona\n"
+        String sql1 = "UPDATE public.paciente\n"
+                + "	SET alergias='"+getAlergias()+"', discapacidad='"+getDiscapacidad()+"'\n"
+                + "	WHERE cedula='"+cedula+"';";
+        String sql2 = "UPDATE public.persona\n"
                 + "	SET apellido='" + getApellido() + "', nombre='" + getNombre() + "', fecha_nacimiento='" + getFecha_nacimiento() + "', genero='" + getGenero() + "', tipo_sangre='" + getTipo_sangre() + "', telefono='" + getTelefono() + "', direccion='" + getDireccion() + "'\n"
                 + "	WHERE cedula='" + cedula + "';";
-        String sql2 = "UPDATE public.paciente\n"
-                + "	SET alergias='"+getAlergias()+"', discapacidad='"+getDiscapacidad()+"', cedula='"+getCedula()+"'\n"
-                + "	WHERE id_paciente='"+getId_paciente()+"';";
+        
         String sql = sql1+sql2;
         System.out.println(sql);
         return conex.InsertUpdateDeleteAcciones(sql);

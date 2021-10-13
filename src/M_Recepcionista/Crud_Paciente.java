@@ -8,10 +8,14 @@ package M_Recepcionista;
 import Comportamientos.IngresoPacientes;
 import M_Recepcionista.Menu_Recepcionista;
 import clases.Paciente;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -324,6 +328,11 @@ public class Crud_Paciente extends javax.swing.JFrame {
                 TxtBuscarPacActionPerformed(evt);
             }
         });
+        TxtBuscarPac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtBuscarPacKeyTyped(evt);
+            }
+        });
 
         BtnBuscarPac.setText("Buscar");
         BtnBuscarPac.addActionListener(new java.awt.event.ActionListener() {
@@ -495,7 +504,7 @@ public class Crud_Paciente extends javax.swing.JFrame {
     }
     private void BtnGuardarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDocActionPerformed
 
-
+        Date fecha_naci = DateFnaciPaci.getDate();
         if (!(TxtCedulaPac.getText().matches("^\\d{10}$"))) {
             JOptionPane.showMessageDialog(null, "Verifique la cedula.");
         } else {
@@ -506,32 +515,36 @@ public class Crud_Paciente extends javax.swing.JFrame {
                 if (!(TxtNombrePac.getText().matches("^[A-Z].{3,25}$"))) {
                     JOptionPane.showMessageDialog(null, "Verifique el nombre.");
                 } else {
-                    if (!(TxtTelefonoPac.getText().matches("^\\d{8}$"))) {
-                        JOptionPane.showMessageDialog(null, "Verifique el teléfono.");
+                    if (fecha_naci == null) {
+                        JOptionPane.showMessageDialog(null, "Verifique el ingreso de la fecha de nacimiento.");
                     } else {
-                        if (TxtDireccionPac.getText().isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "Verifique la dirección u domicilio.");
+                        if (!(TxtTelefonoPac.getText().matches("^\\d{8}$"))) {
+                            JOptionPane.showMessageDialog(null, "Verifique el teléfono.");
                         } else {
-                            if (ComboTipoAlergiasPac.getSelectedItem().toString().equals("Seleccione")) {
-                                JOptionPane.showMessageDialog(null, "Seleccione algún tipo de alergia.");
+                            if (TxtDireccionPac.getText().isEmpty()) {
+                                JOptionPane.showMessageDialog(null, "Verifique la dirección u domicilio.");
                             } else {
-                                if (ComboTipoSangrePac.getSelectedItem().toString().equals("Seleccione")) {
-                                    JOptionPane.showMessageDialog(null, "Seleccione algún tipo de sangre.");
+                                if (ComboTipoAlergiasPac.getSelectedItem().toString().equals("Seleccione")) {
+                                    JOptionPane.showMessageDialog(null, "Seleccione algún tipo de alergia.");
                                 } else {
-                                    if (GrupoGeneroPac.isSelected(null)) {
-                                        JOptionPane.showMessageDialog(null, "Seleccione genero.");
+                                    if (ComboTipoSangrePac.getSelectedItem().toString().equals("Seleccione")) {
+                                        JOptionPane.showMessageDialog(null, "Seleccione algún tipo de sangre");
                                     } else {
-                                        if (GrupoDiscapacidadPac.isSelected(null)) {
-                                            JOptionPane.showMessageDialog(null, "Seleccione la si tiene o no discapacidad.");
+                                        if (GrupoGeneroPac.isSelected(null)) {
+                                            JOptionPane.showMessageDialog(null, "Seleccione genero.");
                                         } else {
-                                            if (ingresopa.valida_cedula(TxtCedulaPac.getText()) == true) {
-                                                genero_paciente();
-                                                discapacidad_paciente();
-                                                registrarPaciente();
-                                                cargarTabla();
-                                                limpiar_datosPaciente();
+                                            if (GrupoDiscapacidadPac.isSelected(null)) {
+                                                JOptionPane.showMessageDialog(null, "Seleccione la si tiene o no discapacidad.");
                                             } else {
-                                                JOptionPane.showMessageDialog(null, "Error la cedula ya existe en los registros.");
+                                                if (ingresopa.valida_cedula(TxtCedulaPac.getText()) == true) {
+                                                    genero_paciente();
+                                                    discapacidad_paciente();
+                                                    registrarPaciente();
+                                                    cargarTabla();
+                                                    limpiar_datosPaciente();
+                                                } else {
+                                                    JOptionPane.showMessageDialog(null, "Error la cedula ya existe en los registros.");
+                                                }
                                             }
                                         }
                                     }
@@ -607,7 +620,7 @@ public class Crud_Paciente extends javax.swing.JFrame {
             String cedula = TablaPaciente.getValueAt(i, 0).toString();
             String apellido = TablaPaciente.getValueAt(i, 1).toString();
             String nombre = TablaPaciente.getValueAt(i, 2).toString();
-            String fecha_nacimiento = TablaPaciente.getValueAt(i, 3).toString();
+            //  String fecha_nacimiento = TablaPaciente.getValueAt(i, 3).toString();
             String genero = TablaPaciente.getValueAt(i, 4).toString();
             String tipo_sangre = TablaPaciente.getValueAt(i, 5).toString();
             String telefono = TablaPaciente.getValueAt(i, 6).toString();
@@ -621,7 +634,15 @@ public class Crud_Paciente extends javax.swing.JFrame {
             TxtTelefonoPac.setText(telefono);
             TxtDireccionPac.setText(direccion);
             ComboTipoAlergiasPac.setSelectedItem(alergias);
-            // TxtOcupacionPac.setText(ocupacionp);
+            String fecha = (String) TablaPaciente.getValueAt(i, 3);
+            Date fechas;
+            try {
+                fechas = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+                DateFnaciPaci.setDate(fechas);
+            } catch (ParseException ex) {
+                Logger.getLogger(Crud_Paciente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             ComboTipoSangrePac.setSelectedItem(tipo_sangre);
             if (genero.equals("Masculino")) {
                 RadioBtnMasculino.setSelected(true);
@@ -646,49 +667,40 @@ public class Crud_Paciente extends javax.swing.JFrame {
 
     private void BtnModificarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarPacActionPerformed
 
-//        int i = TablaPaciente.getSelectedRow();
-//        if (i >= 0) {
-//            if (validar_datosPac() == true) {
-//                genero_paciente();
-//                discapacidad_paciente();
-//                //  ModificarPaciente();
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Por favor asegúrese de que los campos estén con los datos correctos.");
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Seleccione el registro para modificar.");
-//        }
+        int i = TablaPaciente.getSelectedRow();
+        if (i >= 0) {
+
+            genero_paciente();
+            discapacidad_paciente();
+            modificarDatosPac();
+            cargarTabla();
+            limpiar_datosPaciente();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro para modificar.");
+        }
     }//GEN-LAST:event_BtnModificarPacActionPerformed
 
     public void modificarDatosPac() {
-        String cedula = TxtCedulaPac.getText();
-        String apellido = TxtApellidoPac.getText();
-        String nombre = TxtNombrePac.getText();
-        String fechan = ((JTextField) DateFnaciPaci.getDateEditor().getUiComponent()).getText();
-        String genero = generopac;
-        String tipo_sangre = ComboTipoSangrePac.getSelectedItem().toString();
-        String telefono = TxtTelefonoPac.getText();
-        String direccion = TxtDireccionPac.getText();
-        String alergias = ComboTipoAlergiasPac.getSelectedItem().toString();
-        String discapacidad = discapacidadPac;
 
-        Paciente inpac = new Paciente();
-        inpac.setCedula(cedula);
-//        inpac.setApellido(TxtApellidoPac.getText());
-//        inpac.setNombre(TxtNombrePac.getText());
-//        inpac.setFecha_nacimiento(((JTextField) DateFnaciPaci.getDateEditor().getUiComponent()).getText());
-//        inpac.setGenero(generopac);
-//        inpac.setTipo_sangre(ComboTipoSangrePac.getSelectedItem().toString());
-//        inpac.setTelefono(TxtTelefonoPac.getText());
-//        inpac.setDireccion(TxtDireccionPac.getText());
-//        inpac.setAlergias(ComboTipoAlergiasPac.getSelectedItem().toString());
-//        inpac.setDiscapacidad(discapacidadPac);
+        IngresoPacientes inpaci = new IngresoPacientes();
 
-//        if (ingresopa.ModificarPaciente(inpac)) {
-//            System.out.println("Si se ingreso a tu corazon");
-//        } else {
-//            System.out.println("esta roto tu corazon");
-//        }
+        inpaci.setCedula(TxtCedulaPac.getText());
+        inpaci.setApellido(TxtApellidoPac.getText());
+        inpaci.setNombre(TxtNombrePac.getText());
+        inpaci.setFecha_nacimiento(((JTextField) DateFnaciPaci.getDateEditor().getUiComponent()).getText());
+        inpaci.setGenero(generopac);
+        inpaci.setTipo_sangre(ComboTipoSangrePac.getSelectedItem().toString());
+        inpaci.setTelefono(TxtTelefonoPac.getText());
+        inpaci.setDireccion(TxtDireccionPac.getText());
+        inpaci.setAlergias(ComboTipoAlergiasPac.getSelectedItem().toString());
+        inpaci.setDiscapacidad(discapacidadPac);
+
+        if (inpaci.ModificarPaciente(TxtCedulaPac.getText())) {
+            System.out.println("Si se ingreso a tu corazon");
+        } else {
+            System.out.println("esta roto tu corazon");
+        }
+
     }
     private void BtnBuscarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPacActionPerformed
 
@@ -791,32 +803,18 @@ public class Crud_Paciente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TxtDireccionPacKeyTyped
 
-    public void BuscarPaciente() {
-        DefaultTableModel modelopa = (DefaultTableModel) TablaPaciente.getModel();
-        modelopa.setRowCount(0);
-//        List<Paciente> listaPacientes = ingresopa.consultaPaciente(TxtBuscarPac.getText());
-//        for (Paciente paci : listaPacientes) {
-//            Vector paciente = new Vector();
-//
-//            paciente.add(paci.getCedula());
-//            paciente.add(paci.getApellido());
-//            paciente.add(paci.getNombre());
-//            paciente.add(paci.getFecha_nacimiento());
-//            paciente.add(paci.getTelefono());
-//            paciente.add(paci.getDireccion());
-//            paciente.add(paci.getAlergias());
-//            paciente.add(paci.getOcupacion());
-//            paciente.add(paci.getEdad());
-//            paciente.add(paci.getTipo_sangre());
-//            paciente.add(paci.getGenero());
-//            paciente.add(paci.getEstado_civil());
-//            paciente.add(paci.getNivel_estudio());
-//            paciente.add(paci.getDiscapacidad());
-//
-//            modelopa.addRow(paciente);
-//            TablaPaciente.setModel(modelopa);
-//        }
-    }
+    private void TxtBuscarPacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarPacKeyTyped
+        // TODO add your handling code here:
+         char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
+        }
+    }//GEN-LAST:event_TxtBuscarPacKeyTyped
 
     public void limpiar_datosPaciente() {
         TxtCedulaPac.setText("");
@@ -826,6 +824,7 @@ public class Crud_Paciente extends javax.swing.JFrame {
         TxtDireccionPac.setText("");
         ComboTipoAlergiasPac.setSelectedItem("Seleccione");
         ComboTipoSangrePac.setSelectedItem("Seleccione");
+        ((JTextField) DateFnaciPaci.getDateEditor().getUiComponent()).setText(null);
         GrupoGeneroPac.clearSelection();
         GrupoDiscapacidadPac.clearSelection();
 
