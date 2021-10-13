@@ -75,7 +75,7 @@
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Resgistara">
+                <TitledBorder title="Registro">
                   <Font PropertyName="font" name="Bell MT" size="18" style="3"/>
                 </TitledBorder>
               </Border>
@@ -225,7 +225,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="BtnRegistrar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agruegar"/>
+                <Property name="text" type="java.lang.String" value="Agregar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnRegistrarActionPerformed"/>
@@ -590,7 +590,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="BtnTablaMed">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Tabla M"/>
+                <Property name="text" type="java.lang.String" value="Ver Registros"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnTablaMedActionPerformed"/>
