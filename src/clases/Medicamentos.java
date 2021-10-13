@@ -1,4 +1,4 @@
-package Medicamentos;
+package clases;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,12 +21,12 @@ public class Medicamentos {
     private String Via_AdministracionM;
     private String Fecha_IngresoM;
     private String Fecha_caducidad;
-    private String Cantidad;
+    private int Cantidad;
 
     public Medicamentos() {
     }
 
-    public Medicamentos(String CodigoM, String NombreM, String TiposM, String Medicamentos, String UnidadesMM, String PresentacionM, String Via_AdministracionM, String Fecha_IngresoM, String Fecha_caducidad, String Cantidad) {
+    public Medicamentos(String CodigoM, String NombreM, String TiposM, String Medicamentos, String UnidadesMM, String PresentacionM, String Via_AdministracionM, String Fecha_IngresoM, String Fecha_caducidad, int Cantidad) {
         this.CodigoM = CodigoM;
         this.NombreM = NombreM;
         this.TiposM = TiposM;
@@ -111,11 +111,11 @@ public class Medicamentos {
         this.Fecha_caducidad = Fecha_caducidad;
     }
 
-    public String getCantidad() {
+    public int getCantidad() {
         return Cantidad;
     }
 
-    public void setCantidad(String Cantidad) {
+    public void setCantidad(int Cantidad) {
         this.Cantidad = Cantidad;
     }
     

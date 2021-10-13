@@ -1,15 +1,29 @@
 package Medicamentos;
 
+import Comportamientos.IgresarMedicamentos;
+import clases.Medicamentos;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
 
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,80 +32,47 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Crud_Medica extends javax.swing.JFrame {
 
-    public static ArrayList<Medicamentos> ArrayMedic = new ArrayList<Medicamentos>();
-    DefaultTableModel modelo;
+   // DefaultTableModel modelo;
+    IgresarMedicamentos ingresoMed = new IgresarMedicamentos();
+    String cod_medicamento = "";
 
     public Crud_Medica() {
         initComponents();
-        Tabla();
-    }
-
-    public void Tabla() {
-        modelo = new DefaultTableModel();
-        modelo.addColumn("Codigo");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Tipo Medicamento");
-        modelo.addColumn("Medicamentos");
-        modelo.addColumn("Presentacion");
-        modelo.addColumn("Unidad de Medidad");
-        modelo.addColumn("Via Administracion");
-        modelo.addColumn("Fecha de Ingreso");
-        modelo.addColumn("Cantidad");
-        TablaMedicamentos.setModel(modelo);
-
+        cargarTablaMedicamento();
     }
 
     public void ResgitrarMedic() {
-        String codigo = txtCodigo.getText();
-        String nombre = txtNombre.getText();
-        String tipomedicina_m = ComboTDM.getSelectedItem().toString();
-        String medicamento="Generico";
-        String presentacion = ComboPresent.getSelectedItem().toString();
-        String unidaM = txtUnidadM.getText();
-        String via_administracion = Combo_ViaAdmin.getSelectedItem().toString();
-        SimpleDateFormat formatoDate = new SimpleDateFormat("yyyy-MM-dd");
-        String fecha_ingresos = formatoDate.format(DateIngresos.getDate());
-        String cantidad_m = txtCantidad.getText();
-//        
-//        if (codigo.isEmpty() || nombre.isEmpty() || tipomedicina_m.isEmpty() || presentacion.isEmpty() 
-//                || unidaM.isEmpty() || via_administracion.isEmpty() || fecha_ingresos.isEmpty() || cantidad_m.isEmpty()) {
-//            
-//             JOptionPane.showMessageDialog(null, "Por favor valide los datos a enviar a la Base de Datos");
-//            
-//        } else {
-        Medicamentos medic = new Medicamentos();
-        medic.setCodigoM(codigo);
-        medic.setNombreM(nombre);
-        medic.setTiposM(tipomedicina_m);
-        medic.setMedicamentos(medicamento);
-        medic.setPresentacionM(presentacion);
-        medic.setUnidadesMM(unidaM);
-        medic.setVia_AdministracionM(via_administracion);
-        medic.setFecha_IngresoM(fecha_ingresos);
-        medic.setCantidad(cantidad_m);
-        ArrayMedic.add(medic);
-//            if (rootPaneCheckingEnabled) {
-//                
-//            }
-//        }
-        Registro();
+        IgresarMedicamentos medic = new IgresarMedicamentos();
+        medic.setNombreM(txtNombre.getText());
+        medic.setTiposM(ComboTDM.getSelectedItem().toString());
+        medic.setMedicamentos("Generico");
+        medic.setPresentacionM(ComboPresent.getSelectedItem().toString());
+        medic.setUnidadesMM(txtUnidadM.getText());
+        medic.setVia_AdministracionM(Combo_ViaAdmin.getSelectedItem().toString());
+        medic.setFecha_IngresoM(((JTextField) DateIngresos.getDateEditor().getUiComponent()).getText());
+        medic.setFecha_caducidad(((JTextField) DateCaducidad.getDateEditor().getUiComponent()).getText());
+        medic.setCantidad(Integer.parseInt(txtCantidad.getText()));
+        if (medic.IsertMedicamentos()) {
+            System.out.println("Si se ingreso a tu corazon");
+        } else {
+            System.out.println("esta roto tu corazon");
+        }
     }
 
-    public void Registro() {
+    private void cargarTablaMedicamento() {
+        DefaultTableModel tblModelo = (DefaultTableModel) TablaMedicamentos.getModel();
 
-        String[] ar = new String[10];
-        for (int i = 0; i < ArrayMedic.size(); i++) {
-            ar[0] = ArrayMedic.get(i).getCodigoM();
-            ar[1] = ArrayMedic.get(i).getNombreM();
-            ar[2] = ArrayMedic.get(i).getTiposM();
-            ar[3] = ArrayMedic.get(i).getMedicamentos();
-            ar[4] = ArrayMedic.get(i).getPresentacionM();
-            ar[5] = ArrayMedic.get(i).getUnidadesMM();
-            ar[6] = ArrayMedic.get(i).getVia_AdministracionM();
-            ar[7] = ArrayMedic.get(i).getFecha_IngresoM();
-            ar[8] = ArrayMedic.get(i).getCantidad();
-        }
-        modelo.addRow(ar);
+        tblModelo.setNumRows(0);
+        List<Medicamentos> listapacientes = ingresoMed.ListMedicamentos();
+
+        listapacientes.stream().forEach(p -> {
+
+            p.getCantidad();
+            String can = String.valueOf(p.getCantidad());
+            String[] persona = {p.getCodigoM(), p.getNombreM(), p.getTiposM(), p.getMedicamentos(), p.getPresentacionM(), p.getUnidadesMM(), p.getVia_AdministracionM(), p.getFecha_IngresoM(), p.getFecha_caducidad(), can};
+            tblModelo.addRow(persona);
+        });
+        // limpiarCampos();
     }
 
     /**
@@ -105,11 +86,9 @@ public class Crud_Medica extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        txtCodigo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
         BtnRegistrar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -119,10 +98,12 @@ public class Crud_Medica extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         Combo_ViaAdmin = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        DateIngresos = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtUnidadM = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        DateIngresos = new com.toedter.calendar.JDateChooser();
+        DateCaducidad = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -130,34 +111,42 @@ public class Crud_Medica extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaMedicamentos = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        BtnModificarMed = new javax.swing.JButton();
+        BtnEliminar = new javax.swing.JButton();
+        BtnLimpiar = new javax.swing.JButton();
+        BtnTablaMed = new javax.swing.JButton();
+        TxtBuscarMedicamento = new javax.swing.JTextField();
+        BtnBUscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resgistara", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bell MT", 3, 18), new java.awt.Color(0, 0, 0))); // NOI18N
-
-        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoActionPerformed(evt);
-            }
-        });
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resgistara", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bell MT", 3, 18))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Presentacion:");
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Unidad de Medida:");
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Codigo Medicamento: ");
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
+        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyTyped(evt);
+            }
+        });
 
         BtnRegistrar.setText("Agruegar");
         BtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -167,21 +156,19 @@ public class Crud_Medica extends javax.swing.JFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Nombre Medicamento:");
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Tipo de Medicamentos :");
 
-        ComboPresent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione->", "Tabletas", "Grageas", "Comprimidos", "Capsulas", "Jarabe", "Elipser", "Suspesiones", "Polvo", "Otros" }));
+        ComboPresent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Tabletas", "Grageas", "Comprimidos", "Capsulas", "Jarabe", "Elipser", "Suspesiones", "Polvo", "Otros" }));
         ComboPresent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboPresentActionPerformed(evt);
             }
         });
 
-        ComboTDM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione->", "Solido", "Semi Solido", "Liquido", "Gases", "Otros" }));
+        ComboTDM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Solido", "Semi Solido", "Liquido", "Gases", "Otros" }));
         ComboTDM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboTDMActionPerformed(evt);
@@ -189,10 +176,9 @@ public class Crud_Medica extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Via de Acministracion:");
+        jLabel6.setText("Via de Administracion:");
 
-        Combo_ViaAdmin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione->", "Oftálmica", "Ótica", "Nasal", "Oral", "Tópica", "Parenteral", "Rectal", "Vaginal" }));
+        Combo_ViaAdmin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Oftálmica", "Ótica", "Nasal", "Oral", "Tópica", "Parenteral", "Rectal", "Vaginal" }));
         Combo_ViaAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Combo_ViaAdminActionPerformed(evt);
@@ -200,15 +186,21 @@ public class Crud_Medica extends javax.swing.JFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Fecha de Ingreso:");
+        jLabel8.setText("Fecha de Caducidad:");
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Cantidad:");
+
+        txtUnidadM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUnidadMKeyTyped(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel12.setText("Fecha de Ingreso:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -218,43 +210,44 @@ public class Crud_Medica extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BtnRegistrar))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCodigo))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ComboTDM, 0, 169, Short.MAX_VALUE)
-                                    .addComponent(txtNombre))))
-                        .addGap(16, 16, 16))
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(38, 38, 38)
-                                        .addComponent(jLabel11)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(ComboPresent, 0, 171, Short.MAX_VALUE)
-                                    .addComponent(txtUnidadM)
-                                    .addComponent(Combo_ViaAdmin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(DateIngresos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)))
-                            .addComponent(jLabel10)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel8))
-                        .addGap(14, 14, 14)))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtCantidad)
+                                .addGap(8, 8, 8))
+                            .addComponent(txtUnidadM, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ComboPresent, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Combo_ViaAdmin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnRegistrar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(DateCaducidad, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8))))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addGap(46, 46, 46)
+                            .addComponent(DateIngresos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(ComboTDM, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel8))
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -262,23 +255,19 @@ public class Crud_Medica extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(BtnRegistrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(41, 41, 41)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ComboTDM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(36, 36, 36)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ComboPresent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(25, 25, 25)
+                    .addComponent(jLabel1)
+                    .addComponent(ComboPresent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtUnidadM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -286,24 +275,27 @@ public class Crud_Medica extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(Combo_ViaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(45, 45, 45)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(DateIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(DateIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                    .addComponent(DateCaducidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(8, 8, 8)
                 .addComponent(jLabel10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Bell MT", 3, 36)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Crud Medicamento");
 
         jButton5.setBackground(new java.awt.Color(204, 204, 255));
@@ -339,19 +331,53 @@ public class Crud_Medica extends javax.swing.JFrame {
 
         TablaMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Tipo Medicamento", "Medicamentos", "Presentacion", "Unidad de Medidad", "Via Administracion", "Fecha de Ingreso", "Cantidad"
+                "Codigo", "Nombre", "Tipo Medicamento", "Medicamentos", "Presentacion", "Unidad Medidad", "Via Administracion", "Fecha Ingreso", "Fecha Caducidad", "Cantidad"
             }
         ));
+        TablaMedicamentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaMedicamentosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaMedicamentos);
 
-        jButton2.setText("Modificar");
+        BtnModificarMed.setText("Modificar");
+        BtnModificarMed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnModificarMedActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Eliminar");
+        BtnEliminar.setText("Eliminar");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Modificar");
+        BtnLimpiar.setText("Limpiar");
+        BtnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLimpiarActionPerformed(evt);
+            }
+        });
+
+        BtnTablaMed.setText("Tabla M");
+        BtnTablaMed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTablaMedActionPerformed(evt);
+            }
+        });
+
+        BtnBUscar.setText("Buscar");
+        BtnBUscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBUscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -359,24 +385,33 @@ public class Crud_Medica extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(134, 134, 134)
-                .addComponent(jButton2)
+                .addComponent(BtnModificarMed)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(BtnEliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
+                .addComponent(BtnLimpiar)
+                .addGap(18, 18, 18)
+                .addComponent(BtnTablaMed)
+                .addGap(134, 134, 134)
+                .addComponent(TxtBuscarMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(BtnBUscar)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 977, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 987, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(BtnModificarMed)
+                    .addComponent(BtnEliminar)
+                    .addComponent(BtnLimpiar)
+                    .addComponent(BtnTablaMed)
+                    .addComponent(TxtBuscarMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnBUscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
@@ -418,10 +453,6 @@ public class Crud_Medica extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoActionPerformed
-
     private void ComboPresentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPresentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboPresentActionPerformed
@@ -435,8 +466,246 @@ public class Crud_Medica extends javax.swing.JFrame {
     }//GEN-LAST:event_Combo_ViaAdminActionPerformed
 
     private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
-        ResgitrarMedic();
+
+        Date fecha_ingreo = DateIngresos.getDate();
+        Date fecha_cadu = DateCaducidad.getDate();
+        if (!(txtNombre.getText().matches("^[A-Z].{3,25}$"))) {
+            JOptionPane.showMessageDialog(null, "Verifique el nombre del medicamento.");
+        } else {
+            if (ComboTDM.getSelectedItem().toString().equals("Seleccione")) {
+                JOptionPane.showMessageDialog(null, "Seleccione algún tipo de medicamento.");
+            } else {
+                if (ComboPresent.getSelectedItem().toString().equals("Seleccione")) {
+                    JOptionPane.showMessageDialog(null, "Seleccione alguna presentación.");
+                } else {
+                    if (!(txtUnidadM.getText().matches("^[A-Z].{3,25}$"))) {
+                        JOptionPane.showMessageDialog(null, "Verifique la unidad de medida.");
+                    } else {
+                        if (Combo_ViaAdmin.getSelectedItem().toString().equals("Seleccione")) {
+                            JOptionPane.showMessageDialog(null, "Seleccione alguna vía de administración.");
+                        } else {
+                            if (fecha_ingreo == null) {
+                                JOptionPane.showMessageDialog(null, "Verifique la fecha de ingreso.");
+                            } else {
+                                if (fecha_cadu == null) {
+                                    JOptionPane.showMessageDialog(null, "Verifique la fecha de caducidad.");
+                                } else {
+                                    if (txtCantidad.getText().matches("^[0-9](1, 7)$")) {
+                                        JOptionPane.showMessageDialog(null, "Asegúrese que este lleno el campo de la cantidad.");
+                                    } else {
+                                        ResgitrarMedic();
+                                        cargarTablaMedicamento();
+                                        limpiar_datos();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_BtnRegistrarActionPerformed
+
+    private void BtnTablaMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTablaMedActionPerformed
+        // TODO add your handling code here:
+        cargarTablaMedicamento();
+    }//GEN-LAST:event_BtnTablaMedActionPerformed
+
+    private void TablaMedicamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMedicamentosMouseClicked
+        // TODO add your handling code here:
+        int i = TablaMedicamentos.getSelectedRow();
+        if (i >= 0) {
+            cod_medicamento = TablaMedicamentos.getValueAt(i, 0).toString();
+            String nom_medicamento = TablaMedicamentos.getValueAt(i, 1).toString();
+            String tipo_medicamento = TablaMedicamentos.getValueAt(i, 2).toString();
+            String medicamento = TablaMedicamentos.getValueAt(i, 3).toString();
+            String presentacion = TablaMedicamentos.getValueAt(i, 4).toString();
+            String unidad_medida = TablaMedicamentos.getValueAt(i, 5).toString();
+            String via_administracion = TablaMedicamentos.getValueAt(i, 6).toString();
+            String fecha_ingreso = TablaMedicamentos.getValueAt(i, 7).toString();
+
+            String fecha_caducidad = TablaMedicamentos.getValueAt(i, 8).toString();
+            String cantidad_medicamentos = TablaMedicamentos.getValueAt(i, 9).toString();
+
+//            String fechain = (String) TablaMedicamentos.getValueAt(i, 7);
+//            Date fechaingre;
+//            try {
+//                fechaingre = new SimpleDateFormat("dd/MM/yyyy").parse(fechain);
+//                DateIngresos.setDate(fechaingre);
+//            } catch (ParseException ex) {
+//                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+
+//            String fecha2 = (String) TablaMedicamentos.getValueAt(i, 8);
+//            Date fechas2 = null;
+//            try {
+//                fechas2 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha2);
+//                DateIngresos.setDate(fechas2);
+//            } catch (ParseException ex) {
+//                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            txtNombre.setText(nom_medicamento);
+            ComboTDM.setSelectedItem(tipo_medicamento);
+            ComboPresent.setSelectedItem(presentacion);
+            txtUnidadM.setText(unidad_medida);
+            Combo_ViaAdmin.setSelectedItem(via_administracion);
+            txtCantidad.setText(cantidad_medicamentos);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "6");
+        }
+    }//GEN-LAST:event_TablaMedicamentosMouseClicked
+
+    public void limpiar_datos() {
+        txtNombre.setText("");
+        ComboTDM.setSelectedItem("Seleccione");
+        ComboPresent.setSelectedItem("Seleccione");
+        txtUnidadM.setText("");
+        Combo_ViaAdmin.setSelectedItem("Seleccione");
+        txtCantidad.setText("");
+        ((JTextField) DateIngresos.getDateEditor().getUiComponent()).setText(null);
+        ((JTextField) DateCaducidad.getDateEditor().getUiComponent()).setText(null);
+    }
+
+    public void EliminarMedicamento() {
+        String idmed = cod_medicamento;
+
+        int j = TablaMedicamentos.getSelectedRow();
+
+        if (j >= 0) {
+            if (cod_medicamento.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
+            } else {
+                if (ingresoMed.eliminarMedicamento(idmed)) {
+                    JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
+                    cargarTablaMedicamento();
+                    limpiar_datos();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
+
+        }
+    }
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+        // TODO add your handling code here:
+        EliminarMedicamento();
+    }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Por favor solo debe ingresar cantidad <<NUMERO>>");
+        }
+    }//GEN-LAST:event_txtCantidadKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        char vn = evt.getKeyChar();
+        if (Character.isDigit(vn)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Por favor, debe ingresar nombre.");
+        }
+
+        if (Character.isLowerCase(vn)) {
+
+            evt.setKeyChar(Character.toUpperCase(vn));
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtUnidadMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUnidadMKeyTyped
+        // TODO add your handling code here:
+        char vn = evt.getKeyChar();
+        if (Character.isDigit(vn)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Por favor, la unidad de medida.");
+        }
+
+        if (Character.isLowerCase(vn)) {
+
+            evt.setKeyChar(Character.toUpperCase(vn));
+        }
+    }//GEN-LAST:event_txtUnidadMKeyTyped
+
+    private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
+        // TODO add your handling code here:
+        limpiar_datos();
+    }//GEN-LAST:event_BtnLimpiarActionPerformed
+
+    private void BtnBUscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBUscarActionPerformed
+        // TODO add your handling code here:
+
+        if (!(TxtBuscarMedicamento.getText().equals(""))) {
+            Busqueda_Medicamento();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor debe ingresar la cedula en el campo, para realizar la consulta.", "Precaución  ", JOptionPane.WARNING_MESSAGE);
+        }
+        TxtBuscarMedicamento.setText("");
+    }//GEN-LAST:event_BtnBUscarActionPerformed
+
+    public void modificarDatosMedica() {
+
+        String idmed = cod_medicamento;
+
+        int j = TablaMedicamentos.getSelectedRow();
+
+        if (j >= 0) {
+            if (cod_medicamento.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
+            } else {
+                IgresarMedicamentos modifi = new IgresarMedicamentos();
+                modifi.setNombreM(txtNombre.getText());
+                modifi.setTiposM(ComboTDM.getSelectedItem().toString());
+                modifi.setPresentacionM(ComboPresent.getSelectedItem().toString());
+                modifi.setUnidadesMM(txtUnidadM.getText());
+                modifi.setVia_AdministracionM(Combo_ViaAdmin.getSelectedItem().toString());
+                modifi.setFecha_IngresoM(((JTextField) DateIngresos.getDateEditor().getUiComponent()).getText());
+                modifi.setFecha_caducidad(((JTextField) DateCaducidad.getDateEditor().getUiComponent()).getText());
+                modifi.setCantidad(Integer.parseInt(txtCantidad.getText()));
+                if (modifi.ModificarMedicamento(idmed)) {
+                    System.out.println("Si se ingreso a tu corazon");
+                } else {
+                    System.out.println("esta roto tu corazon");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
+
+        }
+
+    }
+    private void BtnModificarMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarMedActionPerformed
+        // TODO add your handling code here
+        modificarDatosMedica();
+        cargarTablaMedicamento();
+        limpiar_datos();
+    }//GEN-LAST:event_BtnModificarMedActionPerformed
+
+    public void Busqueda_Medicamento() {
+        DefaultTableModel tblModelo = (DefaultTableModel) TablaMedicamentos.getModel();
+
+        tblModelo.setNumRows(0);
+        List<Medicamentos> listaMedicamentos = ingresoMed.consulta_Medicamento(TxtBuscarMedicamento.getText());
+
+        listaMedicamentos.stream().forEach(p -> {
+            p.getCantidad();
+            String cant = String.valueOf(p.getCantidad());
+            String[] persona = {p.getCodigoM(), p.getNombreM(), p.getTiposM(), p.getMedicamentos(), p.getPresentacionM(), p.getUnidadesMM(), p.getVia_AdministracionM(), p.getFecha_IngresoM(), p.getFecha_caducidad(), cant};
+            tblModelo.addRow(persona);
+        });
+    }
 
     /**
      * @param args the command line arguments
@@ -467,6 +736,34 @@ public class Crud_Medica extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -477,23 +774,27 @@ public class Crud_Medica extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnBUscar;
+    private javax.swing.JButton BtnEliminar;
+    private javax.swing.JButton BtnLimpiar;
+    private javax.swing.JButton BtnModificarMed;
     private javax.swing.JButton BtnRegistrar;
+    private javax.swing.JButton BtnTablaMed;
     private javax.swing.JComboBox<String> ComboPresent;
     private javax.swing.JComboBox<String> ComboTDM;
     private javax.swing.JComboBox<String> Combo_ViaAdmin;
+    private com.toedter.calendar.JDateChooser DateCaducidad;
     private com.toedter.calendar.JDateChooser DateIngresos;
     private javax.swing.JTable TablaMedicamentos;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JTextField TxtBuscarMedicamento;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -504,7 +805,6 @@ public class Crud_Medica extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtUnidadM;
     // End of variables declaration//GEN-END:variables
