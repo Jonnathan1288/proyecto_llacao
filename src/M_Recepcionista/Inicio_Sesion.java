@@ -1,4 +1,4 @@
-  /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -22,13 +22,15 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     /**
      * Creates new form Inicio_Sesion
      */
-     Inicio_secion_Usuario inirep = new Inicio_secion_Usuario();
+    Inicio_secion_Usuario inirep = new Inicio_secion_Usuario();
+
     public Inicio_Sesion() {
         initComponents();
         this.setLocationRelativeTo(null);
         txtFantasma();
     }
-    public void txtFantasma(){
+
+    public void txtFantasma() {
         MensajeFantasma menFas = new MensajeFantasma("Usuario", TxtUsuarioRep);
         MensajeFantasma menFas1 = new MensajeFantasma("Password", PasswdInicioR);
     }
@@ -202,6 +204,19 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        if (TxtUsuarioRep.getText().equals("admin") && PasswdInicioR.getText().equals("admin")) {
+            String aux = "Recepcionista";
+            String inicioSesio = inirep.inicioSesionRep(TxtUsuarioRep.getText(), PasswdInicioR.getText(), aux);
+            if (inicioSesio.equals("Acceso")) {
+                Menu_Recepcionista mr = new Menu_Recepcionista();
+                mr.setVisible(true);
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
+            }
+        }
         if (!(TxtUsuarioRep.getText().matches("^\\d{10}$"))) {
             JOptionPane.showMessageDialog(null, "Verifique usuario");
         } else {
@@ -215,7 +230,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                     Menu_Recepcionista mr = new Menu_Recepcionista();
                     mr.setVisible(true);
                     mr.LdlRecepcionista.setText(nombre);
-                   this.dispose();
+                    this.dispose();
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
