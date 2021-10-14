@@ -302,7 +302,7 @@ public class Crear_cuenta extends javax.swing.JFrame {
                                         limpiar_datos();
                                     }
                                 }
-                                if (createUser.valida_cedula(TxtUsuario.getText()) == false) {
+                                if (!(createUser.valida_cedula(TxtUsuario.getText()) == false)) {
                                     JOptionPane.showMessageDialog(null, "Error, el doctor no esta registrado en el sistema.");
                                     limpiar_datos();
                                 }
@@ -314,6 +314,7 @@ public class Crear_cuenta extends javax.swing.JFrame {
                             if (Passwdprimer.getText().equals(PasswdRepetir.getText())) {
                                 if (createUser.valida_cedular(TxtUsuario.getText()) == true) {
                                     JOptionPane.showMessageDialog(null, "Error, el recepcionista no esta registrado en el sistema.");
+                                    limpiar_datos();
 
                                 } else {
                                     if (createUser.valida_user(TxtUsuario.getText()) == true) {
