@@ -225,15 +225,11 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void BtnSalirSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirSesionActionPerformed
-        // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(this, "Esta seguro que desea salir del login?", "Confirmar para salir ", JOptionPane.YES_NO_OPTION);
-        if (salir == JOptionPane.YES_OPTION) {
-            Login log = new Login();
-            log.setVisible(true);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Sesión de salir cancelada");
-        }
+
+        Login log = new Login();
+        log.setVisible(true);
+        dispose();
+
     }//GEN-LAST:event_BtnSalirSesionActionPerformed
 
     /**
