@@ -216,11 +216,16 @@ public class Inicio_SesionDoc extends javax.swing.JFrame {
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
+                    limpiar_datos();
                 }
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpiar_datos(){
+        TxtUsuarioDoc.setText("");
+        PasswdInicio.setText("");
+    }
     private void TxtUsuarioDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtUsuarioDocActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtUsuarioDocActionPerformed

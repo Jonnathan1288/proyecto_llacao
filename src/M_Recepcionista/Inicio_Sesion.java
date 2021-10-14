@@ -225,11 +225,16 @@ public class Inicio_Sesion extends javax.swing.JFrame {
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
+                    limpiar_datos();
                 }
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpiar_datos(){
+        TxtUsuarioRep.setText("");
+        PasswdInicioR.setText("");
+    }
     private void BtnSalirSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirSesionActionPerformed
 
         Login log = new Login();
