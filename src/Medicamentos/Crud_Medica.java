@@ -1,6 +1,7 @@
 package Medicamentos;
 
 import Comportamientos.IgresarMedicamentos;
+import M_Recepcionista.Menu_Doctor;
 import clases.Medicamentos;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -109,6 +110,7 @@ public class Crud_Medica extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaMedicamentos = new javax.swing.JTable();
@@ -300,6 +302,13 @@ public class Crud_Medica extends javax.swing.JFrame {
 
         jButton5.setBackground(new java.awt.Color(204, 204, 255));
 
+        jButton1.setText("Atras");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -308,8 +317,10 @@ public class Crud_Medica extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addGap(332, 332, 332)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 640, Short.MAX_VALUE)
                 .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -323,7 +334,9 @@ public class Crud_Medica extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton5)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jButton5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -691,6 +704,12 @@ public class Crud_Medica extends javax.swing.JFrame {
         limpiar_datos();
     }//GEN-LAST:event_BtnModificarMedActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Menu_Doctor md= new  Menu_Doctor();
+        md.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void Busqueda_Medicamento() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaMedicamentos.getModel();
 
@@ -785,6 +804,7 @@ public class Crud_Medica extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser DateIngresos;
     private javax.swing.JTable TablaMedicamentos;
     private javax.swing.JTextField TxtBuscarMedicamento;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -5,9 +5,11 @@
  */
 package M_Recepcionista;
 
+
 import M_Recepcionista.Crud_Recepcionista;
 import M_Recepcionista.Crud_Paciente;
 import M_Recepcionista.Crud_Doctor;
+import Medicamentos.Crud_Medica;
 import inicio.Login;
 import javax.swing.JOptionPane;
 
@@ -40,11 +42,9 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         LdlRecepcionista = new javax.swing.JLabel();
         btnRegistrarMedicamentos = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         brtRegistrarDoctor = new javax.swing.JButton();
         btnRegistrarTurno = new javax.swing.JButton();
         btnRegistrarPacientes = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         btnRegistrarPacientes1 = new javax.swing.JButton();
         CerrarSeciRep = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -97,7 +97,7 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(LdlRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
         btnRegistrarMedicamentos.setBackground(new java.awt.Color(204, 204, 255));
@@ -110,12 +110,6 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
                 btnRegistrarMedicamentosActionPerformed(evt);
             }
         });
-
-        jButton2.setBackground(new java.awt.Color(204, 204, 255));
-        jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reporte (1).png"))); // NOI18N
-        jButton2.setText("Reporte de Medicamentos");
-        jButton2.setBorder(null);
 
         brtRegistrarDoctor.setBackground(new java.awt.Color(204, 204, 255));
         brtRegistrarDoctor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -150,17 +144,6 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(204, 204, 255));
-        jButton7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/informe-medico.png"))); // NOI18N
-        jButton7.setText("Historial Clinico");
-        jButton7.setBorder(null);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
         btnRegistrarPacientes1.setBackground(new java.awt.Color(204, 204, 255));
         btnRegistrarPacientes1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnRegistrarPacientes1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/medicina.png"))); // NOI18N
@@ -189,15 +172,13 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRegistrarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRegistrarPacientes1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnRegistrarPacientes1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRegistrarMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(62, 62, 62)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnRegistrarTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(brtRegistrarDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRegistrarMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(brtRegistrarDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(201, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -216,13 +197,9 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrarTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegistrarPacientes1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrarMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(btnRegistrarMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Registrar");
@@ -300,10 +277,6 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     private void btnRegistrarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPacientesActionPerformed
         // TODO add your handling code here:
         Crud_Paciente cp = new Crud_Paciente();
@@ -320,7 +293,7 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
 
     private void btnRegistrarMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarMedicamentosActionPerformed
         // TODO add your handling code here:
-        Kardex_Medicamentos regMedi = new Kardex_Medicamentos();
+        Crud_Medica regMedi = new Crud_Medica();
         regMedi.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRegistrarMedicamentosActionPerformed
@@ -434,8 +407,6 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrarPacientes;
     private javax.swing.JButton btnRegistrarPacientes1;
     private javax.swing.JButton btnRegistrarTurno;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
