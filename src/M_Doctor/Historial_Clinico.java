@@ -6,10 +6,15 @@
 package M_Doctor;
 
 import Comportamientos.Historial_clinicoPaciente;
-import M_Recepcionista.Menu_Doctor;
 import clases.Paciente;
 import clases.historial_clinico;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -43,7 +48,6 @@ public class Historial_Clinico extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaPacienteHC = new javax.swing.JTable();
@@ -73,6 +77,7 @@ public class Historial_Clinico extends javax.swing.JFrame {
         BtnBuscarHC = new javax.swing.JButton();
         BtnGuardarHC = new javax.swing.JButton();
         BtnRegistros = new javax.swing.JButton();
+        BtnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,13 +88,6 @@ public class Historial_Clinico extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Bell MT", 3, 36)); // NOI18N
         jLabel1.setText("Historial Clinico");
 
-        jButton1.setText("Atras");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -97,17 +95,13 @@ public class Historial_Clinico extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(356, 356, 356)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(437, 437, 437))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                .addComponent(jLabel1)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -131,6 +125,12 @@ public class Historial_Clinico extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
         jLabel3.setText("Buscar:");
+
+        TxtCedulaPac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtCedulaPacKeyTyped(evt);
+            }
+        });
 
         BtnBuscarPac.setText("Buscar");
         BtnBuscarPac.addActionListener(new java.awt.event.ActionListener() {
@@ -200,6 +200,11 @@ public class Historial_Clinico extends javax.swing.JFrame {
                 "Codigo", "Cedula Paciente", "Cedula Doctor", "Sintomas", "Diagnostico", "Fecha Consulta"
             }
         ));
+        TablaHistorialC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaHistorialCMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(TablaHistorialC);
 
         jLabel6.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
@@ -210,6 +215,11 @@ public class Historial_Clinico extends javax.swing.JFrame {
         TxtBusHCpac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtBusHCpacActionPerformed(evt);
+            }
+        });
+        TxtBusHCpac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtBusHCpacKeyTyped(evt);
             }
         });
 
@@ -243,6 +253,13 @@ public class Historial_Clinico extends javax.swing.JFrame {
         BtnRegistros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnRegistrosActionPerformed(evt);
+            }
+        });
+
+        BtnLimpiar.setText("Limpiar");
+        BtnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLimpiarActionPerformed(evt);
             }
         });
 
@@ -283,7 +300,9 @@ public class Historial_Clinico extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(BtnBuscarHC)
                         .addGap(18, 18, 18)
-                        .addComponent(BtnRegistros))))
+                        .addComponent(BtnRegistros)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BtnLimpiar))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,7 +350,8 @@ public class Historial_Clinico extends javax.swing.JFrame {
                                     .addComponent(jLabel7)
                                     .addComponent(TxtBusHCpac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(BtnBuscarHC)
-                                    .addComponent(BtnRegistros))
+                                    .addComponent(BtnRegistros)
+                                    .addComponent(BtnLimpiar))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
@@ -379,11 +399,17 @@ public class Historial_Clinico extends javax.swing.JFrame {
 
     private void BtnBuscarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPacActionPerformed
 
-        try {
-            Busqueda_paciente1();
-            TxtCedulaPac.setText("");
-        } catch (Exception e) {
-            System.out.println("");
+        if (!(TxtBusHCpac.getText().equals(""))) {
+            JOptionPane.showMessageDialog(null, "Error el campo esta vacio.");
+
+        } else {
+            if (TxtBusHCpac.getText().matches("^\\d{10}$")) {
+                JOptionPane.showMessageDialog(null, "Error la cedula no esta ingresada bien.");
+                TxtBusHCpac.setText("");
+            } else {
+                Busqueda_paciente1();
+                TxtCedulaPac.setText("");
+            }
         }
     }//GEN-LAST:event_BtnBuscarPacActionPerformed
 
@@ -406,10 +432,42 @@ public class Historial_Clinico extends javax.swing.JFrame {
         }
     }
     private void BtnGuardarHCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarHCActionPerformed
-        // TODO add your handling code here:
-        ResgitrarHistorialPaciente();
-        cargarTablaHC();
-        lipiar_datosHC();
+        // TODO add your handling code here
+        Date fc = Dateconsulta.getDate();
+        if (!(TxtCedulaP.getText().matches("^\\d{10}$"))) {
+            JOptionPane.showMessageDialog(null, "Verifique la cedula del paciente.");
+        } else {
+            if (!(TxtCeduladoc.getText().matches("^\\d{10}$"))) {
+                JOptionPane.showMessageDialog(null, "Verifique la cedula del doctor.");
+            } else {
+                if (fc == null) {
+                    JOptionPane.showMessageDialog(null, "Verifique el ingreso de la fecha de consulta de diacnostico.");
+                } else {
+                    if (PanelSintomas.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Verifique el campo de sintomas.");
+                    } else {
+                        if (PanelDiagnositico.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Verifique el campo de diagnostico.");
+                        } else {
+                            if (histo.valida_cedula_paciente(TxtCedulaP.getText()) == true) {
+                                JOptionPane.showMessageDialog(null, "Error la cedula de paciente no esta en los registros del sistema.");
+
+                            } else {
+                                if (histo.valida_cedula_DOC(TxtCeduladoc.getText()) == true) {
+                                    JOptionPane.showMessageDialog(null, "Error la cedula de doctor no esta en los registros del sistema.");
+
+                                } else {
+                                    ResgitrarHistorialPaciente();
+                                    cargarTablaHC();
+                                    lipiar_datosHC();
+                                    JOptionPane.showMessageDialog(null, "Historial clinico guardado.");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     }//GEN-LAST:event_BtnGuardarHCActionPerformed
 
@@ -430,22 +488,90 @@ public class Historial_Clinico extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtBusHCpacActionPerformed
 
     private void BtnBuscarHCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarHCActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
+        if (TxtBusHCpac.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Error el campo esta vacio.");
 
-        Busqueda_HClinicoPac();
-        TxtBusHCpac.setText("");
+        } else {
+            if (!(TxtBusHCpac.getText().matches("^\\d{10}$"))) {
+                JOptionPane.showMessageDialog(null, "Error la cedula no esta ingresada bien.");
+                TxtBusHCpac.setText("");
+            } else {
+                Busqueda_HClinicoPac();
+                TxtBusHCpac.setText("");
+            }
+        }
     }//GEN-LAST:event_BtnBuscarHCActionPerformed
 
     private void BtnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrosActionPerformed
         // TODO add your handling code here:
         cargarTablaHC();
+        lipiar_datosHC();
+        BtnGuardarHC.setEnabled(true);
+
     }//GEN-LAST:event_BtnRegistrosActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Menu_Doctor md= new  Menu_Doctor();
-        md.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void TablaHistorialCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaHistorialCMouseClicked
+        // TODO add your handling code here:
+        int i = TablaHistorialC.getSelectedRow();
+
+        BtnGuardarHC.setEnabled(false);
+        if (i >= 0) {
+            String cod = TablaHistorialC.getValueAt(i, 0).toString();
+            String cedulap = TablaHistorialC.getValueAt(i, 1).toString();
+            String cedulad = TablaHistorialC.getValueAt(i, 2).toString();
+            String sintoma = TablaHistorialC.getValueAt(i, 3).toString();
+            String diagnostico = TablaHistorialC.getValueAt(i, 4).toString();
+
+            TxtCedulaP.setText(cedulap);
+            TxtCeduladoc.setText(cedulad);
+            PanelSintomas.setText(sintoma);
+            PanelDiagnositico.setText(diagnostico);
+            String fecha = (String) TablaHistorialC.getValueAt(i, 5);
+            Date fechas;
+            try {
+                fechas = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+                Dateconsulta.setDate(fechas);
+            } catch (ParseException ex) {
+                Logger.getLogger(Historial_Clinico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+
+        }
+
+    }//GEN-LAST:event_TablaHistorialCMouseClicked
+
+    private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
+        // TODO add your handling code here:
+        lipiar_datosHC();
+        BtnGuardarHC.setEnabled(true);
+    }//GEN-LAST:event_BtnLimpiarActionPerformed
+
+    private void TxtBusHCpacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBusHCpacKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
+        }
+    }//GEN-LAST:event_TxtBusHCpacKeyTyped
+
+    private void TxtCedulaPacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCedulaPacKeyTyped
+        // TODO add your handling code here
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
+        }
+    }//GEN-LAST:event_TxtCedulaPacKeyTyped
 
     public void Busqueda_HClinicoPac() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaHistorialC.getModel();
@@ -536,6 +662,7 @@ public class Historial_Clinico extends javax.swing.JFrame {
     private javax.swing.JButton BtnBuscarPac;
     private javax.swing.JButton BtnBuscarPac1;
     private javax.swing.JButton BtnGuardarHC;
+    private javax.swing.JButton BtnLimpiar;
     private javax.swing.JButton BtnRegistros;
     private com.toedter.calendar.JDateChooser Dateconsulta;
     private javax.swing.JTextArea PanelDiagnositico;
@@ -546,7 +673,6 @@ public class Historial_Clinico extends javax.swing.JFrame {
     private javax.swing.JTextField TxtCedulaP;
     private javax.swing.JTextField TxtCedulaPac;
     private javax.swing.JTextField TxtCeduladoc;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;

@@ -79,9 +79,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="285" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="356" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="437" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -89,10 +87,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="19" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -106,14 +101,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Historial Clinico"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Atras"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -265,6 +252,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="TxtCedulaPac">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TxtCedulaPacKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="BtnBuscarPac">
               <Properties>
@@ -337,6 +327,8 @@
                               <Component id="BtnBuscarHC" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="BtnRegistros" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="BtnLimpiar" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -401,6 +393,7 @@
                                           <Component id="TxtBusHCpac" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="BtnBuscarHC" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="BtnRegistros" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="BtnLimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jScrollPane2" min="-2" pref="357" max="-2" attributes="0"/>
@@ -487,6 +480,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TablaHistorialCMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -510,6 +506,7 @@
             <Component class="javax.swing.JTextField" name="TxtBusHCpac">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TxtBusHCpacActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TxtBusHCpacKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
@@ -566,6 +563,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnRegistrosActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="BtnLimpiar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Limpiar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnLimpiarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

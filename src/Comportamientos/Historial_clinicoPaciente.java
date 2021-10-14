@@ -5,8 +5,8 @@
  */
 package Comportamientos;
 
-
 import Conexion_BD.Conexion;
+import clases.Doctor;
 import clases.Paciente;
 import clases.historial_clinico;
 import java.sql.ResultSet;
@@ -138,5 +138,66 @@ public class Historial_clinicoPaciente extends historial_clinico {
             Logger.getLogger(Historial_clinicoPaciente.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+    
+    //-----------------------------------------------------------------------------------------------------
+    
+    List<Paciente> paciente_registros_busqueda() {
+        try {
+            String sql = "select p.cedula from persona p, paciente d where p.cedula = d.cedula";
+            ResultSet rs = conet.selectConsulta(sql);
+            List<Paciente> lp = new ArrayList<>();
+            while (rs.next()) {
+                Paciente pac = new Paciente();
+                pac.setCedula(rs.getString("cedula"));
+                lp.add(pac);
+            }
+            rs.close();
+            return lp;
+        } catch (SQLException ex) {
+            Logger.getLogger(Historial_clinicoPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+
+    public boolean valida_cedula_paciente(String cedula) {
+        List<Paciente> listaP = paciente_registros_busqueda();
+        for (int i = 0; i < listaP.size(); i++) {
+            if (cedula.compareTo(listaP.get(i).getCedula()) == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    //-----------------------------------------------------------------------------------------------------
+    List<Doctor> Doctor_registros_busqueda() {
+        try {
+            String sql = "select p.cedula from persona p, doctor d where p.cedula = d.cedula";
+            ResultSet rs = conet.selectConsulta(sql);
+            List<Doctor> lp = new ArrayList<>();
+            while (rs.next()) {
+                Doctor doc = new Doctor();
+                doc.setCedula(rs.getString("cedula"));
+                lp.add(doc);
+            }
+            rs.close();
+            return lp;
+        } catch (SQLException ex) {
+            Logger.getLogger(Crear_usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+
+    public boolean valida_cedula_DOC(String cedula) {
+        List<Doctor> listaD = Doctor_registros_busqueda();
+        for (int i = 0; i < listaD.size(); i++) {
+            if (cedula.compareTo(listaD.get(i).getCedula()) == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
