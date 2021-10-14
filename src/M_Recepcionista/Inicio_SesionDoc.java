@@ -25,6 +25,7 @@ public class Inicio_SesionDoc extends javax.swing.JFrame {
     public Inicio_SesionDoc() {
         initComponents();
         txtFantasma();
+        this.setLocationRelativeTo(null);
     }
 
     public void txtFantasma(){
@@ -53,6 +54,7 @@ public class Inicio_SesionDoc extends javax.swing.JFrame {
         BtnSalirSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         LblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Llacao_p.png"))); // NOI18N
 
