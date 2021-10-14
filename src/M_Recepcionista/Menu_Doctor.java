@@ -5,6 +5,8 @@
  */
 package M_Recepcionista;
 
+import M_Doctor.Historial_Clinico;
+import M_Doctor.Receta_Medica;
 import inicio.Login;
 import javax.swing.JOptionPane;
 
@@ -74,8 +76,13 @@ public class Menu_Doctor extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(51, 51, 51));
         jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reporte (1).png"))); // NOI18N
-        jButton2.setText("Diagnostico");
+        jButton2.setText("Visualizar Turnos");
         jButton2.setBorder(null);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 380, 53));
 
         btnRegistrarTurno.setBackground(new java.awt.Color(51, 51, 51));
@@ -140,11 +147,15 @@ public class Menu_Doctor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarPacientes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPacientes1ActionPerformed
-
+    Receta_Medica rc= new Receta_Medica();
+    rc.setVisible(true);
+    dispose();
     }//GEN-LAST:event_btnRegistrarPacientes1ActionPerformed
 
     private void btnRegistrarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTurnoActionPerformed
-
+        Historial_Clinico hc= new Historial_Clinico();
+        hc.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnRegistrarTurnoActionPerformed
 
     private void CerrarSeciRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSeciRepActionPerformed
@@ -158,6 +169,10 @@ public class Menu_Doctor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Sesión de salir cancelada");
         }
     }//GEN-LAST:event_CerrarSeciRepActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

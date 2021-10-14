@@ -6,6 +6,7 @@
 package M_Doctor;
 
 import Comportamientos.Historial_clinicoPaciente;
+import M_Recepcionista.Menu_Doctor;
 import clases.Paciente;
 import clases.historial_clinico;
 import java.util.List;
@@ -42,6 +43,7 @@ public class Historial_Clinico extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaPacienteHC = new javax.swing.JTable();
@@ -81,6 +83,13 @@ public class Historial_Clinico extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Bell MT", 3, 36)); // NOI18N
         jLabel1.setText("Historial Clinico");
 
+        jButton1.setText("Atras");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -88,13 +97,17 @@ public class Historial_Clinico extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(437, 437, 437))
+                .addGap(356, 356, 356)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -367,8 +380,8 @@ public class Historial_Clinico extends javax.swing.JFrame {
     private void BtnBuscarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPacActionPerformed
 
         try {
-             Busqueda_paciente1();
-        TxtCedulaPac.setText("");
+            Busqueda_paciente1();
+            TxtCedulaPac.setText("");
         } catch (Exception e) {
             System.out.println("");
         }
@@ -379,7 +392,7 @@ public class Historial_Clinico extends javax.swing.JFrame {
         cargarTabla();
     }//GEN-LAST:event_BtnBuscarPac1ActionPerformed
 
-      public void ResgitrarHistorialPaciente() {
+    public void ResgitrarHistorialPaciente() {
         Historial_clinicoPaciente medic = new Historial_clinicoPaciente();
         medic.setCedula_pa(TxtCedulaP.getText());
         medic.setCedula_doc(TxtCeduladoc.getText());
@@ -397,7 +410,7 @@ public class Historial_Clinico extends javax.swing.JFrame {
         ResgitrarHistorialPaciente();
         cargarTablaHC();
         lipiar_datosHC();
-        
+
     }//GEN-LAST:event_BtnGuardarHCActionPerformed
 
     private void cargarTablaHC() {
@@ -418,7 +431,7 @@ public class Historial_Clinico extends javax.swing.JFrame {
 
     private void BtnBuscarHCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarHCActionPerformed
         // TODO add your handling code here:
-        
+
         Busqueda_HClinicoPac();
         TxtBusHCpac.setText("");
     }//GEN-LAST:event_BtnBuscarHCActionPerformed
@@ -427,6 +440,12 @@ public class Historial_Clinico extends javax.swing.JFrame {
         // TODO add your handling code here:
         cargarTablaHC();
     }//GEN-LAST:event_BtnRegistrosActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Menu_Doctor md= new  Menu_Doctor();
+        md.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void Busqueda_HClinicoPac() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaHistorialC.getModel();
@@ -439,13 +458,15 @@ public class Historial_Clinico extends javax.swing.JFrame {
             tblModelo.addRow(hcli);
         });
     }
-    public void lipiar_datosHC(){
+
+    public void lipiar_datosHC() {
         TxtCedulaP.setText("");
         TxtCeduladoc.setText("");
         ((JTextField) Dateconsulta.getDateEditor().getUiComponent()).setText(null);
         PanelSintomas.setText("");
         PanelDiagnositico.setText("");
     }
+
     private void cargarTabla() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaPacienteHC.getModel();
 
@@ -525,6 +546,7 @@ public class Historial_Clinico extends javax.swing.JFrame {
     private javax.swing.JTextField TxtCedulaP;
     private javax.swing.JTextField TxtCedulaPac;
     private javax.swing.JTextField TxtCeduladoc;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
