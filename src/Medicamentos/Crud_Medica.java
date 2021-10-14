@@ -2,6 +2,7 @@ package Medicamentos;
 
 import Comportamientos.IgresarMedicamentos;
 import M_Recepcionista.Menu_Doctor;
+import M_Recepcionista.Menu_Recepcionista;
 import clases.Medicamentos;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -705,7 +706,7 @@ public class Crud_Medica extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnModificarMedActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Menu_Doctor md= new  Menu_Doctor();
+        Menu_Recepcionista md= new  Menu_Recepcionista();
         md.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
