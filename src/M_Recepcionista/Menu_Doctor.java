@@ -19,6 +19,7 @@ public class Menu_Doctor extends javax.swing.JFrame {
      */
     public Menu_Doctor() {
         initComponents();
+         this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**

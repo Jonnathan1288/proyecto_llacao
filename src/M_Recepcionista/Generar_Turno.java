@@ -18,7 +18,8 @@ public class Generar_Turno extends javax.swing.JFrame {
      */
     public Generar_Turno() {
         initComponents();
-     //   this.setExtendedState(MAXIMIZED_BOTH);
+        
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**

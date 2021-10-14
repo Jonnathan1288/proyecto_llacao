@@ -32,6 +32,7 @@ public class Crud_Doctor extends javax.swing.JFrame {
 
     public Crud_Doctor() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         cargarTabla();
     }
 

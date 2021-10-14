@@ -32,12 +32,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Crud_Medica extends javax.swing.JFrame {
 
-   // DefaultTableModel modelo;
+    // DefaultTableModel modelo;
     IgresarMedicamentos ingresoMed = new IgresarMedicamentos();
     String cod_medicamento = "";
 
     public Crud_Medica() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         cargarTablaMedicamento();
     }
 
@@ -510,7 +511,7 @@ public class Crud_Medica extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnTablaMedActionPerformed
 
     private void TablaMedicamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMedicamentosMouseClicked
-        
+
         int i = TablaMedicamentos.getSelectedRow();
         if (i >= 0) {
             cod_medicamento = TablaMedicamentos.getValueAt(i, 0).toString();
@@ -533,7 +534,6 @@ public class Crud_Medica extends javax.swing.JFrame {
 //            } catch (ParseException ex) {
 //                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
 //            }
-
 //            String fecha2 = (String) TablaMedicamentos.getValueAt(i, 8);
 //            Date fechas2 = null;
 //            try {

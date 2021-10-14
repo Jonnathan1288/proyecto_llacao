@@ -36,6 +36,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
 
     public Crud_Recepcionista() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         TablaRecepcionistasC();
     }
 

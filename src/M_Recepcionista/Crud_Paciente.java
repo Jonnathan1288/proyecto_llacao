@@ -35,7 +35,6 @@ public class Crud_Paciente extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setExtendedState(MAXIMIZED_BOTH);
-        //verRegistrosPaciente();
         cargarTabla();
     }
 
