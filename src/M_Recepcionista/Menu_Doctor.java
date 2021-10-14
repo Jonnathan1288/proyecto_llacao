@@ -5,6 +5,9 @@
  */
 package M_Recepcionista;
 
+import inicio.Login;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DELL
@@ -35,6 +38,7 @@ public class Menu_Doctor extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         btnRegistrarTurno = new javax.swing.JButton();
         LblDoctor = new javax.swing.JLabel();
+        CerrarSeciRep = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -88,6 +92,14 @@ public class Menu_Doctor extends javax.swing.JFrame {
         LblDoctor.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jPanel2.add(LblDoctor, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 190, 40));
 
+        CerrarSeciRep.setText("CERRAR SESION");
+        CerrarSeciRep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CerrarSeciRepActionPerformed(evt);
+            }
+        });
+        jPanel2.add(CerrarSeciRep, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, -1, -1));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,6 +146,18 @@ public class Menu_Doctor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnRegistrarTurnoActionPerformed
 
+    private void CerrarSeciRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSeciRepActionPerformed
+        // TODO add your handling code here:
+        int salir = JOptionPane.showConfirmDialog(this, "Esta seguro que desea serrar sesion?", "Confirmar para salir ", JOptionPane.YES_NO_OPTION);
+        if (salir == JOptionPane.YES_OPTION) {
+            Login log = new Login();
+            log.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Sesión de salir cancelada");
+        }
+    }//GEN-LAST:event_CerrarSeciRepActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -170,6 +194,7 @@ public class Menu_Doctor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CerrarSeciRep;
     public javax.swing.JLabel LblDoctor;
     private javax.swing.JButton btnRegistrarPacientes1;
     private javax.swing.JButton btnRegistrarTurno;
