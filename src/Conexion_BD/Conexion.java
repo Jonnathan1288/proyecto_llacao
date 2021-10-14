@@ -25,9 +25,9 @@ public class Conexion {
     private Statement st;
     private ResultSet rs;
 
-    private String URL = "jdbc:postgresql://localhost:5432/proyecto_llacao";//proyecto_final
+    private String URL = "jdbc:postgresql://localhost:5432/venny";//proyecto_final
     private String USER = "postgres";
-    private String PASSWORD = "jav123"; // Cada uno pone su contraseña.
+    private String PASSWORD = "A"; // Cada uno pone su contraseña.
 
     public Conexion() {
 

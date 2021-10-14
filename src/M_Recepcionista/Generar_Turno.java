@@ -104,7 +104,7 @@ public class Generar_Turno extends javax.swing.JFrame {
         Combo_Doctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setText("Fecha:");
+        jLabel9.setText("Fecha Consulta:");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("Numero turno: ");
