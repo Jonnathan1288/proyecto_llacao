@@ -84,6 +84,11 @@ public class Inicio_SesionDoc extends javax.swing.JFrame {
                 TxtUsuarioDocActionPerformed(evt);
             }
         });
+        TxtUsuarioDoc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtUsuarioDocKeyTyped(evt);
+            }
+        });
 
         jPanel4.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -224,6 +229,19 @@ public class Inicio_SesionDoc extends javax.swing.JFrame {
         log.setVisible(true);
         dispose();
     }//GEN-LAST:event_BtnSalirSesionActionPerformed
+
+    private void TxtUsuarioDocKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtUsuarioDocKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
+        }
+    }//GEN-LAST:event_TxtUsuarioDocKeyTyped
 
     /**
      * @param args the command line arguments

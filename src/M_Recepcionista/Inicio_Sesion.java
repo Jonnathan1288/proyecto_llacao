@@ -101,6 +101,12 @@ public class Inicio_Sesion extends javax.swing.JFrame {
             .addComponent(FonDoc)
         );
 
+        TxtUsuarioRep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtUsuarioRepKeyTyped(evt);
+            }
+        });
+
         jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
 
         FonDoc1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/password_3715.png"))); // NOI18N
@@ -231,6 +237,19 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         dispose();
 
     }//GEN-LAST:event_BtnSalirSesionActionPerformed
+
+    private void TxtUsuarioRepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtUsuarioRepKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
+        }
+    }//GEN-LAST:event_TxtUsuarioRepKeyTyped
 
     /**
      * @param args the command line arguments

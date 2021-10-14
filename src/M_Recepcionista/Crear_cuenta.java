@@ -123,6 +123,12 @@ public class Crear_cuenta extends javax.swing.JFrame {
                 .addComponent(FonDoc))
         );
 
+        TxtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtUsuarioKeyTyped(evt);
+            }
+        });
+
         jPanel6.setBorder(new javax.swing.border.MatteBorder(null));
 
         FonDoc2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/password_3715.png"))); // NOI18N
@@ -358,6 +364,20 @@ public class Crear_cuenta extends javax.swing.JFrame {
     private void Combo_tipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Combo_tipoUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Combo_tipoUsuarioActionPerformed
+
+    private void TxtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtUsuarioKeyTyped
+
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
+        }
+    }//GEN-LAST:event_TxtUsuarioKeyTyped
 
     /**
      * @param args the command line arguments
