@@ -69,6 +69,8 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setText("Recepción");
 
+        LdlRecepcionista.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -377,13 +379,13 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
 
     private void CerrarSeciRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSeciRepActionPerformed
         // TODO add your handling code here: 
-        int salir = JOptionPane.showConfirmDialog(this, "Esta seguro que desea serrar sesion?", "Confirmar para salir ", JOptionPane.YES_NO_OPTION);
+        int salir = JOptionPane.showConfirmDialog(this, "Esta seguro que desea serrar sesion?", "Confirmar para salir.", JOptionPane.YES_NO_OPTION);
         if (salir == JOptionPane.YES_OPTION) {
             Login log = new Login();
             log.setVisible(true);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Sesión de salir cancelada");
+            JOptionPane.showMessageDialog(null, "Sesión de salir cancelada.");
         }
     }//GEN-LAST:event_CerrarSeciRepActionPerformed
 
