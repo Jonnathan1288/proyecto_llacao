@@ -53,6 +53,7 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         MCrearCuenta = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -253,6 +254,15 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
                 MCrearCuentaActionPerformed(evt);
             }
         });
+
+        jMenuItem5.setText("Crear Cuenta");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        MCrearCuenta.add(jMenuItem5);
+
         jMenuBar1.add(MCrearCuenta);
 
         setJMenuBar(jMenuBar1);
@@ -339,10 +349,15 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
 
     private void MCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MCrearCuentaActionPerformed
         // TODO add your handling code here:
+      
+    }//GEN-LAST:event_MCrearCuentaActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here
         Crear_cuenta creac = new Crear_cuenta();
         creac.setVisible(true);
         dispose();
-    }//GEN-LAST:event_MCrearCuentaActionPerformed
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -399,6 +414,7 @@ public class Menu_Recepcionista extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

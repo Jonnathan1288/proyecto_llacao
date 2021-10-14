@@ -348,7 +348,7 @@ public class Crear_cuenta extends javax.swing.JFrame {
     
     private void BtnSalirSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirSesionActionPerformed
         // TODO add your handling code here:
-        Inicio_Sesion ini = new Inicio_Sesion();
+        Menu_Recepcionista ini = new Menu_Recepcionista();
         ini.setVisible(true);
         dispose();
 
