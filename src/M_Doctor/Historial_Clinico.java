@@ -5,6 +5,13 @@
  */
 package M_Doctor;
 
+import Comportamientos.Historial_clinicoPaciente;
+import clases.Paciente;
+import clases.historial_clinico;
+import java.util.List;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author carlo
@@ -14,8 +21,12 @@ public class Historial_Clinico extends javax.swing.JFrame {
     /**
      * Creates new form Historial_Clinico
      */
+    Historial_clinicoPaciente histo = new Historial_clinicoPaciente();
+
     public Historial_Clinico() {
         initComponents();
+        cargarTabla();
+        cargarTablaHC();
     }
 
     /**
@@ -33,31 +44,33 @@ public class Historial_Clinico extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaPaciente = new javax.swing.JTable();
+        TablaPacienteHC = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        TxtCedulaPac = new javax.swing.JTextField();
+        BtnBuscarPac = new javax.swing.JButton();
+        BtnBuscarPac1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        TxtCedulaP = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        TxtCeduladoc = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        PanelSintomas = new javax.swing.JTextArea();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        PanelDiagnositico = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        TablaHistorialC = new javax.swing.JTable();
+        Dateconsulta = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        TxtBusHCpac = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        BtnBuscarHC = new javax.swing.JButton();
+        BtnGuardarHC = new javax.swing.JButton();
+        BtnRegistros = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,7 +79,6 @@ public class Historial_Clinico extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Bell MT", 3, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Historial Clinico");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -87,9 +99,9 @@ public class Historial_Clinico extends javax.swing.JFrame {
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos Pacientes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Pacientes"));
 
-        TablaPaciente.setModel(new javax.swing.table.DefaultTableModel(
+        TablaPacienteHC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -97,18 +109,29 @@ public class Historial_Clinico extends javax.swing.JFrame {
                 "Cedula", "Apellido", "Nombre", "Fecha de nacimiento", "Genero", "Tipo de sangre", "telefono", "direccion", "Id_paciente", "Alergias", "Discapacidad"
             }
         ));
-        TablaPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+        TablaPacienteHC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TablaPacienteMouseClicked(evt);
+                TablaPacienteHCMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(TablaPaciente);
+        jScrollPane1.setViewportView(TablaPacienteHC);
 
         jLabel3.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Buscar:");
 
-        jButton1.setText("Buscar");
+        BtnBuscarPac.setText("Buscar");
+        BtnBuscarPac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarPacActionPerformed(evt);
+            }
+        });
+
+        BtnBuscarPac1.setText("Ver registros");
+        BtnBuscarPac1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarPac1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -118,9 +141,11 @@ public class Historial_Clinico extends javax.swing.JFrame {
                 .addGap(340, 340, 340)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TxtCedulaPac, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(BtnBuscarPac)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnBuscarPac1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
         );
@@ -129,33 +154,32 @@ public class Historial_Clinico extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(TxtCedulaPac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnBuscarPac)
+                    .addComponent(BtnBuscarPac1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historial Clinico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Historial Clinico"));
 
         jLabel4.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Cedula Paciente: ");
 
         jLabel5.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Cedula Doctor: ");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane4.setViewportView(jTextArea2);
+        PanelSintomas.setColumns(20);
+        PanelSintomas.setRows(5);
+        jScrollPane4.setViewportView(PanelSintomas);
 
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jScrollPane6.setViewportView(jTextArea4);
+        PanelDiagnositico.setColumns(20);
+        PanelDiagnositico.setRows(5);
+        jScrollPane6.setViewportView(PanelDiagnositico);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TablaHistorialC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -163,33 +187,51 @@ public class Historial_Clinico extends javax.swing.JFrame {
                 "Codigo", "Cedula Paciente", "Cedula Doctor", "Sintomas", "Diagnostico", "Fecha Consulta"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(TablaHistorialC);
 
         jLabel6.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel7.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Buscar:");
 
+        TxtBusHCpac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtBusHCpacActionPerformed(evt);
+            }
+        });
+
         jLabel8.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Sintomas: ");
 
         jLabel9.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Fecha Consulta:");
 
         jLabel10.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Diagnostico:");
 
         jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jButton2.setText("Buscar");
+        BtnBuscarHC.setText("Buscar");
+        BtnBuscarHC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarHCActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Guardar");
+        BtnGuardarHC.setText("Guardar");
+        BtnGuardarHC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarHCActionPerformed(evt);
+            }
+        });
+
+        BtnRegistros.setText("Ver Registros");
+        BtnRegistros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRegistrosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -205,9 +247,9 @@ public class Historial_Clinico extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtCeduladoc, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtCedulaP, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Dateconsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane6)
@@ -220,13 +262,15 @@ public class Historial_Clinico extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(BtnGuardarHC)
+                        .addGap(61, 61, 61)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))))
+                        .addComponent(TxtBusHCpac, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnBuscarHC)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnRegistros))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,15 +280,15 @@ public class Historial_Clinico extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TxtCedulaP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TxtCeduladoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Dateconsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addGap(28, 28, 28)
@@ -270,10 +314,11 @@ public class Historial_Clinico extends javax.swing.JFrame {
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton3)
+                                    .addComponent(BtnGuardarHC)
                                     .addComponent(jLabel7)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2))
+                                    .addComponent(TxtBusHCpac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BtnBuscarHC)
+                                    .addComponent(BtnRegistros))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
@@ -312,9 +357,120 @@ public class Historial_Clinico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TablaPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPacienteMouseClicked
+    private void TablaPacienteHCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPacienteHCMouseClicked
+
+//         int i = TablaPacienteHC.getSelectedRow();
+//
+//        if (i >= 0) {}
+    }//GEN-LAST:event_TablaPacienteHCMouseClicked
+
+    private void BtnBuscarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPacActionPerformed
+
+        try {
+             Busqueda_paciente1();
+        TxtCedulaPac.setText("");
+        } catch (Exception e) {
+            System.out.println("");
+        }
+    }//GEN-LAST:event_BtnBuscarPacActionPerformed
+
+    private void BtnBuscarPac1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPac1ActionPerformed
+        // TODO add your handling code here:
+        cargarTabla();
+    }//GEN-LAST:event_BtnBuscarPac1ActionPerformed
+
+      public void ResgitrarHistorialPaciente() {
+        Historial_clinicoPaciente medic = new Historial_clinicoPaciente();
+        medic.setCedula_pa(TxtCedulaP.getText());
+        medic.setCedula_doc(TxtCeduladoc.getText());
+        medic.setSintomas(PanelSintomas.getText());
+        medic.setDiacnostico(PanelDiagnositico.getText());
+        medic.setFecha(((JTextField) Dateconsulta.getDateEditor().getUiComponent()).getText());
+        if (medic.IngreserHistorialPac()) {
+            System.out.println("Si se ingreso a tu corazon");
+        } else {
+            System.out.println("esta roto tu corazon");
+        }
+    }
+    private void BtnGuardarHCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarHCActionPerformed
+        // TODO add your handling code here:
+        ResgitrarHistorialPaciente();
+        cargarTablaHC();
+        lipiar_datosHC();
         
-    }//GEN-LAST:event_TablaPacienteMouseClicked
+    }//GEN-LAST:event_BtnGuardarHCActionPerformed
+
+    private void cargarTablaHC() {
+        DefaultTableModel tblModelo = (DefaultTableModel) TablaHistorialC.getModel();
+
+        tblModelo.setNumRows(0);
+        List<historial_clinico> listapacientes = histo.historialclinicoPac();
+
+        listapacientes.stream().forEach(p -> {
+            String[] historial = {p.getCodigo_historial(), p.getCedula_pa(), p.getCedula_doc(), p.getSintomas(), p.getDiacnostico(), p.getFecha()};
+            tblModelo.addRow(historial);
+        });
+        // limpiarCampos();
+    }
+    private void TxtBusHCpacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtBusHCpacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtBusHCpacActionPerformed
+
+    private void BtnBuscarHCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarHCActionPerformed
+        // TODO add your handling code here:
+        
+        Busqueda_HClinicoPac();
+        TxtBusHCpac.setText("");
+    }//GEN-LAST:event_BtnBuscarHCActionPerformed
+
+    private void BtnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrosActionPerformed
+        // TODO add your handling code here:
+        cargarTablaHC();
+    }//GEN-LAST:event_BtnRegistrosActionPerformed
+
+    public void Busqueda_HClinicoPac() {
+        DefaultTableModel tblModelo = (DefaultTableModel) TablaHistorialC.getModel();
+
+        tblModelo.setNumRows(0);
+        List<historial_clinico> listapacientes = histo.consultaHC(TxtBusHCpac.getText());
+
+        listapacientes.stream().forEach(p -> {
+            String[] hcli = {p.getCodigo_historial(), p.getCedula_pa(), p.getCedula_doc(), p.getSintomas(), p.getDiacnostico(), p.getFecha()};
+            tblModelo.addRow(hcli);
+        });
+    }
+    public void lipiar_datosHC(){
+        TxtCedulaP.setText("");
+        TxtCeduladoc.setText("");
+        ((JTextField) Dateconsulta.getDateEditor().getUiComponent()).setText(null);
+        PanelSintomas.setText("");
+        PanelDiagnositico.setText("");
+    }
+    private void cargarTabla() {
+        DefaultTableModel tblModelo = (DefaultTableModel) TablaPacienteHC.getModel();
+
+        tblModelo.setNumRows(0);
+        List<Paciente> listapacientes = histo.pacientes();
+
+        listapacientes.stream().forEach(p -> {
+            String[] persona = {p.getCedula(), p.getApellido(), p.getNombre(), p.getFecha_nacimiento(), p.getGenero(), p.getTipo_sangre(), p.getTelefono(), p.getDireccion(), p.getId_paciente(), p.getAlergias(), p.getDiscapacidad()};
+            tblModelo.addRow(persona);
+        });
+
+    }
+
+    private void Busqueda_paciente1() {
+        DefaultTableModel tblModelo = (DefaultTableModel) TablaPacienteHC.getModel();
+
+        tblModelo.setNumRows(0);
+        List<Paciente> listapacientes = histo.consulta_paciente1(TxtCedulaPac.getText());
+
+        listapacientes.stream().forEach(p -> {
+            String[] persona = {p.getCedula(), p.getApellido(), p.getNombre(), p.getFecha_nacimiento(), p.getGenero(), p.getTipo_sangre(), p.getTelefono(), p.getDireccion(), p.getId_paciente(), p.getAlergias(), p.getDiscapacidad()};
+            tblModelo.addRow(persona);
+        });
+        // limpiarCampos();
+    }
 
     /**
      * @param args the command line arguments
@@ -343,6 +499,8 @@ public class Historial_Clinico extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -353,11 +511,20 @@ public class Historial_Clinico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaPaciente;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JButton BtnBuscarHC;
+    private javax.swing.JButton BtnBuscarPac;
+    private javax.swing.JButton BtnBuscarPac1;
+    private javax.swing.JButton BtnGuardarHC;
+    private javax.swing.JButton BtnRegistros;
+    private com.toedter.calendar.JDateChooser Dateconsulta;
+    private javax.swing.JTextArea PanelDiagnositico;
+    private javax.swing.JTextArea PanelSintomas;
+    private javax.swing.JTable TablaHistorialC;
+    private javax.swing.JTable TablaPacienteHC;
+    private javax.swing.JTextField TxtBusHCpac;
+    private javax.swing.JTextField TxtCedulaP;
+    private javax.swing.JTextField TxtCedulaPac;
+    private javax.swing.JTextField TxtCeduladoc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
@@ -376,13 +543,6 @@ public class Historial_Clinico extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
