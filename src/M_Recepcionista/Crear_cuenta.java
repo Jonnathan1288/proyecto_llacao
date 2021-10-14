@@ -308,7 +308,7 @@ public class Crear_cuenta extends javax.swing.JFrame {
                                         limpiar_datos();
                                     }
                                 }
-                                if (!(createUser.valida_cedula(TxtUsuario.getText()) == false)) {
+                                if (createUser.valida_cedula(TxtUsuario.getText()) == false) {
                                     JOptionPane.showMessageDialog(null, "Error, el doctor no esta registrado en el sistema.");
                                     limpiar_datos();
                                 }
