@@ -178,23 +178,11 @@ public class Historial_Clinico extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Historial Clinico"));
 
-        TxtCedulaP.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TxtCedulaPKeyTyped(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
         jLabel4.setText("Cedula Paciente: ");
 
         jLabel5.setFont(new java.awt.Font("Bell MT", 3, 18)); // NOI18N
         jLabel5.setText("Cedula Doctor: ");
-
-        TxtCeduladoc.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TxtCeduladocKeyTyped(evt);
-            }
-        });
 
         PanelSintomas.setColumns(20);
         PanelSintomas.setRows(5);
@@ -584,32 +572,6 @@ public class Historial_Clinico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
         }
     }//GEN-LAST:event_TxtCedulaPacKeyTyped
-
-    private void TxtCedulaPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCedulaPKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        if (c < '0' || c > '9') {
-            evt.consume();
-        }
-        if (Character.isLetter(c)) {
-            getToolkit().beep();
-            evt.consume();
-            JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
-        }
-    }//GEN-LAST:event_TxtCedulaPKeyTyped
-
-    private void TxtCeduladocKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCeduladocKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        if (c < '0' || c > '9') {
-            evt.consume();
-        }
-        if (Character.isLetter(c)) {
-            getToolkit().beep();
-            evt.consume();
-            JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
-        }
-    }//GEN-LAST:event_TxtCeduladocKeyTyped
 
     public void Busqueda_HClinicoPac() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaHistorialC.getModel();

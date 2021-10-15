@@ -408,9 +408,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="TxtCedulaP">
-              <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TxtCedulaPKeyTyped"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
@@ -429,9 +426,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="TxtCeduladoc">
-              <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TxtCeduladocKeyTyped"/>
-              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane4">
               <AuxValues>

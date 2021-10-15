@@ -5,7 +5,13 @@
  */
 package M_Recepcionista;
 
+import Comportamientos.GenerarTurno;
+import clases.Generar_T;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,10 +22,15 @@ public class Generar_Turno extends javax.swing.JFrame {
     /**
      * Creates new form Generar_Turno
      */
+    GenerarTurno gt = new GenerarTurno();
+
     public Generar_Turno() {
         initComponents();
-        
-        this.setExtendedState(MAXIMIZED_BOTH);
+        //   this.setExtendedState(MAXIMIZED_BOTH);
+        // gt.cargarDoctores(Combo_Doctor);
+        gt.cargarDoctores(Combo_Doctor, Combo_ceduladoc);
+        cargarTabla();
+        BtnEliminarTurno.setEnabled(false);
     }
 
     /**
@@ -34,36 +45,32 @@ public class Generar_Turno extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        TxtBuscarPaciente = new javax.swing.JTextField();
+        Txtcedulapac = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        TxtCedulaT = new javax.swing.JTextField();
-        TxtApellidoT = new javax.swing.JTextField();
+        TxtApellidoPac = new javax.swing.JTextField();
+        TxtNombrePac = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        TxtNombreT = new javax.swing.JTextField();
-        BtnBuscarP = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         Combo_Doctor = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        DateChoFechaTurno = new com.toedter.calendar.JDateChooser();
-        jLabel10 = new javax.swing.JLabel();
-        TxtNumeroturno = new javax.swing.JTextField();
+        DateTurno = new com.toedter.calendar.JDateChooser();
         BtnGenerarTurno = new javax.swing.JButton();
         BtnCancelarTurno = new javax.swing.JButton();
         BtnRegresarTurno = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        TxtCedulaT1 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        Combo_Doctor1 = new javax.swing.JComboBox<>();
+        Combo_Horario = new javax.swing.JComboBox<>();
+        Combo_ceduladoc = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tablaturnos = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
         TxtBuscarPacienteLista = new javax.swing.JTextField();
         BtnBuscarPaLista = new javax.swing.JButton();
         BtnEliminarTurno = new javax.swing.JButton();
+        Registros = new javax.swing.JButton();
+        Registros1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,48 +82,62 @@ public class Generar_Turno extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Ingrese la cedula: ");
 
-        TxtBuscarPaciente.addActionListener(new java.awt.event.ActionListener() {
+        Txtcedulapac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtBuscarPacienteActionPerformed(evt);
+                TxtcedulapacActionPerformed(evt);
+            }
+        });
+        Txtcedulapac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtcedulapacKeyTyped(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Apellido: ");
 
-        TxtCedulaT.addActionListener(new java.awt.event.ActionListener() {
+        TxtApellidoPac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtCedulaTActionPerformed(evt);
+                TxtApellidoPacActionPerformed(evt);
+            }
+        });
+        TxtApellidoPac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtApellidoPacKeyTyped(evt);
+            }
+        });
+
+        TxtNombrePac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtNombrePacKeyTyped(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Nombre");
 
-        BtnBuscarP.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        BtnBuscarP.setText("Buscar");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Codigo paciente: ");
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("Nombre Doctor: ");
 
-        Combo_Doctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        Combo_Doctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Combo_DoctorActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setText("Fecha Consulta:");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel10.setText("Numero turno: ");
+        jLabel9.setText("Fecha:");
 
         BtnGenerarTurno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        BtnGenerarTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/salvar (1).png"))); // NOI18N
         BtnGenerarTurno.setText("Generar");
+        BtnGenerarTurno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGenerarTurnoActionPerformed(evt);
+            }
+        });
 
         BtnCancelarTurno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         BtnCancelarTurno.setForeground(new java.awt.Color(255, 0, 0));
-        BtnCancelarTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/cancelar.png"))); // NOI18N
         BtnCancelarTurno.setText("Cancelar");
         BtnCancelarTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +146,6 @@ public class Generar_Turno extends javax.swing.JFrame {
         });
 
         BtnRegresarTurno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        BtnRegresarTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/regreso.png"))); // NOI18N
         BtnRegresarTurno.setText("Regresar");
         BtnRegresarTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,19 +153,15 @@ public class Generar_Turno extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setText("C_paciente");
-
-        TxtCedulaT1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtCedulaT1ActionPerformed(evt);
-            }
-        });
-
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("Horario: ");
 
-        Combo_Doctor1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "8 am - 8:59 am", "9 am - 9:59 am", "10 am - 10:59 am", "11 am - 11:59 am", "12 pm - 12:59 pm", "14 pm - 14:59 pm", "15 pm - 15:59 pm", "16 pm - 16:59 pm", " " }));
+        Combo_Horario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "8 am - 8:59 am", "9 am - 9:59 am", "10 am - 10:59 am", "11 am - 11:59 am", "12 pm - 12:59 pm", "14 pm - 14:59 pm", "15 pm - 15:59 pm", "16 pm - 16:59 pm", " " }));
+        Combo_Horario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Combo_HorarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,93 +174,67 @@ public class Generar_Turno extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel10)
                             .addComponent(jLabel4)
                             .addComponent(jLabel13))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Txtcedulapac, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(DateTurno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(TxtNombrePac, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Combo_Horario, 0, 181, Short.MAX_VALUE))
+                            .addComponent(TxtApellidoPac, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(TxtBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(BtnBuscarP))
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(DateChoFechaTurno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(TxtNombreT, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(TxtApellidoT, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(Combo_Doctor, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(Combo_Doctor1, 0, 181, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                                .addComponent(TxtCedulaT1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TxtCedulaT, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TxtNumeroturno, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(Combo_Doctor, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Combo_ceduladoc, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel12))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(BtnGenerarTurno)
-                                .addGap(28, 28, 28)
-                                .addComponent(BtnCancelarTurno)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BtnRegresarTurno)))
+                        .addComponent(BtnGenerarTurno)
+                        .addGap(28, 28, 28)
+                        .addComponent(BtnCancelarTurno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
+                        .addComponent(BtnRegresarTurno)
                         .addGap(10, 10, 10)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(TxtBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnBuscarP)
-                    .addComponent(TxtCedulaT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Txtcedulapac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(TxtCedulaT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtApellidoPac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(TxtApellidoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(TxtNombreT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtNombrePac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(Combo_Doctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(DateChoFechaTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addComponent(Combo_Doctor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(Combo_Doctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Combo_ceduladoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(TxtNumeroturno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnGenerarTurno)
-                    .addComponent(BtnCancelarTurno)
-                    .addComponent(BtnRegresarTurno))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(Combo_Horario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addGap(69, 69, 69)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(DateTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnGenerarTurno)
+                            .addComponent(BtnCancelarTurno)
+                            .addComponent(BtnRegresarTurno)))
+                    .addComponent(jLabel9))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
@@ -272,32 +262,56 @@ public class Generar_Turno extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de turnos"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tablaturnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "N Turno", "Cedula", "Apellido", "Nombre", "Edad", "Servicio", "Doctor", "Fecha"
+                "N Turno", "Cedula", "Apellido", "Nombre", "Cedula Doctor", "Horario", "Fecha"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        Tablaturnos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaturnosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(Tablaturnos);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Ingrese la cedula: ");
 
         BtnBuscarPaLista.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        BtnBuscarPaLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/buscar.png"))); // NOI18N
         BtnBuscarPaLista.setText("Buscar");
+        BtnBuscarPaLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarPaListaActionPerformed(evt);
+            }
+        });
 
         BtnEliminarTurno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        BtnEliminarTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/eliminar (1).png"))); // NOI18N
         BtnEliminarTurno.setText("Eliminar");
         BtnEliminarTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnEliminarTurnoActionPerformed(evt);
+            }
+        });
+
+        Registros.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Registros.setText("Registros");
+        Registros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistrosActionPerformed(evt);
+            }
+        });
+
+        Registros1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Registros1.setText("Limpiar");
+        Registros1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Registros1ActionPerformed(evt);
             }
         });
 
@@ -306,15 +320,19 @@ public class Generar_Turno extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel11)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(TxtBuscarPacienteLista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(BtnBuscarPaLista)
                 .addGap(18, 18, 18)
+                .addComponent(Registros)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Registros1)
+                .addGap(18, 18, 18)
                 .addComponent(BtnEliminarTurno))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +342,9 @@ public class Generar_Turno extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(TxtBuscarPacienteLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnBuscarPaLista)
-                    .addComponent(BtnEliminarTurno))
+                    .addComponent(BtnEliminarTurno)
+                    .addComponent(Registros)
+                    .addComponent(Registros1))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
@@ -361,18 +381,71 @@ public class Generar_Turno extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cargarTabla() {
+        DefaultTableModel tblModelo = (DefaultTableModel) Tablaturnos.getModel();
+
+        tblModelo.setNumRows(0);
+        List<Generar_T> listaturnos = gt.Tabla_Turnos();
+
+        listaturnos.stream().forEach(p -> {
+            String[] turnos = {p.getTurno(), p.getCedula(), p.getApellido(), p.getNombre(), p.getCedula_doc(), p.getHorario(), p.getFecha()};
+            tblModelo.addRow(turnos);
+        });
+        // limpiarCampos();
+    }
+
+    private void Buscar_turno() {
+        DefaultTableModel tblModelo = (DefaultTableModel) Tablaturnos.getModel();
+
+        tblModelo.setNumRows(0);
+        List<Generar_T> listaturnos = gt.consulta_Turno(TxtBuscarPacienteLista.getText());
+
+        listaturnos.stream().forEach(p -> {
+            String[] turnos = {p.getTurno(), p.getCedula(), p.getApellido(), p.getNombre(), p.getCedula_doc(), p.getHorario(), p.getFecha()};
+            tblModelo.addRow(turnos);
+        });
+        // limpiarCampos();
+    }
+
+    public void RealizarTurno() {
+
+        GenerarTurno turno = new GenerarTurno();
+        turno.setCedula(Txtcedulapac.getText());
+        turno.setApellido(TxtApellidoPac.getText());
+        turno.setNombre(TxtNombrePac.getText());
+        turno.setCedula_doc(Combo_ceduladoc.getSelectedItem().toString());
+        turno.setHorario(Combo_Horario.getSelectedItem().toString());
+        turno.setFecha(((JTextField) DateTurno.getDateEditor().getUiComponent()).getText());
+        if (turno.GenerarTurno()) {
+            System.out.println("Conexion Exitosa");
+        } else {
+            System.out.println("Conexion Erronea");
+        }
+    }
     private void BtnCancelarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarTurnoActionPerformed
-        // TODO add your handling code here:
+        limpiar_d();        // TODO add your handling code here:
+
     }//GEN-LAST:event_BtnCancelarTurnoActionPerformed
 
     private void BtnEliminarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarTurnoActionPerformed
         // TODO add your handling code here:
+        String n = "turno";
+
+        if (gt.truncateTablaT(n)) {
+            JOptionPane.showMessageDialog(null, "Tabla trunquiada");
+            cargarTabla();
+            BtnEliminarTurno.setEnabled(false);
+        }
+
+
     }//GEN-LAST:event_BtnEliminarTurnoActionPerformed
 
     private void BtnRegresarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegresarTurnoActionPerformed
@@ -387,17 +460,141 @@ public class Generar_Turno extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnRegresarTurnoActionPerformed
 
-    private void TxtCedulaTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtCedulaTActionPerformed
+    private void TxtApellidoPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtApellidoPacActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtCedulaTActionPerformed
+    }//GEN-LAST:event_TxtApellidoPacActionPerformed
 
-    private void TxtBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtBuscarPacienteActionPerformed
+    private void TxtcedulapacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtcedulapacActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtBuscarPacienteActionPerformed
+    }//GEN-LAST:event_TxtcedulapacActionPerformed
 
-    private void TxtCedulaT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtCedulaT1ActionPerformed
+    private void Combo_DoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Combo_DoctorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxtCedulaT1ActionPerformed
+    }//GEN-LAST:event_Combo_DoctorActionPerformed
+
+    private void Combo_HorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Combo_HorarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Combo_HorarioActionPerformed
+
+    private void BtnGenerarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGenerarTurnoActionPerformed
+        // TO
+        Date fechat = DateTurno.getDate();
+        if (!(Txtcedulapac.getText().matches("^\\d{10}$"))) {
+            JOptionPane.showMessageDialog(null, "Verifique la cedula.");
+        } else {
+            if (!(TxtApellidoPac.getText().matches("^[A-Z].{3,25}$"))) {
+                // !()
+                JOptionPane.showMessageDialog(null, "Verifique el apellido.");
+            } else {
+                if (!(TxtNombrePac.getText().matches("^[A-Z].{3,25}$"))) {
+                    JOptionPane.showMessageDialog(null, "Verifique el nombre.");
+                } else {
+                    if (Combo_ceduladoc.getSelectedItem().toString().equals("cedula")) {
+                        JOptionPane.showMessageDialog(null, "Verifique seleccionar la cedula de doctor.");
+                    } else {
+                        if (fechat == null) {
+                            JOptionPane.showMessageDialog(null, "Ingrese la fecha por favor.");
+                        } else {
+                            if (Combo_Horario.getSelectedItem().toString().equals("Seleccione")) {
+                                JOptionPane.showMessageDialog(null, "Debe seleccionar una hora para el turno.");
+                            } else {
+                                String nu = "4";
+                                String conta = gt.denegarturno(nu);
+                                if (conta.equals("verdad")) {
+                                    JOptionPane.showMessageDialog(null, "Error a alcanzado el numero de turnos diarios.");
+                                    limpiar_d();
+                                    BtnEliminarTurno.setEnabled(true);
+                                } else {
+
+                                    String generoT = gt.Validar_usuarioParaTURNO(Txtcedulapac.getText(), TxtApellidoPac.getText(), TxtNombrePac.getText());
+                                    if (generoT.equals("correcto")) {//aqui
+                                            RealizarTurno();
+                                            cargarTabla();
+                                            limpiar_d();     
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Verifique si el usuario dio bien sus datos, caso contrario el paciente no esta registrado.");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnGenerarTurnoActionPerformed
+
+    private void BtnBuscarPaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPaListaActionPerformed
+        // TODO add your handling code here:
+        Buscar_turno();
+    }//GEN-LAST:event_BtnBuscarPaListaActionPerformed
+
+    private void RegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrosActionPerformed
+        // TODO add your handling code here:
+        cargarTabla();
+    }//GEN-LAST:event_RegistrosActionPerformed
+
+    private void Registros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registros1ActionPerformed
+        // TODO add your handling code here:
+        limpiar_d();
+
+    }//GEN-LAST:event_Registros1ActionPerformed
+
+    private void TxtcedulapacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtcedulapacKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
+        }
+    }//GEN-LAST:event_TxtcedulapacKeyTyped
+
+    private void TxtApellidoPacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtApellidoPacKeyTyped
+        // TODO add your handling code here:
+        char vn = evt.getKeyChar();
+        if (Character.isDigit(vn)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo letras");
+        }
+
+        if (Character.isLowerCase(vn)) {
+
+            evt.setKeyChar(Character.toUpperCase(vn));
+        }
+    }//GEN-LAST:event_TxtApellidoPacKeyTyped
+
+    private void TxtNombrePacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNombrePacKeyTyped
+        // TODO add your handling code here:
+        char vn = evt.getKeyChar();
+        if (Character.isDigit(vn)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo letras");
+        }
+
+        if (Character.isLowerCase(vn)) {
+
+            evt.setKeyChar(Character.toUpperCase(vn));
+        }
+    }//GEN-LAST:event_TxtNombrePacKeyTyped
+
+    private void TablaturnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaturnosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TablaturnosMouseClicked
+
+    public void limpiar_d() {
+        Txtcedulapac.setText("");
+        TxtApellidoPac.setText("");
+        TxtNombrePac.setText("");
+        Combo_Horario.setSelectedItem("Seleccione");
+        Combo_Doctor.setSelectedItem("Nombre");
+        Combo_ceduladoc.setSelectedItem("Cedula");
+        ((JTextField) DateTurno.getDateEditor().getUiComponent()).setText(null);
+    }
 
     /**
      * @param args the command line arguments
@@ -413,17 +610,28 @@ public class Generar_Turno extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Generar_Turno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Generar_Turno.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Generar_Turno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Generar_Turno.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Generar_Turno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Generar_Turno.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Generar_Turno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Generar_Turno.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -435,31 +643,28 @@ public class Generar_Turno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnBuscarP;
     private javax.swing.JButton BtnBuscarPaLista;
     private javax.swing.JButton BtnCancelarTurno;
     private javax.swing.JButton BtnEliminarTurno;
     private javax.swing.JButton BtnGenerarTurno;
     private javax.swing.JButton BtnRegresarTurno;
     private javax.swing.JComboBox<String> Combo_Doctor;
-    private javax.swing.JComboBox<String> Combo_Doctor1;
-    private com.toedter.calendar.JDateChooser DateChoFechaTurno;
-    private javax.swing.JTextField TxtApellidoT;
-    private javax.swing.JTextField TxtBuscarPaciente;
+    private javax.swing.JComboBox<String> Combo_Horario;
+    private javax.swing.JComboBox<String> Combo_ceduladoc;
+    private com.toedter.calendar.JDateChooser DateTurno;
+    private javax.swing.JButton Registros;
+    private javax.swing.JButton Registros1;
+    private javax.swing.JTable Tablaturnos;
+    private javax.swing.JTextField TxtApellidoPac;
     private javax.swing.JTextField TxtBuscarPacienteLista;
-    private javax.swing.JTextField TxtCedulaT;
-    private javax.swing.JTextField TxtCedulaT1;
-    private javax.swing.JTextField TxtNombreT;
-    private javax.swing.JTextField TxtNumeroturno;
+    private javax.swing.JTextField TxtNombrePac;
+    private javax.swing.JTextField Txtcedulapac;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -467,6 +672,5 @@ public class Generar_Turno extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
