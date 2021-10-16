@@ -285,6 +285,9 @@ public class Visualizar_RecetaM extends javax.swing.JFrame {
                 Buscar_RecetaHistorial();
             }
         }
+        TxtCedulaVR.setText("");
+        ((JTextField) DateBusqueda.getDateEditor().getUiComponent()).setText(null);
+
     }//GEN-LAST:event_BtnBuscarPActionPerformed
 
     private void TxtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtCedulaActionPerformed

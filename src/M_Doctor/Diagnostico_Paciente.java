@@ -48,7 +48,7 @@ public class Diagnostico_Paciente extends javax.swing.JFrame {
         TxtBusHCpac = new javax.swing.JTextField();
         BtnBuscarHC = new javax.swing.JButton();
         BtnRegistros = new javax.swing.JButton();
-        DateIngresos = new com.toedter.calendar.JDateChooser();
+        DateBusqueda = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,7 +144,7 @@ public class Diagnostico_Paciente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(TxtBusHCpac, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(DateIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(DateBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BtnBuscarHC)
                 .addGap(18, 18, 18)
@@ -157,7 +157,7 @@ public class Diagnostico_Paciente extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DateIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DateBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(TxtBusHCpac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,7 +237,7 @@ public class Diagnostico_Paciente extends javax.swing.JFrame {
     }
 
     public void Busqueda_HClinicoPac() {
-        String fe = (((JTextField) DateIngresos.getDateEditor().getUiComponent()).getText());
+        String fe = (((JTextField) DateBusqueda.getDateEditor().getUiComponent()).getText());
 
         DefaultTableModel tblModelo = (DefaultTableModel) TablaHistorialC.getModel();
 
@@ -251,7 +251,7 @@ public class Diagnostico_Paciente extends javax.swing.JFrame {
     }
 
     private void BtnBuscarHCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarHCActionPerformed
-        Date datof = DateIngresos.getDate();
+        Date datof = DateBusqueda.getDate();
         if (!(TxtBusHCpac.getText().matches("^\\d{10}$"))) {
             JOptionPane.showMessageDialog(null, "Verifique la cedula.");
         } else {
@@ -262,6 +262,9 @@ public class Diagnostico_Paciente extends javax.swing.JFrame {
                 Busqueda_HClinicoPac();
             }
         }
+        TxtBusHCpac.setText("");
+        ((JTextField) DateBusqueda.getDateEditor().getUiComponent()).setText(null);
+
     }//GEN-LAST:event_BtnBuscarHCActionPerformed
 
     private void BtnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrosActionPerformed
@@ -309,7 +312,7 @@ public class Diagnostico_Paciente extends javax.swing.JFrame {
     private javax.swing.JButton BtnBuscarHC;
     private javax.swing.JButton BtnRegistros;
     private javax.swing.JButton BtnSalirCrudDoc;
-    private com.toedter.calendar.JDateChooser DateIngresos;
+    private com.toedter.calendar.JDateChooser DateBusqueda;
     private javax.swing.JTable TablaHistorialC;
     private javax.swing.JTextField TxtBusHCpac;
     private javax.swing.JLabel jLabel1;

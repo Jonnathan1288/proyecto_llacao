@@ -35,7 +35,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="TxtBusHCpac" min="-2" pref="132" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Component id="DateIngresos" min="-2" pref="143" max="-2" attributes="0"/>
+              <Component id="DateBusqueda" min="-2" pref="143" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="BtnBuscarHC" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -50,7 +50,7 @@
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="53" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="DateIngresos" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="DateBusqueda" min="-2" pref="23" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="TxtBusHCpac" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -177,7 +177,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnRegistrosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="DateIngresos">
+    <Component class="com.toedter.calendar.JDateChooser" name="DateBusqueda">
     </Component>
   </SubComponents>
 </Form>

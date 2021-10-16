@@ -181,6 +181,7 @@ public class Turno_Base_Datos extends javax.swing.JFrame {
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         // TODO add your handling code here:
         BuscarTablaBDTurno();
+        TxtCedPac.setText("");
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void BtnTablaRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTablaRActionPerformed

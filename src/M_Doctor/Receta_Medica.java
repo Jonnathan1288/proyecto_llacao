@@ -70,6 +70,7 @@ public class Receta_Medica extends javax.swing.JFrame {
         rm.setPrescripcion(TxtPrescripcion.getText());
         if (rm.IngreserRecetaMedica()) {
             System.out.println("Conexion Exitosa");
+            JOptionPane.showMessageDialog(null, "La receta medica se cargo junto al diagnostico correctamente.");
         } else {
             System.out.println("Conexion Erronea");
         }
@@ -130,6 +131,11 @@ public class Receta_Medica extends javax.swing.JFrame {
                 Apellido_PacActionPerformed(evt);
             }
         });
+        Apellido_Pac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                Apellido_PacKeyTyped(evt);
+            }
+        });
         jPanel2.add(Apellido_Pac, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 179, -1));
 
         TxtMedicamentos.setColumns(20);
@@ -180,7 +186,18 @@ public class Receta_Medica extends javax.swing.JFrame {
                 Nombre_PacActionPerformed(evt);
             }
         });
+        Nombre_Pac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                Nombre_PacKeyTyped(evt);
+            }
+        });
         jPanel2.add(Nombre_Pac, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 180, -1));
+
+        Id_pac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                Id_pacKeyTyped(evt);
+            }
+        });
         jPanel2.add(Id_pac, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 180, -1));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -302,6 +319,7 @@ public class Receta_Medica extends javax.swing.JFrame {
 
     private void BtnCancelarRecetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarRecetaActionPerformed
         // TODO add your handling code here:
+        limpiar_datos();
     }//GEN-LAST:event_BtnCancelarRecetaActionPerformed
 
     private void BtnEliminarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarTurnoActionPerformed
@@ -319,10 +337,44 @@ public class Receta_Medica extends javax.swing.JFrame {
 
     private void BtnGuardarRecetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarRecetaActionPerformed
         // TODO add your handling code here:
-        CrearRecetaMedica();
-     //   int n = JOptionPane.showme
+
+        if (!(Apellido_Pac.getText().matches("^[A-Z].{3,25}$"))) {
+            // !()
+            JOptionPane.showMessageDialog(null, "Ingresa el apellido.");
+        } else {
+            if (!(Nombre_Pac.getText().matches("^[A-Z].{3,25}$"))) {
+                JOptionPane.showMessageDialog(null, "Ingresa el nombre.");
+            } else {
+                if (Id_pac.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "El campo de id de diagnostico esta vacio.");
+
+                } else {
+                    if (TxtMedicamentos.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "El campo de medicamentos esta vacio");
+
+                    } else {
+                        if (TxtPrescripcion.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "El campo de prescripciion esta vacio");
+
+                        } else {
+                            CrearRecetaMedica();
+                            limpiar_datos();
+                        }
+                    }
+                }
+            }
+        }
+
+        //   int n = JOptionPane.showme
     }//GEN-LAST:event_BtnGuardarRecetaActionPerformed
 
+    public void limpiar_datos() {
+        Apellido_Pac.setText("");
+        Nombre_Pac.setText("");
+        Id_pac.setText("");
+        TxtMedicamentos.setText("");
+        TxtPrescripcion.setText("");
+    }
     private void TxtBuscarMedicamentosListaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarMedicamentosListaKeyTyped
 
     }//GEN-LAST:event_TxtBuscarMedicamentosListaKeyTyped
@@ -338,6 +390,49 @@ public class Receta_Medica extends javax.swing.JFrame {
     private void Nombre_PacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_PacActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Nombre_PacActionPerformed
+
+    private void Apellido_PacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Apellido_PacKeyTyped
+        // TODO add your handling code here:
+        char vn = evt.getKeyChar();
+        if (Character.isDigit(vn)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo letras");
+        }
+
+        if (Character.isLowerCase(vn)) {
+
+            evt.setKeyChar(Character.toUpperCase(vn));
+        }
+    }//GEN-LAST:event_Apellido_PacKeyTyped
+
+    private void Nombre_PacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Nombre_PacKeyTyped
+        // TODO add your handling code here:
+        char vn = evt.getKeyChar();
+        if (Character.isDigit(vn)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo letras");
+        }
+
+        if (Character.isLowerCase(vn)) {
+
+            evt.setKeyChar(Character.toUpperCase(vn));
+        }
+    }//GEN-LAST:event_Nombre_PacKeyTyped
+
+    private void Id_pacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Id_pacKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Solo numeros por favor.");
+        }
+    }//GEN-LAST:event_Id_pacKeyTyped
 
     /**
      * @param args the command line arguments
@@ -356,13 +451,17 @@ public class Receta_Medica extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Receta_Medica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Receta_Medica.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Receta_Medica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Receta_Medica.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Receta_Medica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Receta_Medica.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Receta_Medica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Receta_Medica.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
