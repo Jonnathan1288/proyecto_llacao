@@ -489,7 +489,7 @@ public class Generar_Turno extends javax.swing.JFrame {
                 if (!(TxtNombrePac.getText().matches("^[A-Z].{3,25}$"))) {
                     JOptionPane.showMessageDialog(null, "Verifique el nombre.");
                 } else {
-                    if (Combo_ceduladoc.getSelectedItem().toString().equals("cedula")) {
+                    if (Combo_ceduladoc.getSelectedItem().toString().equals("Cedula")) {
                         JOptionPane.showMessageDialog(null, "Verifique seleccionar la cedula de doctor.");
                     } else {
                         if (fechat == null) {
