@@ -458,11 +458,11 @@ public class Turnos_Doctor extends javax.swing.JFrame {
     }
     private void BtnBuscarTPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarTPActionPerformed
 
-        if (!(TxtCed.getText().matches("^\\d{10}$"))) {
+        if (!(TxtcedulaDoc.getText().matches("^\\d{10}$"))) {
             JOptionPane.showMessageDialog(null, "No esta ingresado los 10 dijitos, verifique.");
         } else {
             Buscar_turnoDoct();
-
+            TxtcedulaDoc.setText("");
         }
 
     }//GEN-LAST:event_BtnBuscarTPActionPerformed
