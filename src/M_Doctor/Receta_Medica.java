@@ -6,8 +6,7 @@
 package M_Doctor;
 
 import Comportamientos.IgresarMedicamentos;
-import M_Recepcionista.Menu_Doctor;
-import M_Recepcionista.Menu_Recepcionista;
+import Comportamientos.Receta_medica;
 import clases.Medicamentos;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -18,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author DELL
  */
 public class Receta_Medica extends javax.swing.JFrame {
-   
+
     DefaultTableModel model;
     IgresarMedicamentos ingresoMe = new IgresarMedicamentos();
     String cod_medicamento = "";
@@ -30,7 +29,7 @@ public class Receta_Medica extends javax.swing.JFrame {
         initComponents();
         cargarTablaMedicamento();
     }
-    
+
     public void cargarTablaMedicamento() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaVisualizar.getModel();
 
@@ -44,9 +43,9 @@ public class Receta_Medica extends javax.swing.JFrame {
             String[] persona = {p.getCodigoM(), p.getNombreM(), can};
             tblModelo.addRow(persona);
         });
-       
+
     }
-    
+
     public void Busqueda_Medicamento() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaVisualizar.getModel();
 
@@ -56,11 +55,25 @@ public class Receta_Medica extends javax.swing.JFrame {
         listaMedicamentos.stream().forEach(p -> {
             p.getCantidad();
             String cant = String.valueOf(p.getCantidad());
-            String[] persona = {p.getCodigoM(), p.getNombreM(),cant};
+            String[] persona = {p.getCodigoM(), p.getNombreM(), cant};
             tblModelo.addRow(persona);
         });
     }
 
+    public void CrearRecetaMedica() {
+
+        Receta_medica rm = new Receta_medica();
+        rm.setApellido(Apellido_Pac.getText());
+        rm.setNombre(Nombre_Pac.getText());
+        rm.setId_diagnostico(Id_pac.getText());
+        rm.setMedicamentos(TxtMedicamentos.getText());
+        rm.setPrescripcion(TxtPrescripcion.getText());
+        if (rm.IngreserRecetaMedica()) {
+            System.out.println("Conexion Exitosa");
+        } else {
+            System.out.println("Conexion Erronea");
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -68,23 +81,23 @@ public class Receta_Medica extends javax.swing.JFrame {
 
         jPanel5 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        TxtCedulaPaciente = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        TxtNombreMedico = new javax.swing.JTextField();
-        TxtIDdoctor = new javax.swing.JTextField();
-        DateRecetaPa = new com.toedter.calendar.JDateChooser();
+        Apellido_Pac = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        TxtMedicamentos = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        TxtPrescripcion = new javax.swing.JTextArea();
         BtnGuardarReceta = new javax.swing.JButton();
         BtnCancelarReceta = new javax.swing.JButton();
         BtnRegresarReceta = new javax.swing.JButton();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        Nombre_Pac = new javax.swing.JTextField();
+        Id_pac = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaVisualizar = new javax.swing.JTable();
@@ -94,7 +107,6 @@ public class Receta_Medica extends javax.swing.JFrame {
         BtnEliminarTurno = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,40 +116,31 @@ public class Receta_Medica extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Receta Medica", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("Cedula Paciente:");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 75, -1, -1));
-        jPanel2.add(TxtCedulaPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 25, 179, -1));
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText("Fecha:");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 163, -1, -1));
-
         jLabel15.setBackground(new java.awt.Color(0, 0, 0));
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Medicamentos: ");
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Prescripcion: ");
         jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 369, -1, -1));
-        jPanel2.add(TxtNombreMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 73, 179, -1));
-        jPanel2.add(TxtIDdoctor, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 118, 179, -1));
-        jPanel2.add(DateRecetaPa, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 163, 179, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        Apellido_Pac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Apellido_PacActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Apellido_Pac, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 179, -1));
+
+        TxtMedicamentos.setColumns(20);
+        TxtMedicamentos.setRows(5);
+        jScrollPane1.setViewportView(TxtMedicamentos);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 214, 348, -1));
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        TxtPrescripcion.setColumns(20);
+        TxtPrescripcion.setRows(5);
+        jScrollPane2.setViewportView(TxtPrescripcion);
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 334, 348, -1));
 
@@ -164,18 +167,40 @@ public class Receta_Medica extends javax.swing.JFrame {
         BtnRegresarReceta.setText("Regresar");
         jPanel2.add(BtnRegresarReceta, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 438, -1, -1));
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("Nombre Paciente: ");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 120, -1, -1));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel19.setText("Apellido Paciente: ");
+        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("Nombre Medico: ");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 27, -1, -1));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel20.setText("Id Diagnostico:");
+        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+
+        Nombre_Pac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Nombre_PacActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Nombre_Pac, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 180, -1));
+        jPanel2.add(Id_pac, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 180, -1));
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel22.setText("Nombre Paciente:");
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+
+        jButton1.setText("Diagnostico");
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
+
+        jButton2.setText("Receta");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, -1, -1));
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de Medicamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         TablaVisualizar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -187,14 +212,18 @@ public class Receta_Medica extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(TablaVisualizar);
 
+        jPanel4.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 99, 746, 377));
+
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setText("Ingrese la Nombre: ");
+        jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 38, -1, -1));
 
         TxtBuscarMedicamentosLista.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TxtBuscarMedicamentosListaKeyTyped(evt);
             }
         });
+        jPanel4.add(TxtBuscarMedicamentosLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(269, 38, 179, -1));
 
         BtnBuscarPaLista.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         BtnBuscarPaLista.setText("Buscar");
@@ -203,6 +232,7 @@ public class Receta_Medica extends javax.swing.JFrame {
                 BtnBuscarPaListaActionPerformed(evt);
             }
         });
+        jPanel4.add(BtnBuscarPaLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(478, 34, -1, -1));
 
         BtnEliminarTurno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         BtnEliminarTurno.setText("Visualizar ");
@@ -211,48 +241,12 @@ public class Receta_Medica extends javax.swing.JFrame {
                 BtnEliminarTurnoActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(jLabel17)
-                .addGap(18, 18, 18)
-                .addComponent(TxtBuscarMedicamentosLista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(BtnBuscarPaLista)
-                .addGap(18, 18, 18)
-                .addComponent(BtnEliminarTurno)
-                .addContainerGap(76, Short.MAX_VALUE))
-            .addComponent(jScrollPane3)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(TxtBuscarMedicamentosLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnBuscarPaLista)
-                    .addComponent(BtnEliminarTurno))
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-        );
+        jPanel4.add(BtnEliminarTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 34, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel13.setFont(new java.awt.Font("Bell MT", 3, 36)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Receta Medica");
-
-        jButton1.setText("Atras");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -261,19 +255,13 @@ public class Receta_Medica extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(465, 465, 465)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(30, 30, 30))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -282,9 +270,10 @@ public class Receta_Medica extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
@@ -320,7 +309,7 @@ public class Receta_Medica extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnEliminarTurnoActionPerformed
 
     private void BtnBuscarPaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPaListaActionPerformed
-           if (!(TxtBuscarMedicamentosLista.getText().equals(""))) {
+        if (!(TxtBuscarMedicamentosLista.getText().equals(""))) {
             Busqueda_Medicamento();
         } else {
             JOptionPane.showMessageDialog(null, "Por favor debe ingresar la cedula en el campo, para realizar la consulta.", "Precaución  ", JOptionPane.WARNING_MESSAGE);
@@ -330,17 +319,25 @@ public class Receta_Medica extends javax.swing.JFrame {
 
     private void BtnGuardarRecetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarRecetaActionPerformed
         // TODO add your handling code here:
+        CrearRecetaMedica();
+     //   int n = JOptionPane.showme
     }//GEN-LAST:event_BtnGuardarRecetaActionPerformed
 
     private void TxtBuscarMedicamentosListaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarMedicamentosListaKeyTyped
-        
+
     }//GEN-LAST:event_TxtBuscarMedicamentosListaKeyTyped
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Menu_Doctor md=new Menu_Doctor();
-        md.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void Apellido_PacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Apellido_PacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Apellido_PacActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void Nombre_PacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_PacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Nombre_PacActionPerformed
 
     /**
      * @param args the command line arguments
@@ -371,6 +368,10 @@ public class Receta_Medica extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -381,26 +382,27 @@ public class Receta_Medica extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Apellido_Pac;
     private javax.swing.JButton BtnBuscarPaLista;
     private javax.swing.JButton BtnCancelarReceta;
     private javax.swing.JButton BtnEliminarTurno;
     private javax.swing.JButton BtnGuardarReceta;
     private javax.swing.JButton BtnRegresarReceta;
-    private com.toedter.calendar.JDateChooser DateRecetaPa;
+    private javax.swing.JTextField Id_pac;
+    private javax.swing.JTextField Nombre_Pac;
     private javax.swing.JTable TablaVisualizar;
     private javax.swing.JTextField TxtBuscarMedicamentosLista;
-    private javax.swing.JTextField TxtCedulaPaciente;
-    private javax.swing.JTextField TxtIDdoctor;
-    private javax.swing.JTextField TxtNombreMedico;
+    private javax.swing.JTextArea TxtMedicamentos;
+    private javax.swing.JTextArea TxtPrescripcion;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -408,7 +410,5 @@ public class Receta_Medica extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }
