@@ -259,8 +259,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
 
         TablaRecepcionistas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Cedula", "Apellido", "Nombre", "Fecha de nacimiento", "Genero", "Tipo de Sangre", "Telefono", "Direccion", "Id_recepcionista", "Sueldo"
@@ -539,8 +538,8 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
 
     private void TablaRecepcionistasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaRecepcionistasMouseClicked
         int i = TablaRecepcionistas.getSelectedRow();
-
-        if (i >= 0) {
+        
+        if (i < 5000) {
             String cedula = TablaRecepcionistas.getValueAt(i, 0).toString();
             String apellido = TablaRecepcionistas.getValueAt(i, 1).toString();
             String nombre = TablaRecepcionistas.getValueAt(i, 2).toString();
@@ -578,7 +577,46 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
                 RadioBtnNoDefinido.setSelected(true);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "");
+            if (i >= 0) {
+                String cedula = TablaRecepcionistas.getValueAt(i, 0).toString();
+                String apellido = TablaRecepcionistas.getValueAt(i, 1).toString();
+                String nombre = TablaRecepcionistas.getValueAt(i, 2).toString();
+                // String fecha_nacimiento = TablaRecepcionistas.getValueAt(i, 3).toString();
+                String genero = TablaRecepcionistas.getValueAt(i, 4).toString();
+                String tipo_sangre = TablaRecepcionistas.getValueAt(i, 5).toString();
+                String telefono = TablaRecepcionistas.getValueAt(i, 6).toString();
+                String direccion = TablaRecepcionistas.getValueAt(i, 7).toString();
+                String id_paciente = TablaRecepcionistas.getValueAt(i, 8).toString();
+                String sueldo = TablaRecepcionistas.getValueAt(i, 9).toString();
+
+                TxtCedulaRep.setText(cedula);
+                TxtApellidoRep.setText(apellido);
+                TxtNombreRep.setText(nombre);
+                TxtTelefonoRep.setText(telefono);
+                TxtDireccionRep.setText(direccion);
+
+                String fecha = (String) TablaRecepcionistas.getValueAt(i, 3);
+                Date fechas;
+                try {
+                    fechas = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+                    DateRecepcionista.setDate(fechas);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Crud_Paciente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                ComboTipoSangreRep.setSelectedItem(tipo_sangre);
+                TxtSueldoRep.setText(sueldo);
+                if (genero.equals("Masculino")) {
+                    RadioBtnMasculino.setSelected(true);
+                }
+                if (genero.equals("Femenino")) {
+                    RadioBtnFemenino.setSelected(true);
+                }
+                if (genero.equals("No definido")) {
+                    RadioBtnNoDefinido.setSelected(true);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "");
+            }
         }
     }//GEN-LAST:event_TablaRecepcionistasMouseClicked
 
@@ -658,7 +696,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaRecepcionistas.getModel();
 
         tblModelo.setNumRows(0);
-        List<Recepcionista> listarecepcionista = ingresoRep.consulta_Recepcionista(TxtCedulaRep.getText());
+        List<Recepcionista> listarecepcionista = ingresoRep.consulta_Recepcionista(TxtBuscarRep.getText());
 
         listarecepcionista.stream().forEach(p -> {
             String[] persona = {p.getCedula(), p.getApellido(), p.getNombre(), p.getFecha_nacimiento(), p.getGenero(), p.getTipo_sangre(), p.getTelefono(), p.getDireccion(), p.getId_recepcionista()/*, p.getSueldo()*/};

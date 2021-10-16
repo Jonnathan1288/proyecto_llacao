@@ -517,8 +517,7 @@ public class Crud_Doctor extends javax.swing.JFrame {
 
     private void TablaDoctoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaDoctoresMouseClicked
         int i = TablaDoctores.getSelectedRow();
-
-        if (i >= 0) {
+        if (i < 5000) {
             String cedula = TablaDoctores.getValueAt(i, 0).toString();
             String apellido = TablaDoctores.getValueAt(i, 1).toString();
             String nombre = TablaDoctores.getValueAt(i, 2).toString();
@@ -557,7 +556,47 @@ public class Crud_Doctor extends javax.swing.JFrame {
                 RadioBtnNoDefinido.setSelected(true);
             }
         } else {
+            if (i >= 0) {
+                String cedula = TablaDoctores.getValueAt(i, 0).toString();
+                String apellido = TablaDoctores.getValueAt(i, 1).toString();
+                String nombre = TablaDoctores.getValueAt(i, 2).toString();
+                // String fecha_nacimiento = TablaDoctores.getValueAt(i, 3).toString();
+                String genero = TablaDoctores.getValueAt(i, 4).toString();
+                String tipo_sangre = TablaDoctores.getValueAt(i, 5).toString();
+                String telefono = TablaDoctores.getValueAt(i, 6).toString();
+                String direccion = TablaDoctores.getValueAt(i, 7).toString();
+                String id_doctor = TablaDoctores.getValueAt(i, 8).toString();
+                String area = TablaDoctores.getValueAt(i, 9).toString();
+                String titulo = TablaDoctores.getValueAt(i, 10).toString();
 
+                TxtCedulaDoc.setText(cedula);
+                TxtApellidoDoc.setText(apellido);
+                TxtNombreDoc.setText(nombre);
+                TxtTelefonoDoc.setText(telefono);
+                TxtDireccionDoc.setText(direccion);
+                String fecha = (String) TablaDoctores.getValueAt(i, 3);
+                Date fechas;
+                try {
+                    fechas = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+                    DateDoctorFecha.setDate(fechas);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Crud_Doctor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                ComboTipoSangreDoc.setSelectedItem(tipo_sangre);
+                ComboArea.setSelectedItem(area);
+                ComboTitulo.setSelectedItem(titulo);
+                if (genero.equals("Masculino")) {
+                    RadioBtnMasculino.setSelected(true);
+                }
+                if (genero.equals("Femenino")) {
+                    RadioBtnFemenino.setSelected(true);
+                }
+                if (genero.equals("No definido")) {
+                    RadioBtnNoDefinido.setSelected(true);
+                }
+            } else {
+
+            }
         }
     }//GEN-LAST:event_TablaDoctoresMouseClicked
 

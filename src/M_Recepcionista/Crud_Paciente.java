@@ -490,7 +490,7 @@ public class Crud_Paciente extends javax.swing.JFrame {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaPaciente.getModel();
 
         tblModelo.setNumRows(0);
-        List<Paciente> listapacientes = ingresopa.consulta_paciente(TxtCedulaPac.getText());
+        List<Paciente> listapacientes = ingresopa.consulta_paciente(TxtBuscarPac.getText());
 
         listapacientes.stream().forEach(p -> {
             String[] persona = {p.getCedula(), p.getApellido(), p.getNombre(), p.getFecha_nacimiento(), p.getGenero(), p.getTipo_sangre(), p.getTelefono(), p.getDireccion(), p.getId_paciente(), p.getAlergias(), p.getDiscapacidad()};
@@ -629,8 +629,7 @@ public class Crud_Paciente extends javax.swing.JFrame {
     }
     private void TablaPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPacienteMouseClicked
         int i = TablaPaciente.getSelectedRow();
-
-        if (i >= 0) {
+        if (i < 5000) {
             String cedula = TablaPaciente.getValueAt(i, 0).toString();
             String apellido = TablaPaciente.getValueAt(i, 1).toString();
             String nombre = TablaPaciente.getValueAt(i, 2).toString();
@@ -675,7 +674,53 @@ public class Crud_Paciente extends javax.swing.JFrame {
                 RadioDiscapaNO.setSelected(true);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "6");
+            if (i >= 0) {
+                String cedula = TablaPaciente.getValueAt(i, 0).toString();
+                String apellido = TablaPaciente.getValueAt(i, 1).toString();
+                String nombre = TablaPaciente.getValueAt(i, 2).toString();
+                //  String fecha_nacimiento = TablaPaciente.getValueAt(i, 3).toString();
+                String genero = TablaPaciente.getValueAt(i, 4).toString();
+                String tipo_sangre = TablaPaciente.getValueAt(i, 5).toString();
+                String telefono = TablaPaciente.getValueAt(i, 6).toString();
+                String direccion = TablaPaciente.getValueAt(i, 7).toString();
+                String id_paciente = TablaPaciente.getValueAt(i, 8).toString();
+                String alergias = TablaPaciente.getValueAt(i, 9).toString();
+                String discapacidad = TablaPaciente.getValueAt(i, 10).toString();
+                TxtCedulaPac.setText(cedula);
+                TxtApellidoPac.setText(apellido);
+                TxtNombrePac.setText(nombre);
+                TxtTelefonoPac.setText(telefono);
+                TxtDireccionPac.setText(direccion);
+                ComboTipoAlergiasPac.setSelectedItem(alergias);
+                String fecha = (String) TablaPaciente.getValueAt(i, 3);
+                Date fechas;
+                try {
+                    fechas = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+                    DateFnaciPaci.setDate(fechas);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Crud_Paciente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                ComboTipoSangrePac.setSelectedItem(tipo_sangre);
+                if (genero.equals("Masculino")) {
+                    RadioBtnMasculino.setSelected(true);
+                }
+                if (genero.equals("Femenino")) {
+                    RadioBtnFemenino.setSelected(true);
+                }
+                if (genero.equals("No definido")) {
+                    RadioBtnNoDefinido.setSelected(true);
+                }
+                //  ComboEstadocivilPac.setSelectedItem(estado_civilp);
+                if (discapacidad.equals("SI")) {
+                    RadioDiscapaSI.setSelected(true);
+                }
+                if (discapacidad.equals("NO")) {
+                    RadioDiscapaNO.setSelected(true);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "6");
+            }
         }
     }//GEN-LAST:event_TablaPacienteMouseClicked
 

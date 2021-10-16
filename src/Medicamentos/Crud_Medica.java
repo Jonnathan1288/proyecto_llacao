@@ -386,6 +386,12 @@ public class Crud_Medica extends javax.swing.JFrame {
             }
         });
 
+        TxtBuscarMedicamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtBuscarMedicamentoKeyTyped(evt);
+            }
+        });
+
         BtnBUscar.setText("Buscar");
         BtnBUscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -710,6 +716,21 @@ public class Crud_Medica extends javax.swing.JFrame {
         md.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void TxtBuscarMedicamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarMedicamentoKeyTyped
+        // TODO add your handling code here:
+        char vn = evt.getKeyChar();
+        if (Character.isDigit(vn)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Por favor, debe ingresar nombre de medicamento.");
+        }
+
+        if (Character.isLowerCase(vn)) {
+
+            evt.setKeyChar(Character.toUpperCase(vn));
+        }
+    }//GEN-LAST:event_TxtBuscarMedicamentoKeyTyped
 
     public void Busqueda_Medicamento() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaMedicamentos.getModel();
