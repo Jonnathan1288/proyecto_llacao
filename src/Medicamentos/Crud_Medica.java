@@ -1,8 +1,6 @@
 package Medicamentos;
 
 import Comportamientos.IgresarMedicamentos;
-import M_Recepcionista.Menu_Doctor;
-import M_Recepcionista.Menu_Recepcionista;
 import clases.Medicamentos;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,7 +38,6 @@ public class Crud_Medica extends javax.swing.JFrame {
 
     public Crud_Medica() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
         cargarTablaMedicamento();
     }
 
@@ -62,7 +59,7 @@ public class Crud_Medica extends javax.swing.JFrame {
         }
     }
 
-    public void cargarTablaMedicamento() {
+    private void cargarTablaMedicamento() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaMedicamentos.getModel();
 
         tblModelo.setNumRows(0);
@@ -111,7 +108,6 @@ public class Crud_Medica extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaMedicamentos = new javax.swing.JTable();
@@ -127,7 +123,7 @@ public class Crud_Medica extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bell MT", 3, 18))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resgistara", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bell MT", 3, 18))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Presentacion:");
@@ -152,7 +148,7 @@ public class Crud_Medica extends javax.swing.JFrame {
             }
         });
 
-        BtnRegistrar.setText("Agregar");
+        BtnRegistrar.setText("Agruegar");
         BtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnRegistrarActionPerformed(evt);
@@ -286,13 +282,13 @@ public class Crud_Medica extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(DateCaducidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addGap(8, 8, 8)
                 .addComponent(jLabel10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 255));
@@ -303,13 +299,6 @@ public class Crud_Medica extends javax.swing.JFrame {
 
         jButton5.setBackground(new java.awt.Color(204, 204, 255));
 
-        jButton1.setText("Atras");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -318,10 +307,8 @@ public class Crud_Medica extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addGap(332, 332, 332)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 640, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -335,9 +322,7 @@ public class Crud_Medica extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton5))
+                .addComponent(jButton5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -379,16 +364,10 @@ public class Crud_Medica extends javax.swing.JFrame {
             }
         });
 
-        BtnTablaMed.setText("Ver Registros");
+        BtnTablaMed.setText("Tabla M");
         BtnTablaMed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnTablaMedActionPerformed(evt);
-            }
-        });
-
-        TxtBuscarMedicamento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TxtBuscarMedicamentoKeyTyped(evt);
             }
         });
 
@@ -416,11 +395,10 @@ public class Crud_Medica extends javax.swing.JFrame {
                 .addComponent(TxtBuscarMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65)
                 .addComponent(BtnBUscar)
-                .addGap(0, 62, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 987, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,9 +411,9 @@ public class Crud_Medica extends javax.swing.JFrame {
                     .addComponent(BtnTablaMed)
                     .addComponent(TxtBuscarMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnBUscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -455,7 +433,9 @@ public class Crud_Medica extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -509,7 +489,7 @@ public class Crud_Medica extends javax.swing.JFrame {
                                 if (fecha_cadu == null) {
                                     JOptionPane.showMessageDialog(null, "Verifique la fecha de caducidad.");
                                 } else {
-                                    if (txtCantidad.getText().matches("^[0-9]$")) {
+                                    if (txtCantidad.getText().matches("^[0-9](1, 7)$")) {
                                         JOptionPane.showMessageDialog(null, "Asegúrese que este lleno el campo de la cantidad.");
                                     } else {
                                         ResgitrarMedic();
@@ -531,9 +511,9 @@ public class Crud_Medica extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnTablaMedActionPerformed
 
     private void TablaMedicamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMedicamentosMouseClicked
-
+        // TODO add your handling code here:
         int i = TablaMedicamentos.getSelectedRow();
-        if (i >= 0) {
+        if (i <= 1000) {
             cod_medicamento = TablaMedicamentos.getValueAt(i, 0).toString();
             String nom_medicamento = TablaMedicamentos.getValueAt(i, 1).toString();
             String tipo_medicamento = TablaMedicamentos.getValueAt(i, 2).toString();
@@ -570,9 +550,49 @@ public class Crud_Medica extends javax.swing.JFrame {
             txtCantidad.setText(cantidad_medicamentos);
 
         } else {
-            JOptionPane.showMessageDialog(null, "6");
+            if (i >= 0) {
+                cod_medicamento = TablaMedicamentos.getValueAt(i, 0).toString();
+                String nom_medicamento = TablaMedicamentos.getValueAt(i, 1).toString();
+                String tipo_medicamento = TablaMedicamentos.getValueAt(i, 2).toString();
+                String medicamento = TablaMedicamentos.getValueAt(i, 3).toString();
+                String presentacion = TablaMedicamentos.getValueAt(i, 4).toString();
+                String unidad_medida = TablaMedicamentos.getValueAt(i, 5).toString();
+                String via_administracion = TablaMedicamentos.getValueAt(i, 6).toString();
+                String fecha_ingreso = TablaMedicamentos.getValueAt(i, 7).toString();
+
+                String fecha_caducidad = TablaMedicamentos.getValueAt(i, 8).toString();
+                String cantidad_medicamentos = TablaMedicamentos.getValueAt(i, 9).toString();
+
+//            String fechain = (String) TablaMedicamentos.getValueAt(i, 7);
+//            Date fechaingre;
+//            try {
+//                fechaingre = new SimpleDateFormat("dd/MM/yyyy").parse(fechain);
+//                DateIngresos.setDate(fechaingre);
+//            } catch (ParseException ex) {
+//                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            String fecha2 = (String) TablaMedicamentos.getValueAt(i, 8);
+//            Date fechas2 = null;
+//            try {
+//                fechas2 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha2);
+//                DateIngresos.setDate(fechas2);
+//            } catch (ParseException ex) {
+//                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+                txtNombre.setText(nom_medicamento);
+                ComboTDM.setSelectedItem(tipo_medicamento);
+                ComboPresent.setSelectedItem(presentacion);
+                txtUnidadM.setText(unidad_medida);
+                Combo_ViaAdmin.setSelectedItem(via_administracion);
+                txtCantidad.setText(cantidad_medicamentos);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "6");
+            }
         }
     }//GEN-LAST:event_TablaMedicamentosMouseClicked
+
+    
 
     public void limpiar_datos() {
         txtNombre.setText("");
@@ -668,7 +688,7 @@ public class Crud_Medica extends javax.swing.JFrame {
         if (!(TxtBuscarMedicamento.getText().equals(""))) {
             Busqueda_Medicamento();
         } else {
-            JOptionPane.showMessageDialog(null, "Por favor debe ingresar la cedula en el campo, para realizar la consulta.", "Precaución  ", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor debe ingresar el nombre del medicamento, para realizar la consulta.", "Precaución  ", JOptionPane.WARNING_MESSAGE);
         }
         TxtBuscarMedicamento.setText("");
     }//GEN-LAST:event_BtnBUscarActionPerformed
@@ -710,27 +730,6 @@ public class Crud_Medica extends javax.swing.JFrame {
         cargarTablaMedicamento();
         limpiar_datos();
     }//GEN-LAST:event_BtnModificarMedActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Menu_Recepcionista md= new  Menu_Recepcionista();
-        md.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void TxtBuscarMedicamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarMedicamentoKeyTyped
-        // TODO add your handling code here:
-        char vn = evt.getKeyChar();
-        if (Character.isDigit(vn)) {
-            getToolkit().beep();
-            evt.consume();
-            JOptionPane.showMessageDialog(null, "Por favor, debe ingresar nombre de medicamento.");
-        }
-
-        if (Character.isLowerCase(vn)) {
-
-            evt.setKeyChar(Character.toUpperCase(vn));
-        }
-    }//GEN-LAST:event_TxtBuscarMedicamentoKeyTyped
 
     public void Busqueda_Medicamento() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaMedicamentos.getModel();
@@ -826,7 +825,6 @@ public class Crud_Medica extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser DateIngresos;
     private javax.swing.JTable TablaMedicamentos;
     private javax.swing.JTextField TxtBuscarMedicamento;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
