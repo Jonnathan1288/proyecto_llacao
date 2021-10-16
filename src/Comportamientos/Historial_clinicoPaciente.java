@@ -200,4 +200,27 @@ public class Historial_clinicoPaciente extends historial_clinico {
         }
         return true;
     }
+    
+    public List<historial_clinico> BuscarHC(String cedula, String fecha) {
+        String sql1 = "select codigo_historial, cedula_paciente, cedula_doctor, sintomas, diacnostico, fecha_consulta from historial_clinico where cedula_paciente='"+cedula+"' AND fecha_consulta='"+fecha+"';";
+        ResultSet rs = conet.selectConsulta(sql1);
+        List<historial_clinico> hc = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                historial_clinico miHC = new historial_clinico();
+                miHC.setCodigo_historial(rs.getString("codigo_historial"));
+                miHC.setCedula_pa(rs.getString("cedula_paciente"));
+                miHC.setCedula_doc(rs.getString("cedula_doctor"));
+                miHC.setSintomas(rs.getString("sintomas"));
+                miHC.setDiacnostico(rs.getString("diacnostico"));
+                miHC.setFecha(rs.getString("fecha_consulta"));
+                hc.add(miHC);
+            }
+            rs.close();
+            return hc;
+        } catch (SQLException ex) {
+            Logger.getLogger(Historial_clinicoPaciente.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }
