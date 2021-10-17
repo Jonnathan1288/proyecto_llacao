@@ -32,7 +32,7 @@ public class Descarga_Medicamentos extends javax.swing.JFrame {
     public Descarga_Medicamentos() {
         initComponents();
         cargarTablaMedicamento();
-        txtNombre.setEnabled(false);
+        txtNombre.setEditable(false);
         txtUnidadM.setEnabled(false);
         txtCantidad.setEditable(false);
         ComboTDM.setEnabled(false);
@@ -449,7 +449,7 @@ public class Descarga_Medicamentos extends javax.swing.JFrame {
         if (Character.isDigit(vn)) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Por favor, debe ingresar nombre.");
+            JOptionPane.showMessageDialog(null, "Usted no puede modificar este nombre.");
         }
 
         if (Character.isLowerCase(vn)) {

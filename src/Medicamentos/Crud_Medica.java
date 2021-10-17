@@ -14,25 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-
-/**
- *
- * @author carlo
- */
 public class Crud_Medica extends javax.swing.JFrame {
 
-    // DefaultTableModel modelo;
     IgresarMedicamentos ingresoMed = new IgresarMedicamentos();
     String cod_medicamento = "";
 
@@ -63,16 +47,15 @@ public class Crud_Medica extends javax.swing.JFrame {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaMedicamentos.getModel();
 
         tblModelo.setNumRows(0);
-        List<Medicamentos> listapacientes = ingresoMed.ListMedicamentos();
+        List<Medicamentos> listamedicament = ingresoMed.ListMedicamentos();
 
-        listapacientes.stream().forEach(p -> {
+        listamedicament.stream().forEach(p -> {
 
             p.getCantidad();
             String can = String.valueOf(p.getCantidad());
-            String[] persona = {p.getCodigoM(), p.getNombreM(), p.getTiposM(), p.getMedicamentos(), p.getPresentacionM(), p.getUnidadesMM(), p.getVia_AdministracionM(), p.getFecha_IngresoM(), p.getFecha_caducidad(), can};
-            tblModelo.addRow(persona);
+            String[] medica = {p.getCodigoM(), p.getNombreM(), p.getTiposM(), p.getMedicamentos(), p.getPresentacionM(), p.getUnidadesMM(), p.getVia_AdministracionM(), p.getFecha_IngresoM(), p.getFecha_caducidad(), can};
+            tblModelo.addRow(medica);
         });
-        // limpiarCampos();
     }
 
     /**
@@ -758,8 +741,8 @@ public class Crud_Medica extends javax.swing.JFrame {
         listaMedicamentos.stream().forEach(p -> {
             p.getCantidad();
             String cant = String.valueOf(p.getCantidad());
-            String[] persona = {p.getCodigoM(), p.getNombreM(), p.getTiposM(), p.getMedicamentos(), p.getPresentacionM(), p.getUnidadesMM(), p.getVia_AdministracionM(), p.getFecha_IngresoM(), p.getFecha_caducidad(), cant};
-            tblModelo.addRow(persona);
+            String[] med = {p.getCodigoM(), p.getNombreM(), p.getTiposM(), p.getMedicamentos(), p.getPresentacionM(), p.getUnidadesMM(), p.getVia_AdministracionM(), p.getFecha_IngresoM(), p.getFecha_caducidad(), cant};
+            tblModelo.addRow(med);
         });
     }
 
