@@ -60,7 +60,7 @@ public class Historial_clinicoPaciente extends historial_clinico {
             rs.close();
             return lp;
         } catch (SQLException ex) {
-            Logger.getLogger(IngresoPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Historial_clinicoPaciente.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -90,7 +90,7 @@ public class Historial_clinicoPaciente extends historial_clinico {
             rs.close();
             return lp;
         } catch (SQLException ex) {
-            Logger.getLogger(IngresoPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Historial_clinicoPaciente.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -185,7 +185,7 @@ public class Historial_clinicoPaciente extends historial_clinico {
             rs.close();
             return lp;
         } catch (SQLException ex) {
-            Logger.getLogger(Crear_usuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Historial_clinicoPaciente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
 

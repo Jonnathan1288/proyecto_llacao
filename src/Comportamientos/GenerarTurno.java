@@ -78,7 +78,7 @@ public class GenerarTurno extends Generar_T {
                 // +(rs.getInt("contador")+n());
             }
         } catch (SQLException ex) {
-            Logger.getLogger(IngresoPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GenerarTurno.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -128,7 +128,7 @@ public class GenerarTurno extends Generar_T {
             rs.close();
             return lp;
         } catch (SQLException ex) {
-            Logger.getLogger(IngresoPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GenerarTurno.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -145,7 +145,7 @@ public class GenerarTurno extends Generar_T {
             rs.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(Inicio_secion_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GenerarTurno.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -189,7 +189,7 @@ public class GenerarTurno extends Generar_T {
             rs.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(Inicio_secion_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GenerarTurno.class.getName()).log(Level.SEVERE, null, ex);
         }
         return busqueda;
     }

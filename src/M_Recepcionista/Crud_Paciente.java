@@ -483,7 +483,6 @@ public class Crud_Paciente extends javax.swing.JFrame {
             String[] persona = {p.getCedula(), p.getApellido(), p.getNombre(), p.getFecha_nacimiento(), p.getGenero(), p.getTipo_sangre(), p.getTelefono(), p.getDireccion(), p.getId_paciente(), p.getAlergias(), p.getDiscapacidad()};
             tblModelo.addRow(persona);
         });
-        // limpiarCampos();
     }
 
     private void Busqueda_paciente() {
@@ -496,7 +495,6 @@ public class Crud_Paciente extends javax.swing.JFrame {
             String[] persona = {p.getCedula(), p.getApellido(), p.getNombre(), p.getFecha_nacimiento(), p.getGenero(), p.getTipo_sangre(), p.getTelefono(), p.getDireccion(), p.getId_paciente(), p.getAlergias(), p.getDiscapacidad()};
             tblModelo.addRow(persona);
         });
-        // limpiarCampos();
     }
 
     public void registrarPaciente() {
@@ -512,9 +510,9 @@ public class Crud_Paciente extends javax.swing.JFrame {
         inpac.setAlergias(ComboTipoAlergiasPac.getSelectedItem().toString());
         inpac.setDiscapacidad(discapacidadPac);
         if (inpac.insertatPacientes()) {
-            System.out.println("Si se ingreso a tu corazon");
+            System.out.println("Si se conecto a la bd");
         } else {
-            System.out.println("esta roto tu corazon");
+            System.out.println("Error al conectar  a la bd");
         }
     }
     private void BtnGuardarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDocActionPerformed
@@ -576,9 +574,6 @@ public class Crud_Paciente extends javax.swing.JFrame {
         // TODO add your handling code here:
         int n = JOptionPane.showConfirmDialog(this, "Estas seguro que deseas salir del crud de paciente.", "Confirma", JOptionPane.YES_NO_OPTION);
         if (n == JOptionPane.YES_OPTION) {
-//            sdf ni = new sdf();
-//            ni.setVisible(true);
-//            dispose();
             Menu_Recepcionista mrep = new Menu_Recepcionista();
             mrep.setVisible(true);
             dispose();
@@ -711,7 +706,6 @@ public class Crud_Paciente extends javax.swing.JFrame {
                 if (genero.equals("No definido")) {
                     RadioBtnNoDefinido.setSelected(true);
                 }
-                //  ComboEstadocivilPac.setSelectedItem(estado_civilp);
                 if (discapacidad.equals("SI")) {
                     RadioDiscapaSI.setSelected(true);
                 }
@@ -796,9 +790,9 @@ public class Crud_Paciente extends javax.swing.JFrame {
         inpaci.setDiscapacidad(discapacidadPac);
 
         if (inpaci.ModificarPaciente(TxtCedulaPac.getText())) {
-            System.out.println("Si se ingreso a tu corazon");
+            System.out.println("Conexion exitosa");
         } else {
-            System.out.println("esta roto tu corazon");
+            System.out.println("Error en conexion");
         }
 
     }

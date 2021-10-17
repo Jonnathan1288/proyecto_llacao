@@ -19,14 +19,16 @@ public class Crear_cuenta extends javax.swing.JFrame {
     /**
      * Creates new form Crear_cuenta
      */
-        Crear_usuario createUser = new Crear_usuario();
-        int aux = 0;
+    Crear_usuario createUser = new Crear_usuario();
+    int aux = 0;
+
     public Crear_cuenta() {
         initComponents();
         this.setLocationRelativeTo(null);
         txtFantasma();
     }
-    public void txtFantasma(){
+
+    public void txtFantasma() {
         MensajeFantasma menFas = new MensajeFantasma("Usuario", TxtUsuario);
         MensajeFantasma menFas1 = new MensajeFantasma("Password", Passwdprimer);
         MensajeFantasma menFas2 = new MensajeFantasma("Repeat Password", PasswdRepetir);
@@ -277,10 +279,10 @@ public class Crear_cuenta extends javax.swing.JFrame {
         if (creaUs.InsertarUsuarios()) {
             JOptionPane.showMessageDialog(null, "Cuenta de " + Combo_tipoUsuario.getSelectedItem().toString() + " creada satisfactoriamente");
         } else {
-            System.out.println("esta roto tu corazon");
+            System.out.println("No se pudo conectar a la bd.");
         }
     }
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         if (!(TxtUsuario.getText().matches("^\\d{10}$"))) {
@@ -352,7 +354,7 @@ public class Crear_cuenta extends javax.swing.JFrame {
         PasswdRepetir.setText("");
         Combo_tipoUsuario.setSelectedItem("Seleccione");
     }
-    
+
     private void BtnSalirSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirSesionActionPerformed
         // TODO add your handling code here:
         Menu_Recepcionista ini = new Menu_Recepcionista();

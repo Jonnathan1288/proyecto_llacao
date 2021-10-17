@@ -7,7 +7,12 @@ package M_Recepcionista;
 
 import Comportamientos.IgresarMedicamentos;
 import clases.Medicamentos;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -497,16 +502,15 @@ public class Descarga_Medicamentos extends javax.swing.JFrame {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaMedicamentos.getModel();
 
         tblModelo.setNumRows(0);
-        List<Medicamentos> listapacientes = inmed.ListMedicamentos();
+        List<Medicamentos> listamedicamento = inmed.ListMedicamentos();
 
-        listapacientes.stream().forEach(p -> {
+        listamedicamento.stream().forEach(p -> {
 
             p.getCantidad();
             String can = String.valueOf(p.getCantidad());
-            String[] persona = {p.getCodigoM(), p.getNombreM(), p.getTiposM(), p.getMedicamentos(), p.getPresentacionM(), p.getUnidadesMM(), p.getVia_AdministracionM(), p.getFecha_IngresoM(), p.getFecha_caducidad(), can};
-            tblModelo.addRow(persona);
+            String[] medica = {p.getCodigoM(), p.getNombreM(), p.getTiposM(), p.getMedicamentos(), p.getPresentacionM(), p.getUnidadesMM(), p.getVia_AdministracionM(), p.getFecha_IngresoM(), p.getFecha_caducidad(), can};
+            tblModelo.addRow(medica);
         });
-        // limpiarCampos();
     }
     private void TablaMedicamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMedicamentosMouseClicked
         // TODO add your handling code here:
@@ -525,22 +529,22 @@ public class Descarga_Medicamentos extends javax.swing.JFrame {
             String fecha_caducidad = TablaMedicamentos.getValueAt(i, 8).toString();
             String cantidad_medicamentos = TablaMedicamentos.getValueAt(i, 9).toString();
 
-            //            String fechain = (String) TablaMedicamentos.getValueAt(i, 7);
-            //            Date fechaingre;
-            //            try {
-            //                fechaingre = new SimpleDateFormat("dd/MM/yyyy").parse(fechain);
-            //                DateIngresos.setDate(fechaingre);
-            //            } catch (ParseException ex) {
-            //                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
-            //            }
-            //            String fecha2 = (String) TablaMedicamentos.getValueAt(i, 8);
-            //            Date fechas2 = null;
-            //            try {
-            //                fechas2 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha2);
-            //                DateIngresos.setDate(fechas2);
-            //            } catch (ParseException ex) {
-            //                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
-            //            }
+            String fechain = (String) TablaMedicamentos.getValueAt(i, 7);
+            Date fechaingre;
+            try {
+                fechaingre = new SimpleDateFormat("dd/MM/yyyy").parse(fechain);
+                DateIngresos.setDate(fechaingre);
+            } catch (ParseException ex) {
+                Logger.getLogger(Descarga_Medicamentos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String fecha2 = (String) TablaMedicamentos.getValueAt(i, 8);
+            Date fechas2 = null;
+            try {
+                fechas2 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha2);
+                DateCaducidad.setDate(fechas2);
+            } catch (ParseException ex) {
+                Logger.getLogger(Descarga_Medicamentos.class.getName()).log(Level.SEVERE, null, ex);
+            }
             txtNombre.setText(nom_medicamento);
             ComboTDM.setSelectedItem(tipo_medicamento);
             ComboPresent.setSelectedItem(presentacion);
@@ -562,22 +566,22 @@ public class Descarga_Medicamentos extends javax.swing.JFrame {
                 String fecha_caducidad = TablaMedicamentos.getValueAt(i, 8).toString();
                 String cantidad_medicamentos = TablaMedicamentos.getValueAt(i, 9).toString();
 
-                //            String fechain = (String) TablaMedicamentos.getValueAt(i, 7);
-                //            Date fechaingre;
-                //            try {
-                //                fechaingre = new SimpleDateFormat("dd/MM/yyyy").parse(fechain);
-                //                DateIngresos.setDate(fechaingre);
-                //            } catch (ParseException ex) {
-                //                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
-                //            }
-                //            String fecha2 = (String) TablaMedicamentos.getValueAt(i, 8);
-                //            Date fechas2 = null;
-                //            try {
-                //                fechas2 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha2);
-                //                DateIngresos.setDate(fechas2);
-                //            } catch (ParseException ex) {
-                //                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
-                //            }
+                String fechain = (String) TablaMedicamentos.getValueAt(i, 7);
+                Date fechaingre;
+                try {
+                    fechaingre = new SimpleDateFormat("dd/MM/yyyy").parse(fechain);
+                    DateIngresos.setDate(fechaingre);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Descarga_Medicamentos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String fecha2 = (String) TablaMedicamentos.getValueAt(i, 8);
+                Date fechas2 = null;
+                try {
+                    fechas2 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha2);
+                    DateCaducidad.setDate(fechas2);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Descarga_Medicamentos.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 txtNombre.setText(nom_medicamento);
                 ComboTDM.setSelectedItem(tipo_medicamento);
                 ComboPresent.setSelectedItem(presentacion);
@@ -608,6 +612,7 @@ public class Descarga_Medicamentos extends javax.swing.JFrame {
                 IgresarMedicamentos modifi = new IgresarMedicamentos();
                 modifi.setNombreM(txtNombre.getText());
                 modifi.setTiposM(ComboTDM.getSelectedItem().toString());
+                modifi.setMedicamentos("Generico");
                 modifi.setPresentacionM(ComboPresent.getSelectedItem().toString());
                 modifi.setUnidadesMM(txtUnidadM.getText());
                 modifi.setVia_AdministracionM(Combo_ViaAdmin.getSelectedItem().toString());
@@ -615,9 +620,9 @@ public class Descarga_Medicamentos extends javax.swing.JFrame {
                 modifi.setFecha_caducidad(((JTextField) DateCaducidad.getDateEditor().getUiComponent()).getText());
                 modifi.setCantidad(totalActual);
                 if (modifi.ModificarMedicamento(idmed)) {
-                    System.out.println("Si se ingreso a tu corazon");
+                    System.out.println("Conexion exitosa");
                 } else {
-                    System.out.println("esta roto tu corazon");
+                    System.out.println("Error en conexion");
                 }
             }
         } else {
@@ -738,8 +743,8 @@ public class Descarga_Medicamentos extends javax.swing.JFrame {
         listaMedicamentos.stream().forEach(p -> {
             p.getCantidad();
             String cant = String.valueOf(p.getCantidad());
-            String[] persona = {p.getCodigoM(), p.getNombreM(), p.getTiposM(), p.getMedicamentos(), p.getPresentacionM(), p.getUnidadesMM(), p.getVia_AdministracionM(), p.getFecha_IngresoM(), p.getFecha_caducidad(), cant};
-            tblModelo.addRow(persona);
+            String[] medic = {p.getCodigoM(), p.getNombreM(), p.getTiposM(), p.getMedicamentos(), p.getPresentacionM(), p.getUnidadesMM(), p.getVia_AdministracionM(), p.getFecha_IngresoM(), p.getFecha_caducidad(), cant};
+            tblModelo.addRow(medic);
         });
     }
 

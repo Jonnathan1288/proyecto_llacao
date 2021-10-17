@@ -31,6 +31,13 @@ public class Visualizar_RecetaM extends javax.swing.JFrame {
     public Visualizar_RecetaM() {
         initComponents();
         RecetaHistorial();
+        TxtCedula.setEditable(false);
+        TxtApellido.setEditable(false);
+        TxtNombre.setEditable(false);
+        TxtSintomas.setEditable(false);
+        TxtDiagnostico.setEditable(false);
+        TxtMedicamentos.setEditable(false);
+        TxtPrescripcion.setEditable(false);
     }
 
     /**
@@ -72,7 +79,7 @@ public class Visualizar_RecetaM extends javax.swing.JFrame {
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("Registros");
+        jLabel19.setText("Visualizar receta medica");
 
         BtnSalirCrudDoc.setText("Salir");
         BtnSalirCrudDoc.addActionListener(new java.awt.event.ActionListener() {
@@ -86,9 +93,9 @@ public class Visualizar_RecetaM extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(627, Short.MAX_VALUE)
+                .addGap(439, 439, 439)
                 .addComponent(jLabel19)
-                .addGap(258, 258, 258)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BtnSalirCrudDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -198,7 +205,7 @@ public class Visualizar_RecetaM extends javax.swing.JFrame {
                         .addComponent(BtnLimpiar)
                         .addGap(29, 29, 29)
                         .addComponent(BtnLimpiar1)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 178, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(78, 78, 78)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,7 +385,6 @@ public class Visualizar_RecetaM extends javax.swing.JFrame {
             String[] receta = {p.getId_receta(), p.getCedula_pa(), p.getApellido(), p.getNombre(), p.getSintomas(), p.getDiacnostico(), p.getMedicamentos(), p.getPrescripcion(), p.getFecha()};
             tblModelo.addRow(receta);
         });
-        // limpiarCampos();
     }
 
     public void limpiar_datos() {
@@ -404,7 +410,6 @@ public class Visualizar_RecetaM extends javax.swing.JFrame {
             String[] receta = {p.getId_receta(), p.getCedula_pa(), p.getApellido(), p.getNombre(), p.getSintomas(), p.getDiacnostico(), p.getMedicamentos(), p.getPrescripcion(), p.getFecha()};
             tblModelo.addRow(receta);
         });
-        // limpiarCampos();
     }
 
     /**

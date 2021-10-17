@@ -133,7 +133,7 @@ public class IngresoDoctor extends Doctor {
             rs.close();
             return lp;
         } catch (SQLException ex) {
-            Logger.getLogger(IngresoPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IngresoDoctor.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

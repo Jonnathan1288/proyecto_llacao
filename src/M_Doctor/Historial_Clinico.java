@@ -392,9 +392,6 @@ public class Historial_Clinico extends javax.swing.JFrame {
 
     private void TablaPacienteHCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPacienteHCMouseClicked
 
-//         int i = TablaPacienteHC.getSelectedRow();
-//
-//        if (i >= 0) {}
     }//GEN-LAST:event_TablaPacienteHCMouseClicked
 
     private void BtnBuscarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPacActionPerformed
@@ -516,7 +513,7 @@ public class Historial_Clinico extends javax.swing.JFrame {
         int i = TablaHistorialC.getSelectedRow();
 
         BtnGuardarHC.setEnabled(false);
-        if (i >= 0) {
+        if (i <= 5000) {
             String cod = TablaHistorialC.getValueAt(i, 0).toString();
             String cedulap = TablaHistorialC.getValueAt(i, 1).toString();
             String cedulad = TablaHistorialC.getValueAt(i, 2).toString();
@@ -536,7 +533,28 @@ public class Historial_Clinico extends javax.swing.JFrame {
                 Logger.getLogger(Historial_Clinico.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
+            if (i >= 0) {
+                String cod = TablaHistorialC.getValueAt(i, 0).toString();
+                String cedulap = TablaHistorialC.getValueAt(i, 1).toString();
+                String cedulad = TablaHistorialC.getValueAt(i, 2).toString();
+                String sintoma = TablaHistorialC.getValueAt(i, 3).toString();
+                String diagnostico = TablaHistorialC.getValueAt(i, 4).toString();
 
+                TxtCedulaP.setText(cedulap);
+                TxtCeduladoc.setText(cedulad);
+                PanelSintomas.setText(sintoma);
+                PanelDiagnositico.setText(diagnostico);
+                String fecha = (String) TablaHistorialC.getValueAt(i, 5);
+                Date fechas;
+                try {
+                    fechas = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+                    Dateconsulta.setDate(fechas);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Historial_Clinico.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+
+            }
         }
 
     }//GEN-LAST:event_TablaHistorialCMouseClicked

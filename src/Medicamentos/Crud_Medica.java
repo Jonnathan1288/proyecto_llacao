@@ -371,6 +371,12 @@ public class Crud_Medica extends javax.swing.JFrame {
             }
         });
 
+        TxtBuscarMedicamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtBuscarMedicamentoKeyTyped(evt);
+            }
+        });
+
         BtnBUscar.setText("Buscar");
         BtnBUscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -526,22 +532,22 @@ public class Crud_Medica extends javax.swing.JFrame {
             String fecha_caducidad = TablaMedicamentos.getValueAt(i, 8).toString();
             String cantidad_medicamentos = TablaMedicamentos.getValueAt(i, 9).toString();
 
-//            String fechain = (String) TablaMedicamentos.getValueAt(i, 7);
-//            Date fechaingre;
-//            try {
-//                fechaingre = new SimpleDateFormat("dd/MM/yyyy").parse(fechain);
-//                DateIngresos.setDate(fechaingre);
-//            } catch (ParseException ex) {
-//                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            String fecha2 = (String) TablaMedicamentos.getValueAt(i, 8);
-//            Date fechas2 = null;
-//            try {
-//                fechas2 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha2);
-//                DateIngresos.setDate(fechas2);
-//            } catch (ParseException ex) {
-//                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            String fechain = (String) TablaMedicamentos.getValueAt(i, 7);
+            Date fechaingre;
+            try {
+                fechaingre = new SimpleDateFormat("dd/MM/yyyy").parse(fechain);
+                DateIngresos.setDate(fechaingre);
+            } catch (ParseException ex) {
+                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String fecha2 = (String) TablaMedicamentos.getValueAt(i, 8);
+            Date fechas2 = null;
+            try {
+                fechas2 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha2);
+                DateCaducidad.setDate(fechas2);
+            } catch (ParseException ex) {
+                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
+            }
             txtNombre.setText(nom_medicamento);
             ComboTDM.setSelectedItem(tipo_medicamento);
             ComboPresent.setSelectedItem(presentacion);
@@ -563,36 +569,33 @@ public class Crud_Medica extends javax.swing.JFrame {
                 String fecha_caducidad = TablaMedicamentos.getValueAt(i, 8).toString();
                 String cantidad_medicamentos = TablaMedicamentos.getValueAt(i, 9).toString();
 
-//            String fechain = (String) TablaMedicamentos.getValueAt(i, 7);
-//            Date fechaingre;
-//            try {
-//                fechaingre = new SimpleDateFormat("dd/MM/yyyy").parse(fechain);
-//                DateIngresos.setDate(fechaingre);
-//            } catch (ParseException ex) {
-//                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            String fecha2 = (String) TablaMedicamentos.getValueAt(i, 8);
-//            Date fechas2 = null;
-//            try {
-//                fechas2 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha2);
-//                DateIngresos.setDate(fechas2);
-//            } catch (ParseException ex) {
-//                Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+                String fechain = (String) TablaMedicamentos.getValueAt(i, 7);
+                Date fechaingre;
+                try {
+                    fechaingre = new SimpleDateFormat("dd/MM/yyyy").parse(fechain);
+                    DateIngresos.setDate(fechaingre);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String fecha2 = (String) TablaMedicamentos.getValueAt(i, 8);
+                Date fechas2 = null;
+                try {
+                    fechas2 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha2);
+                    DateCaducidad.setDate(fechas2);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Crud_Medica.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 txtNombre.setText(nom_medicamento);
                 ComboTDM.setSelectedItem(tipo_medicamento);
                 ComboPresent.setSelectedItem(presentacion);
                 txtUnidadM.setText(unidad_medida);
                 Combo_ViaAdmin.setSelectedItem(via_administracion);
                 txtCantidad.setText(cantidad_medicamentos);
-
             } else {
                 JOptionPane.showMessageDialog(null, "6");
             }
         }
     }//GEN-LAST:event_TablaMedicamentosMouseClicked
-
-    
 
     public void limpiar_datos() {
         txtNombre.setText("");
@@ -730,6 +733,21 @@ public class Crud_Medica extends javax.swing.JFrame {
         cargarTablaMedicamento();
         limpiar_datos();
     }//GEN-LAST:event_BtnModificarMedActionPerformed
+
+    private void TxtBuscarMedicamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarMedicamentoKeyTyped
+        // TODO add your handling code here:
+        char vn = evt.getKeyChar();
+        if (Character.isDigit(vn)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Por favor, debe ingresar nombre del medicamento.");
+        }
+
+        if (Character.isLowerCase(vn)) {
+
+            evt.setKeyChar(Character.toUpperCase(vn));
+        }
+    }//GEN-LAST:event_TxtBuscarMedicamentoKeyTyped
 
     public void Busqueda_Medicamento() {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaMedicamentos.getModel();

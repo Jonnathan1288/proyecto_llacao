@@ -67,7 +67,7 @@ public class Atendido_Paciente extends Atendido {
             rs.close();
             return lp;
         } catch (SQLException ex) {
-            Logger.getLogger(IngresoPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Atendido_Paciente.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

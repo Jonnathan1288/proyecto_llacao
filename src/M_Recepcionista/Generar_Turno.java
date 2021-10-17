@@ -26,8 +26,6 @@ public class Generar_Turno extends javax.swing.JFrame {
 
     public Generar_Turno() {
         initComponents();
-        //   this.setExtendedState(MAXIMIZED_BOTH);
-        // gt.cargarDoctores(Combo_Doctor);
         gt.cargarDoctores(Combo_Doctor, Combo_ceduladoc);
         cargarTabla();
         BtnEliminarTurno.setEnabled(false);
@@ -399,7 +397,6 @@ public class Generar_Turno extends javax.swing.JFrame {
             String[] turnos = {p.getTurno(), p.getCedula(), p.getApellido(), p.getNombre(), p.getCedula_doc(), p.getHorario(), p.getFecha()};
             tblModelo.addRow(turnos);
         });
-        // limpiarCampos();
     }
 
     private void Buscar_turno() {
@@ -412,7 +409,6 @@ public class Generar_Turno extends javax.swing.JFrame {
             String[] turnos = {p.getTurno(), p.getCedula(), p.getApellido(), p.getNombre(), p.getCedula_doc(), p.getHorario(), p.getFecha()};
             tblModelo.addRow(turnos);
         });
-        // limpiarCampos();
     }
 
     public void RealizarTurno() {
@@ -437,12 +433,19 @@ public class Generar_Turno extends javax.swing.JFrame {
 
     private void BtnEliminarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarTurnoActionPerformed
         // TODO add your handling code here:
-        String n = "turno";
 
-        if (gt.truncateTablaT(n)) {
-            JOptionPane.showMessageDialog(null, "Tabla trunquiada");
-            cargarTabla();
-            BtnEliminarTurno.setEnabled(false);
+        int con = JOptionPane.showConfirmDialog(this, "Esta seguro de eliminar los registros del día?", "Elimina", JOptionPane.YES_NO_OPTION);
+        if (con == JOptionPane.YES_OPTION) {
+            String n = "turno";
+            
+            if (gt.truncateTablaT(n)) {
+                JOptionPane.showMessageDialog(null, "Ahora puede generar mas turnos.");
+                cargarTabla();
+                BtnEliminarTurno.setEnabled(false);
+            }
+        }
+        if(con == JOptionPane.NO_OPTION){
+            JOptionPane.showMessageDialog(null, "Tenga en cuenta que no se va poder implementar mas turnos en este día.");
         }
 
 
@@ -508,9 +511,9 @@ public class Generar_Turno extends javax.swing.JFrame {
 
                                     String generoT = gt.Validar_usuarioParaTURNO(Txtcedulapac.getText(), TxtApellidoPac.getText(), TxtNombrePac.getText());
                                     if (generoT.equals("correcto")) {//aqui
-                                            RealizarTurno();
-                                            cargarTabla();
-                                            limpiar_d();     
+                                        RealizarTurno();
+                                        cargarTabla();
+                                        limpiar_d();
                                     } else {
                                         JOptionPane.showMessageDialog(null, "Verifique si el usuario dio bien sus datos, caso contrario el paciente no esta registrado.");
                                     }

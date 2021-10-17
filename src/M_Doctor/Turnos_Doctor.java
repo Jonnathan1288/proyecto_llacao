@@ -441,7 +441,6 @@ public class Turnos_Doctor extends javax.swing.JFrame {
             String[] turnos = {p.getTurno(), p.getCedula(), p.getApellido(), p.getNombre(), p.getCedula_doc(), p.getHorario(), p.getFecha()};
             tblModelo.addRow(turnos);
         });
-        // limpiarCampos();
     }
 
     private void Buscar_turnoDoct() {
@@ -454,7 +453,6 @@ public class Turnos_Doctor extends javax.swing.JFrame {
             String[] turnos = {p.getTurno(), p.getCedula(), p.getApellido(), p.getNombre(), p.getCedula_doc(), p.getHorario(), p.getFecha()};
             tblModelo.addRow(turnos);
         });
-        // limpiarCampos();
     }
     private void BtnBuscarTPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarTPActionPerformed
 
@@ -471,12 +469,7 @@ public class Turnos_Doctor extends javax.swing.JFrame {
         // TODO add your handling code here:
         int n = JOptionPane.showConfirmDialog(this, "Estas seguro que deseas salir del crud de paciente.", "Confirma", JOptionPane.YES_NO_OPTION);
         if (n == JOptionPane.YES_OPTION) {
-//            sdf ni = new sdf();
-//            ni.setVisible(true);
-//            dispose();
-//            //            Menu_Recepcionista mrep = new Menu_Recepcionista();
-//            //            mrep.setVisible(true);
-//            //            dispose();
+
         } else {
             JOptionPane.showMessageDialog(null, "Sesión cancelada.");
         }

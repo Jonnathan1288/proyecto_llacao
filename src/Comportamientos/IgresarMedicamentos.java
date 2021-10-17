@@ -58,7 +58,7 @@ public class IgresarMedicamentos extends Medicamentos {
             rs.close();
             return lp;
         } catch (SQLException ex) {
-            Logger.getLogger(IngresoDoctor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IgresarMedicamentos.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
 
@@ -114,7 +114,7 @@ public class IgresarMedicamentos extends Medicamentos {
             rs.close();
             return medi;
         } catch (SQLException ex) {
-            Logger.getLogger(IngresoPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IgresarMedicamentos.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

@@ -178,32 +178,7 @@ public class Diagnostico_Paciente extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnSalirCrudDocActionPerformed
 
     private void TablaHistorialCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaHistorialCMouseClicked
-        // TODO add your handling code here:
-//        int i = TablaHistorialC.getSelectedRow();
-//
-//        BtnGuardarHC.setEnabled(false);
-//        if (i >= 0) {
-//            String cod = TablaHistorialC.getValueAt(i, 0).toString();
-//            String cedulap = TablaHistorialC.getValueAt(i, 1).toString();
-//            String cedulad = TablaHistorialC.getValueAt(i, 2).toString();
-//            String sintoma = TablaHistorialC.getValueAt(i, 3).toString();
-//            String diagnostico = TablaHistorialC.getValueAt(i, 4).toString();
-//
-//            TxtCedulaP.setText(cedulap);
-//            TxtCeduladoc.setText(cedulad);
-//            PanelSintomas.setText(sintoma);
-//            PanelDiagnositico.setText(diagnostico);
-//            String fecha = (String) TablaHistorialC.getValueAt(i, 5);
-//            Date fechas;
-//            try {
-//                fechas = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
-//                Dateconsulta.setDate(fechas);
-//            } catch (ParseException ex) {
-//                Logger.getLogger(Historial_Clinico.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } else {
-//
-//        }
+        
     }//GEN-LAST:event_TablaHistorialCMouseClicked
 
     private void TxtBusHCpacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtBusHCpacActionPerformed

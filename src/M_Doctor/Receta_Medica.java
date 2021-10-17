@@ -364,8 +364,6 @@ public class Receta_Medica extends javax.swing.JFrame {
                 }
             }
         }
-
-        //   int n = JOptionPane.showme
     }//GEN-LAST:event_BtnGuardarRecetaActionPerformed
 
     public void limpiar_datos() {
@@ -385,6 +383,8 @@ public class Receta_Medica extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        Diagnostico_Paciente dp = new Diagnostico_Paciente();
+        dp.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void Nombre_PacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_PacActionPerformed

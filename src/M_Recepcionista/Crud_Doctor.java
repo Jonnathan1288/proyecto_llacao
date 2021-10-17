@@ -48,9 +48,9 @@ public class Crud_Doctor extends javax.swing.JFrame {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaDoctores.getModel();
 
         tblModelo.setNumRows(0);
-        List<Doctor> listapacientes = ingresoDoc.Lisdoctor();
+        List<Doctor> listadoc = ingresoDoc.Lisdoctor();
 
-        listapacientes.stream().forEach(p -> {
+        listadoc.stream().forEach(p -> {
             String[] persona = {p.getCedula(), p.getApellido(), p.getNombre(), p.getFecha_nacimiento(), p.getGenero(), p.getTipo_sangre(), p.getTelefono(), p.getDireccion(), p.getId_doctor(), p.getArea(), p.getTitulo()};
             tblModelo.addRow(persona);
         });
@@ -685,9 +685,9 @@ public class Crud_Doctor extends javax.swing.JFrame {
         DefaultTableModel tblModelo = (DefaultTableModel) TablaDoctores.getModel();
 
         tblModelo.setNumRows(0);
-        List<Doctor> listapacientes = ingresoDoc.consulta_Doctor(TxtBuscarcedula.getText());
+        List<Doctor> listadoct = ingresoDoc.consulta_Doctor(TxtBuscarcedula.getText());
 
-        listapacientes.stream().forEach(p -> {
+        listadoct.stream().forEach(p -> {
             String[] persona = {p.getCedula(), p.getApellido(), p.getNombre(), p.getFecha_nacimiento(), p.getGenero(), p.getTipo_sangre(), p.getTelefono(), p.getDireccion(), p.getId_doctor(), p.getArea(), p.getTitulo()};
             tblModelo.addRow(persona);
         });
@@ -803,9 +803,6 @@ public class Crud_Doctor extends javax.swing.JFrame {
         // TODO add your handling code here:
         int n = JOptionPane.showConfirmDialog(this, "Estas seguro que deseas salir del crud de paciente.", "Confirma", JOptionPane.YES_NO_OPTION);
         if (n == JOptionPane.YES_OPTION) {
-//            sdf ni = new sdf();
-//            ni.setVisible(true);
-//            dispose();
             Menu_Recepcionista mrep = new Menu_Recepcionista();
             mrep.setVisible(true);
             dispose();
